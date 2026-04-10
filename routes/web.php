@@ -22,7 +22,7 @@ Route::get('/terminos-y-usos', function () {
     return view('terminosYUsos');
 });
 
-Route::get('/catagolo', function () {
+Route::get('/catalogo', function () {
     return view('catalogoDeProductos');
 });
 
