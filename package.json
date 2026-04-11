@@ -20,7 +20,9 @@
         "vite": "^8.0.0"
     },
     "dependencies": {
-        "react": "^19.2.5",
-        "react-dom": "^19.2.5"
+        "@inertiajs/progress": "^0.2.7",
+        "@inertiajs/react": "^2.3.21",
+        "react": "^18.3.1",
+        "react-dom": "^18.3.1"
     }
 }

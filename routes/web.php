@@ -1,40 +1,22 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::inertia("/", "Welcome");
 
-Route::get('/quienes-somos', function () {
-    return view('quienesSomos');
-});
+Route::inertia('/quienes-somos', 'QuienesSomos');
 
-Route::get('/comercializacion', function () {
-    return view('comercializacion');
-});
+Route::inertia('/comercializacion', 'Comercializacion');
 
-Route::get('/contacto', function () {
-    return view('informacionDeContactos');
-});
+Route::inertia('/contacto', 'InformacionDeContactos');
 
-Route::get('/terminos-y-usos', function () {
-    return view('terminosYUsos');
-});
+Route::inertia('/terminos-y-usos', 'TerminosYUsos');
 
-Route::get('/catalogo', function () {
-    return view('catalogoDeProductos');
-});
+Route::inertia('/catalogo', 'CatalogoDeProductos');
 
-Route::get('/consultas', function () {
-    return view('consultas');
-});
+Route::inertia('/consultas', 'Consultas');
 
-Route::get('/registro-de-clientes', function () {
-    return view('registroDeClientes');
-});
+Route::inertia('/registro-de-clientes', 'RegistroDeClientes');
 
-Route::get('/formulario-de-login', function () {
-    return view('formularioDeLogin');
-});
-
+Route::inertia('/formulario-de-login', 'FormularioDeLogin');

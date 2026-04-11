@@ -4,6 +4,7 @@ import SwitchOpen from "./SwitchOpen";
 import Login from "../icons/LoginIcon";
 import CreateUser from "../icons/CreateUserIcon";
 import Home from "../icons/HomeIcon";
+import { Link } from "@inertiajs/react";
 
 export function Header(){
     const [open, setOpen] = useState(false)
@@ -54,69 +55,69 @@ export function Header(){
                                         flex-grow-0`}>
                             <li>
                                 <SwitchOpen setOpen={setOpen}>
-                                    <a className="hover:bg-black/10 dark:hover:bg-white/10 rounded-full transition flex justify-center items-center cursor-pointer" href="/">
+                                    <Link className="hover:bg-black/10 dark:hover:bg-white/10 rounded-full transition flex justify-center items-center cursor-pointer" href="/">
                                         <Home className=""/>
-                                    </a>
+                                    </Link>
                                 </SwitchOpen>    
                             </li>
                             <div className="flex flex-col lg:flex-row items-center justify-center gap-3 lg:gap-5">
 
                                 <li>
                                     <SwitchOpen setOpen={setOpen}>
-                                        <a className="hover:bg-black/10 dark:hover:bg-white/10 rounded-full transition" href="/quienes-somos">
+                                        <Link className="hover:bg-black/10 dark:hover:bg-white/10 rounded-full transition" href="/quienes-somos">
                                             Quienes somos?
-                                        </a>
+                                        </Link>
                                     </SwitchOpen>
                                 </li>
                                 <li>
                                     <SwitchOpen setOpen={setOpen}>
-                                        <a className="hover:bg-black/10 dark:hover:bg-white/10 rounded-full transition" href="/comercializacion">
+                                        <Link className="hover:bg-black/10 dark:hover:bg-white/10 rounded-full transition" href="/comercializacion">
                                             Comercializacion
-                                        </a>
+                                        </Link>
                                     </SwitchOpen>
                                 </li>
                                 <li>
                                     <SwitchOpen setOpen={setOpen}>
-                                        <a className="hover:bg-black/10 dark:hover:bg-white/10 rounded-full transition" href="/contacto">
+                                        <Link className="hover:bg-black/10 dark:hover:bg-white/10 rounded-full transition" href="/contacto">
                                             Contacto
-                                        </a>
+                                        </Link>
                                     </SwitchOpen>
                                 </li>
                                 <li>
                                     <SwitchOpen setOpen={setOpen}>
-                                        <a className="hover:bg-black/10 dark:hover:bg-white/10 rounded-full transition" href="/terminos-y-usos">
+                                        <Link className="hover:bg-black/10 dark:hover:bg-white/10 rounded-full transition" href="/terminos-y-usos">
                                             Condiciones
-                                        </a>
+                                        </Link>
                                     </SwitchOpen>
                                 </li>
                                 <li>
                                     <SwitchOpen setOpen={setOpen}>
-                                        <a className="hover:bg-black/10 dark:hover:bg-white/10 rounded-full transition" href="/catalogo">
+                                        <Link className="hover:bg-black/10 dark:hover:bg-white/10 rounded-full transition" href="/catalogo">
                                             Catalogo
-                                        </a>
+                                        </Link>
                                     </SwitchOpen>
                                 </li>
                                 <li>
                                     <SwitchOpen setOpen={setOpen}>
-                                        <a className="hover:bg-black/10 dark:hover:bg-white/10 rounded-full transition" href="/consultas">
+                                        <Link className="hover:bg-black/10 dark:hover:bg-white/10 rounded-full transition" href="/consultas">
                                             Consultas
-                                        </a>
+                                        </Link>
                                     </SwitchOpen>
                                 </li>
                             </div>
                             <div className="flex flex-row items-center justify-center gap-3">
                                 <li>
                                     <SwitchOpen setOpen={setOpen}>
-                                        <a className="hover:bg-black/10 dark:hover:bg-white/10 rounded-full transition flex justify-center items-center cursor-pointer" href="/registro-de-clientes">
+                                        <Link className="hover:bg-black/10 dark:hover:bg-white/10 rounded-full transition flex justify-center items-center cursor-pointer" href="/registro-de-clientes">
                                             <CreateUser className="" />
-                                        </a>
+                                        </Link>
                                     </SwitchOpen>
                                 </li>
                                 <li>
                                     <SwitchOpen setOpen={setOpen}>
-                                        <a className="hover:bg-black/10 dark:hover:bg-white/10 rounded-full transition flex justify-center items-center cursor-pointer" href="/formulario-de-login">
+                                        <Link className="hover:bg-black/10 dark:hover:bg-white/10 rounded-full transition flex justify-center items-center cursor-pointer" href="/formulario-de-login">
                                                 <Login className=""/>
-                                        </a>
+                                        </Link>
                                     </SwitchOpen>
                                 </li>
                                 <li className="hover:bg-black/10 dark:hover:bg-white/10 rounded-full transition flex justify-center items-center">
