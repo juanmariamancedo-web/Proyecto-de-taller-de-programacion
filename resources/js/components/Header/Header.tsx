@@ -1,6 +1,9 @@
 import { useEffect, useState} from "react"
 import ButtonOfDarkMode from "./ButtonOfDarkMode";
 import SwitchOpen from "./SwitchOpen";
+import Login from "../icons/LoginIcon";
+import CreateUser from "../icons/CreateUserIcon";
+import Home from "../icons/HomeIcon";
 
 export function Header(){
     const [open, setOpen] = useState(false)
@@ -42,8 +45,8 @@ export function Header(){
                             </button>
                         </div>
                     </div>
-                    <div className="absolute inset-0 flex justify-center items-center lg:h-14">
-                        <ul className={`flex flex-col lg:flex-row items-center gap-3
+                    <div className="absolute inset-0 flex justify-center items-center lg:h-14 p-3">
+                        <ul className={`flex flex-col lg:flex-row items-center justify-between gap-5 container
                                         lg:border lg:border-black rounded-full 
                                         px-3 py-1
                                         lg:bg-neutral-200/50 lg:dark:bg-black/50  
@@ -51,72 +54,77 @@ export function Header(){
                                         flex-grow-0`}>
                             <li>
                                 <SwitchOpen setOpen={setOpen}>
-                                    <a className="hover:bg-black/10 dark:hover:bg-white/10 rounded-full transition px-3 py-1" href="/">
-                                        Home
+                                    <a className="hover:bg-black/10 dark:hover:bg-white/10 rounded-full transition flex justify-center items-center cursor-pointer" href="/">
+                                        <Home className=""/>
                                     </a>
                                 </SwitchOpen>    
                             </li>
-                            <li>
-                                <SwitchOpen setOpen={setOpen}>
-                                    <a className="hover:bg-black/10 dark:hover:bg-white/10 rounded-full transition px-3 py-1" href="/quienes-somos">
-                                        Quienes somos?
-                                    </a>
-                                </SwitchOpen>
-                            </li>
-                            <li>
-                                <SwitchOpen setOpen={setOpen}>
-                                    <a className="hover:bg-black/10 dark:hover:bg-white/10 rounded-full transition px-3 py-1" href="/comercializacion">
-                                        Comercializacion
-                                    </a>
-                                </SwitchOpen>
-                            </li>
-                            <li>
-                                <SwitchOpen setOpen={setOpen}>
-                                    <a className="hover:bg-black/10 dark:hover:bg-white/10 rounded-full transition px-3 py-1" href="/contacto">
-                                        Contacto
-                                    </a>
-                                </SwitchOpen>
-                            </li>
-                            <li>
-                                <SwitchOpen setOpen={setOpen}>
-                                    <a className="hover:bg-black/10 dark:hover:bg-white/10 rounded-full transition px-3 py-1" href="/terminos-y-usos">
-                                        Condiciones
-                                    </a>
-                                </SwitchOpen>
-                            </li>
-                            <li>
-                                <SwitchOpen setOpen={setOpen}>
-                                    <a className="hover:bg-black/10 dark:hover:bg-white/10 rounded-full transition px-3 py-1" href="/catalogo">
-                                        Catalogo
-                                    </a>
-                                </SwitchOpen>
-                            </li>
-                            <li>
-                                <SwitchOpen setOpen={setOpen}>
-                                    <a className="hover:bg-black/10 dark:hover:bg-white/10 rounded-full transition px-3 py-1" href="/consultas">
-                                        Consultas
-                                    </a>
-                                </SwitchOpen>
-                            </li>
-                            <li>
-                                <SwitchOpen setOpen={setOpen}>
-                                    <a className="hover:bg-black/10 dark:hover:bg-white/10 rounded-full transition px-3 py-1" href="/registro-de-clientes">
-                                        Sing in
-                                    </a>
-                                </SwitchOpen>
-                            </li>
-                            <li>
-                                <SwitchOpen setOpen={setOpen}>
-                                    <a className="hover:bg-black/10 dark:hover:bg-white/10 rounded-full transition px-3 py-1" href="/formulario-de-login">
-                                        Login
-                                    </a>
-                                </SwitchOpen>
-                            </li>
-                            <li className="hover:bg-black/10 dark:hover:bg-white/10 rounded-full transition px-3 py-1 flex justify-center items-center">
-                                <SwitchOpen setOpen={setOpen}>
-                                    <ButtonOfDarkMode />
-                                </SwitchOpen>
-                            </li>
+                            <div className="flex flex-col lg:flex-row items-center justify-center gap-3 lg:gap-5">
+
+                                <li>
+                                    <SwitchOpen setOpen={setOpen}>
+                                        <a className="hover:bg-black/10 dark:hover:bg-white/10 rounded-full transition" href="/quienes-somos">
+                                            Quienes somos?
+                                        </a>
+                                    </SwitchOpen>
+                                </li>
+                                <li>
+                                    <SwitchOpen setOpen={setOpen}>
+                                        <a className="hover:bg-black/10 dark:hover:bg-white/10 rounded-full transition" href="/comercializacion">
+                                            Comercializacion
+                                        </a>
+                                    </SwitchOpen>
+                                </li>
+                                <li>
+                                    <SwitchOpen setOpen={setOpen}>
+                                        <a className="hover:bg-black/10 dark:hover:bg-white/10 rounded-full transition" href="/contacto">
+                                            Contacto
+                                        </a>
+                                    </SwitchOpen>
+                                </li>
+                                <li>
+                                    <SwitchOpen setOpen={setOpen}>
+                                        <a className="hover:bg-black/10 dark:hover:bg-white/10 rounded-full transition" href="/terminos-y-usos">
+                                            Condiciones
+                                        </a>
+                                    </SwitchOpen>
+                                </li>
+                                <li>
+                                    <SwitchOpen setOpen={setOpen}>
+                                        <a className="hover:bg-black/10 dark:hover:bg-white/10 rounded-full transition" href="/catalogo">
+                                            Catalogo
+                                        </a>
+                                    </SwitchOpen>
+                                </li>
+                                <li>
+                                    <SwitchOpen setOpen={setOpen}>
+                                        <a className="hover:bg-black/10 dark:hover:bg-white/10 rounded-full transition" href="/consultas">
+                                            Consultas
+                                        </a>
+                                    </SwitchOpen>
+                                </li>
+                            </div>
+                            <div className="flex flex-row items-center justify-center gap-3">
+                                <li>
+                                    <SwitchOpen setOpen={setOpen}>
+                                        <a className="hover:bg-black/10 dark:hover:bg-white/10 rounded-full transition flex justify-center items-center cursor-pointer" href="/registro-de-clientes">
+                                            <CreateUser className="" />
+                                        </a>
+                                    </SwitchOpen>
+                                </li>
+                                <li>
+                                    <SwitchOpen setOpen={setOpen}>
+                                        <a className="hover:bg-black/10 dark:hover:bg-white/10 rounded-full transition flex justify-center items-center cursor-pointer" href="/formulario-de-login">
+                                                <Login className=""/>
+                                        </a>
+                                    </SwitchOpen>
+                                </li>
+                                <li className="hover:bg-black/10 dark:hover:bg-white/10 rounded-full transition flex justify-center items-center">
+                                    <SwitchOpen setOpen={setOpen}>
+                                        <ButtonOfDarkMode />
+                                    </SwitchOpen>
+                                </li>
+                            </div>
                         </ul>
                     </div>
                 </div>  
