@@ -10,7 +10,7 @@ export default function Comercializacion(){
                 <div className="grid grid-cols-2 place-content-center gap-10 p-3 sm:p-0">
                     <div className="col-span-2 p-3 rounded-xl bg-black/5 px-3 py-1.5 text-base text-gray-900 sm:text-sm/6 dark:bg-white/5 dark:text-white">
                         <p className="text-sm/6 font-medium">
-                        En [Nombre de tu tienda] nos dedicamos a la comercialización de downpipes para autos y camionetas, ofreciendo productos orientados a mejorar el rendimiento del sistema de escape. Buscamos brindar una experiencia de compra clara, segura y confiable.
+                            En <span className="font-bold">FlowTech Performance</span> nos dedicamos a la comercialización de downpipes para autos y camionetas, ofreciendo productos orientados a mejorar el rendimiento del sistema de escape. Buscamos brindar una experiencia de compra clara, segura y confiable.
                         </p>
                     </div>
                     <section className="col-span-2 p-3 md:col-span-1 rounded-xl bg-black/5 px-3 py-1.5 text-base text-gray-900 sm:text-sm/6 dark:bg-white/5 dark:text-white">

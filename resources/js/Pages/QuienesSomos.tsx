@@ -76,7 +76,7 @@ export default function QuienesSomos(){
               </section>
               <div className="col-span-2 p-3 rounded-xl bg-black/5 px-3 py-1.5 text-base text-gray-900 sm:text-sm/6 dark:bg-white/5 dark:text-white">
                   <p className="text-sm/6 font-medium">
-                    En [Nombre de tu tienda] nos especializamos en la comercialización de downpipes para autos y camionetas, ofreciendo soluciones orientadas a mejorar el rendimiento y la eficiencia del sistema de escape.
+                    En <span className="font-bold">FlowTech Performance</span> nos especializamos en la comercialización de downpipes para autos y camionetas, ofreciendo soluciones orientadas a mejorar el rendimiento y la eficiencia del sistema de escape.
                   </p>
                   <p className="text-sm/6 font-medium">
                     Nuestro objetivo es brindar productos confiables junto con información clara, para que cada cliente pueda tomar decisiones informadas según las necesidades de su vehículo.

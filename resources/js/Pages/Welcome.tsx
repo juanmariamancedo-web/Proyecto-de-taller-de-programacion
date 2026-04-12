@@ -22,7 +22,7 @@ export default function Welcome(){
         <MainLayout>
             <>
             
-                <div className="min-h-[calc(100vh-3.5rem)] flex flex-col items-center justify-center">
+                <div className="p-3 sm:p-0 min-h-[calc(100vh-3.5rem)] flex flex-col items-center justify-center">
                     <h1 className="text-5xl font-semibold tracking-tight text-balance text-black dark:text-white sm:text-7xl">
                         Potenciá el rendimiento de tu vehículo
                     </h1>
@@ -41,7 +41,7 @@ export default function Welcome(){
                             Sobre nosotros
                         </h2>
                         <p className="text-sm/6 font-medium">
-                            En [Nombre de tu tienda] nos especializamos en la venta de downpipes orientados al rendimiento automotriz.
+                            En <span className="font-bold">FlowTech Performance</span> nos especializamos en la venta de downpipes orientados al rendimiento automotriz.
                         </p>
                         <p className="text-sm/6 font-medium">
                             Ofrecemos productos seleccionados y asesoramiento básico para ayudarte a elegir la mejor opción para tu vehículo.

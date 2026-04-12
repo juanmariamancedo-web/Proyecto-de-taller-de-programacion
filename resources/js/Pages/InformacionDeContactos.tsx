@@ -20,7 +20,7 @@ export default function InformacionDeContactos() {
                 <div className="grid grid-cols-2 place-content-center gap-10 p-3 sm:p-0">
                     <div className="col-span-2 p-3 rounded-xl bg-black/5 px-3 py-1.5 text-base text-gray-900 sm:text-sm/6 dark:bg-white/5 dark:text-white">
                         <p className="text-sm/6 font-medium">
-                            En [Nombre de tu tienda] estamos disponibles para ayudarte con cualquier consulta sobre nuestros productos, compatibilidades o procesos de compra.
+                            En <span className="font-bold">FlowTech Performance</span> estamos disponibles para ayudarte con cualquier consulta sobre nuestros productos, compatibilidades o procesos de compra.
                         </p>
                         <p className="text-sm/6 font-medium">
                             Si tenés dudas sobre qué downpipe es adecuado para tu vehículo, no dudes en comunicarte con nosotros.

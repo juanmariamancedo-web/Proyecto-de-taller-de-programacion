@@ -61,6 +61,13 @@ export function Header(){
                                 </SwitchOpen>    
                             </li>
                             <div className="flex flex-col lg:flex-row items-center justify-center gap-3 lg:gap-5">
+                                <li>
+                                    <SwitchOpen setOpen={setOpen}>
+                                        <Link className="hover:bg-black/10 dark:hover:bg-white/10 rounded-full transition" href="/contacto">
+                                            Contacto
+                                        </Link>
+                                    </SwitchOpen>
+                                </li>
 
                                 <li>
                                     <SwitchOpen setOpen={setOpen}>
@@ -78,15 +85,8 @@ export function Header(){
                                 </li>
                                 <li>
                                     <SwitchOpen setOpen={setOpen}>
-                                        <Link className="hover:bg-black/10 dark:hover:bg-white/10 rounded-full transition" href="/contacto">
-                                            Contacto
-                                        </Link>
-                                    </SwitchOpen>
-                                </li>
-                                <li>
-                                    <SwitchOpen setOpen={setOpen}>
                                         <Link className="hover:bg-black/10 dark:hover:bg-white/10 rounded-full transition" href="/terminos-y-usos">
-                                            Condiciones
+                                            Términos y usos
                                         </Link>
                                     </SwitchOpen>
                                 </li>
@@ -98,7 +98,7 @@ export function Header(){
                                     </SwitchOpen>
                                 </li>
                             </div>
-                            <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+                            <div className="flex flex-col lg:flex-row items-center justify-center gap-3">
                                 <div className="flex flex-row items-center justify-center gap-3">
                                     <li className="hover:bg-black/10 dark:hover:bg-white/10 rounded-full transition flex justify-center items-center">
                                         <SwitchOpen setOpen={setOpen}>

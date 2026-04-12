@@ -6,7 +6,7 @@ export default function TerminosYUsos(){
         <MainLayout>
             <div className="flex flex-col items-center">
                 <h1 className="text-gray-900 dark:text-white text-3xl md:text-4xl lg:text-5xl font-bold gap-x-4 pb-6 lg:pb-10">
-                    Terminos y usos
+                    Términos y usos
                 </h1>
                 <div className="p-3 sm:p-0 grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <section className="col-span-2 p-3 rounded-xl bg-black/5 px-3 py-1.5 text-base text-gray-900 sm:text-sm/6 dark:bg-white/5 dark:text-white">
@@ -14,7 +14,7 @@ export default function TerminosYUsos(){
                             Introducción
                         </h2>
                         <p className="text-sm/6 font-medium">
-                            El presente sitio web pertenece a [Nombre de tu tienda], dedicado a la comercialización de downpipes para autos y camionetas.
+                            El presente sitio web pertenece a <span className="font-bold">FlowTech Performance</span>, dedicado a la comercialización de downpipes para autos y camionetas.
                         </p>
                         <p className="text-sm/6 font-medium">
                             El acceso y uso de este sitio implica la aceptación de los presentes Términos y Usos. En caso de no estar de acuerdo, se recomienda no utilizar el sitio.
@@ -133,10 +133,7 @@ export default function TerminosYUsos(){
                             <Link
                                 href="/contacto"
                                 className="font-semibold text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300"
-                            >
-                                contacto 
-                            </Link>
-                            del sitio.
+                            > contacto</Link> del sitio.
                         </p>
                     </section>
                     <section className="col-span-2 md:col-span-1 p-3 rounded-xl bg-black/5 px-3 py-1.5 text-base text-gray-900 sm:text-sm/6 dark:bg-white/5 dark:text-white">

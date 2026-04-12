@@ -17,7 +17,7 @@ export default function MainLayout({children}:{children: JSX.Element}){
                 {children}
             </main>
             <div className="p-3 sm:p-0">
-                <footer className="rounded-lg shadow bg-black/5 dark:bg-black/20 backdrop-blur-lg container mx-auto mb-10">
+                <footer className="rounded-lg shadow bg-black/5 px-3 py-1.5 text-base text-gray-900 sm:text-sm/6 dark:bg-white/5 dark:text-white backdrop-blur-lg container mx-auto mb-10">
                     <div className="w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between">
                         <span className="text-sm sm:text-center text-yellow-800/90 dark:text-yellow-200/90">© 2026 <a href="https://midu.dev/" className="hover:underline">Juan María Mancedo</a>.Casi todos los derechos reservados</span>
                         <ul className="flex flex-wrap items-center mt-3 text-sm font-medium dark:text-white/90 sm:mt-0">
