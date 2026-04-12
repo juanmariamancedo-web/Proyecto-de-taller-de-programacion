@@ -1,18 +1,12 @@
 import Contact from "../components/Contact";
 import MainLayout from "../layouts/MainLayout";
+import { Head } from "@inertiajs/react";
 
 export default function InformacionDeContactos() {
   return (
     <MainLayout>
         <>
-        {/*
-            This example requires updating your template:
-
-            ```
-            <html class="h-full bg-white dark:bg-gray-900">
-            <body class="h-full">
-            ```
-        */}
+            <Head title="Contacto" />
             <div className="flex flex-col items-center">
                 <h1 className="text-gray-900 dark:text-white text-3xl md:text-4xl lg:text-5xl font-bold flex flex-row gap-x-4 pb-6 lg:pb-10">
                     Contacto
