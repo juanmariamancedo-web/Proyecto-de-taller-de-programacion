@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ContactController;
+
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -19,6 +22,9 @@ Route::get('/contacto', function () {
     return Inertia::render('InformacionDeContactos');
 });
 
+Route::post('/contacto', [ContactController::class, 'send']);
+
+
 Route::get('/terminos-y-usos', function () {
     return Inertia::render('TerminosYUsos');
 });
@@ -31,6 +37,11 @@ Route::get('/registro-de-clientes', function () {
     return Inertia::render('RegistroDeClientes');
 });
 
+Route::post("/registro-de-clientes", [AuthController::class, "register"]);
+
+
 Route::get('/formulario-de-login', function () {
     return Inertia::render('FormularioDeLogin');
 });
+
+Route::post("/formulario-de-login", [AuthController::class, "login"]);
