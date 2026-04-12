@@ -1,0 +1,49 @@
+{
+  "node_modules/laravel-vite-plugin/inertia-helpers/index.js": [],
+  "resources/js/Pages/QuienesSomos.jsx": [
+    "/build/assets/QuienesSomos-BiX-7C_I.js"
+  ],
+  "resources/js/Pages/Welcome.jsx": [
+    "/build/assets/Welcome-DcolNs1e.js"
+  ],
+  "resources/js/components/Header/ButtonOfDarkMode.tsx": [
+    "/build/assets/MainLayout-CEpKsWRO.js"
+  ],
+  "resources/js/components/Header/Header.tsx": [
+    "/build/assets/MainLayout-CEpKsWRO.js"
+  ],
+  "resources/js/components/Header/SwitchOpen.tsx": [
+    "/build/assets/MainLayout-CEpKsWRO.js"
+  ],
+  "resources/js/components/SocialPill.tsx": [
+    "/build/assets/QuienesSomos-BiX-7C_I.js"
+  ],
+  "resources/js/components/icons/CreateUserIcon.tsx": [
+    "/build/assets/MainLayout-CEpKsWRO.js"
+  ],
+  "resources/js/components/icons/DarkMode.tsx": [
+    "/build/assets/MainLayout-CEpKsWRO.js"
+  ],
+  "resources/js/components/icons/GitHubIcon.tsx": [
+    "/build/assets/QuienesSomos-BiX-7C_I.js"
+  ],
+  "resources/js/components/icons/HomeIcon.tsx": [
+    "/build/assets/MainLayout-CEpKsWRO.js"
+  ],
+  "resources/js/components/icons/LightMode.tsx": [
+    "/build/assets/MainLayout-CEpKsWRO.js"
+  ],
+  "resources/js/components/icons/LinkedinIcon.tsx": [
+    "/build/assets/QuienesSomos-BiX-7C_I.js"
+  ],
+  "resources/js/components/icons/LoginIcon.tsx": [
+    "/build/assets/MainLayout-CEpKsWRO.js"
+  ],
+  "resources/js/components/icons/MailIcon.tsx": [
+    "/build/assets/QuienesSomos-BiX-7C_I.js"
+  ],
+  "resources/js/layouts/MainLayout.tsx": [
+    "/build/assets/MainLayout-CEpKsWRO.js"
+  ],
+  "resources/js/ssr.jsx": []
+}

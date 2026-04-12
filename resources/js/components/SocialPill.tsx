@@ -1,7 +1,7 @@
 import { Link } from "@inertiajs/react";
 import { JSX } from "react";
 
-export default function SocialPill({children} : {children : JSX.Element}){
+export default function SocialPill({children, href} : {children : JSX.Element, href: string}){
   return(
     <Link
       className={`
@@ -17,6 +17,7 @@ export default function SocialPill({children} : {children : JSX.Element}){
 
       target="_blank"
       rel="noopener noreferrer"
+      href={href}
       >
         {children}
     </Link>

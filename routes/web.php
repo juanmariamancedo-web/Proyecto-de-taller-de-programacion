@@ -3,20 +3,34 @@
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::inertia("/", "Welcome");
+Route::get('/', function () {
+    return Inertia::render('Welcome');
+});
 
-Route::inertia('/quienes-somos', 'QuienesSomos');
+Route::get('/quienes-somos', function () {
+    return Inertia::render('QuienesSomos');
+});
 
-Route::inertia('/comercializacion', 'Comercializacion');
+Route::get('/comercializacion', function () {
+    return Inertia::render('Comercializacion');
+});
 
-Route::inertia('/contacto', 'InformacionDeContactos');
+Route::get('/contacto', function () {
+    return Inertia::render('InformacionDeContactos');
+});
 
-Route::inertia('/terminos-y-usos', 'TerminosYUsos');
+Route::get('/terminos-y-usos', function () {
+    return Inertia::render('TerminosYUsos');
+});
 
-Route::inertia('/catalogo', 'CatalogoDeProductos');
+Route::get('/catalogo', function () {
+    return Inertia::render('CatalogoDeProductos');
+});
 
-Route::inertia('/consultas', 'Consultas');
+Route::get('/registro-de-clientes', function () {
+    return Inertia::render('RegistroDeClientes');
+});
 
-Route::inertia('/registro-de-clientes', 'RegistroDeClientes');
-
-Route::inertia('/formulario-de-login', 'FormularioDeLogin');
+Route::get('/formulario-de-login', function () {
+    return Inertia::render('FormularioDeLogin');
+});

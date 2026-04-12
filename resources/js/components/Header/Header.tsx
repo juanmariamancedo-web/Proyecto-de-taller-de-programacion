@@ -72,7 +72,7 @@ export function Header(){
                                 <li>
                                     <SwitchOpen setOpen={setOpen}>
                                         <Link className="hover:bg-black/10 dark:hover:bg-white/10 rounded-full transition" href="/comercializacion">
-                                            Comercializacion
+                                            Comercialización
                                         </Link>
                                     </SwitchOpen>
                                 </li>
@@ -93,33 +93,28 @@ export function Header(){
                                 <li>
                                     <SwitchOpen setOpen={setOpen}>
                                         <Link className="hover:bg-black/10 dark:hover:bg-white/10 rounded-full transition" href="/catalogo">
-                                            Catalogo
-                                        </Link>
-                                    </SwitchOpen>
-                                </li>
-                                <li>
-                                    <SwitchOpen setOpen={setOpen}>
-                                        <Link className="hover:bg-black/10 dark:hover:bg-white/10 rounded-full transition" href="/consultas">
-                                            Consultas
+                                            Catálogo
                                         </Link>
                                     </SwitchOpen>
                                 </li>
                             </div>
-                            <div className="flex flex-row items-center justify-center gap-3">
-                                <li>
-                                    <SwitchOpen setOpen={setOpen}>
-                                        <Link className="hover:bg-black/10 dark:hover:bg-white/10 rounded-full transition flex justify-center items-center cursor-pointer" href="/registro-de-clientes">
-                                            <CreateUser className="" />
-                                        </Link>
-                                    </SwitchOpen>
-                                </li>
-                                <li>
-                                    <SwitchOpen setOpen={setOpen}>
-                                        <Link className="hover:bg-black/10 dark:hover:bg-white/10 rounded-full transition flex justify-center items-center cursor-pointer" href="/formulario-de-login">
-                                                <Login className=""/>
-                                        </Link>
-                                    </SwitchOpen>
-                                </li>
+                            <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+                                <div className="flex flex-row items-center justify-center gap-3">
+                                    <li>
+                                        <SwitchOpen setOpen={setOpen}>
+                                            <Link className="hover:bg-black/10 dark:hover:bg-white/10 rounded-full transition flex justify-center items-center cursor-pointer" href="/registro-de-clientes">
+                                                <CreateUser className="" />
+                                            </Link>
+                                        </SwitchOpen>
+                                    </li>
+                                    <li>
+                                        <SwitchOpen setOpen={setOpen}>
+                                            <Link className="hover:bg-black/10 dark:hover:bg-white/10 rounded-full transition flex justify-center items-center cursor-pointer" href="/formulario-de-login">
+                                                    <Login className=""/>
+                                            </Link>
+                                        </SwitchOpen>
+                                    </li>
+                                </div>
                                 <li className="hover:bg-black/10 dark:hover:bg-white/10 rounded-full transition flex justify-center items-center">
                                     <SwitchOpen setOpen={setOpen}>
                                         <ButtonOfDarkMode />
