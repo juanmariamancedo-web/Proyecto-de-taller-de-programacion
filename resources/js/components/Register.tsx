@@ -15,6 +15,12 @@ export default function Register() {
 
     const submit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+
+        if (data.password !== data.password_confirmation) {
+            alert("Las contraseñas no coinciden");
+            return;
+        }
+
         post("/registro-de-clientes");
     };
 
