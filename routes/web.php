@@ -35,6 +35,12 @@ Route::get('/registro-de-clientes', [AuthController::class, "showRegister"]);
 Route::post("/registro-de-clientes", [AuthController::class, "register"]);
 
 
-Route::get('/formulario-de-login', [AuthController::class, "showLogin"]);
+Route::get('/formulario-de-login', [AuthController::class, "showLogin"])->name("login");
 
 Route::post("/formulario-de-login", [AuthController::class, "login"]);
+
+Route::get("/forgot-password", [AuthController::class, "showForgotPassword"]);
+
+Route::post("/forgot-password", [AuthController::class, "showRequestForgottenPasswordCode"]);
+
+Route::post("/requestForgottenPasswordCode", [AuthController::class, "requestForgottenPasswordCode"]);

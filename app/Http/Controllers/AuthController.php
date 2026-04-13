@@ -22,5 +22,19 @@ class AuthController extends Controller
         return Inertia::render('SuccessRegister');
     }
 
+    public function showForgotPassword(){
+        return Inertia::render('ShowForgotPassword');
+    }
+
+    public function showRequestForgottenPasswordCode(){
+        return Inertia::render("ShowRequestForgottenPasswordCode");
+
+    }
+
+    public function requestForgottenPasswordCode()
+    {
+        return redirect()->route('login');
+    }
+
     public function logout() {}
 }

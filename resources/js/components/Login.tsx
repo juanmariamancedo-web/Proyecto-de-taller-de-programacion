@@ -43,7 +43,7 @@ export default function Login() {
                         Contraseña
                     </label>
 
-                    <Link href="#" className="text-sm text-indigo-600 hover:text-indigo-500">
+                    <Link href="/forgot-password" className="text-sm text-indigo-600 hover:text-indigo-500">
                         ¿Olvidaste tu contraseña?
                     </Link>
                 </div>
