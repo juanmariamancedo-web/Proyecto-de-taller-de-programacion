@@ -7,7 +7,9 @@ use Illuminate\Http\Request;
 
 class ContactController extends Controller
 {
-    // public function showForm() {}
+    public function showForm() {
+        return Inertia::render('InformacionDeContactos');
+    }
 
     public function send() {
         return Inertia::render('SuccessContact');

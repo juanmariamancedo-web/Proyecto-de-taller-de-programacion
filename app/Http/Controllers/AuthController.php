@@ -6,12 +6,18 @@ use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
-    // public function showLogin() {}
+    public function showLogin() {
+        return Inertia::render('FormularioDeLogin');
+    }
+
     public function login() {
         return Inertia::render('SuccessLogin');
     }
 
-    // public function showRegister() {}
+    public function showRegister() {
+        return Inertia::render('RegistroDeClientes');
+    }
+
     public function register() {
         return Inertia::render('SuccessRegister');
     }
