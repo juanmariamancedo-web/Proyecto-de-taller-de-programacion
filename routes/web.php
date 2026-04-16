@@ -29,6 +29,7 @@ Route::get('/terminos-y-usos', function () {
 });
 
 Route::get('/catalogo', [ProductsController::class, "showProducts"]);
+Route::get("/catalogo/{name}", [ProductsController::class, "showProduct"]);
 
 Route::get('/registro-de-clientes', [AuthController::class, "showRegister"]);
 

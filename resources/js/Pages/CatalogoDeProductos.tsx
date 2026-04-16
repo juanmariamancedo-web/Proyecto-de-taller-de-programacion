@@ -54,7 +54,7 @@ export default function CatalogoDeProductos({ productos }: { productos: Producto
                         {productos?.length > 0 && productos.map((producto)=>{
                             return(
                                 <Link 
-                                    href={producto.link} 
+                                    href={"/catalogo/" + producto.name} 
                                     key={producto.name} 
                                     className="shadow-sm overflow-hidden hover:shadow-md transition grid-rows-subgrid rounded-xl bg-black/5 px-3 py-1.5 text-base text-gray-900 sm:text-sm/6 dark:bg-white/5 dark:text-white"
                                 >
@@ -70,7 +70,7 @@ export default function CatalogoDeProductos({ productos }: { productos: Producto
                                             {producto.name}
                                         </h2>
                                         <p className="text-base font-semibold">
-                                            ${producto.price.toLocaleString()}
+                                            ${producto.price.toLocaleString('es-AR')}
                                         </p>
                                     </div>
                                 </Link>

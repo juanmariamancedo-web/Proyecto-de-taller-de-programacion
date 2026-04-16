@@ -2,7 +2,7 @@ type Producto = {
     name: string,
     img: string,
     price: number,
-    link: string
+    description: string
 }
 
 export default Producto;
