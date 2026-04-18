@@ -100,13 +100,13 @@ export function Header(){
                             </div>
                             <div className="flex flex-col lg:flex-row items-center justify-center gap-3">
                                 <div className="flex flex-row items-center justify-center gap-3">
-                                    <li className="hover:bg-black/10 dark:hover:bg-white/10 rounded-full transition flex justify-center items-center">
+                                    {/* <li className="hover:bg-black/10 dark:hover:bg-white/10 rounded-full transition flex justify-center items-center">
                                         <SwitchOpen setOpen={setOpen}>
                                             <Link className="hover:bg-black/10 dark:hover:bg-white/10 rounded-full transition flex justify-center items-center cursor-pointer" href="/registro-de-clientes">
                                                 <CreateUser className="" />
                                             </Link>
                                         </SwitchOpen>
-                                    </li>
+                                    </li> */}
                                     <li className="hover:bg-black/10 dark:hover:bg-white/10 rounded-full transition flex justify-center items-center">
                                         <SwitchOpen setOpen={setOpen}>
                                             <Link className="hover:bg-black/10 dark:hover:bg-white/10 rounded-full transition flex justify-center items-center cursor-pointer" href="/formulario-de-login">
