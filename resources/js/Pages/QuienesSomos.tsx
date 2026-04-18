@@ -16,16 +16,16 @@ export default function QuienesSomos(){
                 </h1> */}
                 <section className="w-full mx-auto lg:w-[740px] min-h-[calc(100vh-3.5rem)] flex justify-center items-center">
                   <div>
-                    <img
+                    {/* <img
                       className="rounded-full size-12 mb-4"
                       src="/imgs/juanma.webp"
                       alt="Foto de Juan María Mancedo"
-                    />
+                    /> */}
                     <h1
                       className="text-gray-900 dark:text-white text-3xl md:text-4xl lg:text-5xl font-bold flex flex-row gap-x-4 pb-6 lg:pb-10"
                       >
                       <span>
-                        Hola, soy Juan María Mancedo
+                        Hola,  somos FlowTech Performance
                       </span>
                       <a
                         href="https://linkedin.com/in/juan-maría-mancedo"
@@ -36,7 +36,7 @@ export default function QuienesSomos(){
                           <span
                               className="text-xs font-medium me-2 px-2.5 py-0.5 rounded bg-blue-600 text-white dark:bg-blue-900 dark:text-blue-300"
                           >
-                              Disponible para trabajar
+                              Disponibles para trabajar
                           </span>
                       </a>
                     </h1>
@@ -45,13 +45,13 @@ export default function QuienesSomos(){
                     >
                       <span
                         className="text-yellow-800 dark:text-yellow-200">
-                          Desarrollador web
+                          Vendedores de downpipes
                           </span>
                           . <span className="text-red-800 dark:text-red-200">
                         De Corrientes, Argentina
                         </span>
                         . <span className="text-sky-800 dark:text-sky-200">
-                        Especializado en crear páginas webs únicas.
+                        Especializado en optimizar el flujo de gases y mejorar la respuesta del motor..
                         </span>
                     </h2>
 
@@ -62,12 +62,12 @@ export default function QuienesSomos(){
                           LinkedIn
                         </>
                       </SocialPill>
-                      <SocialPill href="https://github.com/juan-maría-mancedo">
+                      {/* <SocialPill href="https://github.com/juan-maría-mancedo">
                         <>
                           <GitHubIcon className="size-4 md:size-6" />
                           GitHub
                         </>
-                      </SocialPill>
+                      </SocialPill> */}
                       <SocialPill href="mailto:juanmariamancedo@icloud.com">
                         <>
                           <MailIcon className="size-4 md:size-6" />
@@ -86,25 +86,25 @@ export default function QuienesSomos(){
                     </p>
                 </div>
                 <section className="col-span-2 p-3 rounded-xl bg-black/5 px-3 py-1.5 text-base text-gray-900 sm:text-sm/6 dark:bg-white/5 dark:text-white">
-                    <h2 className="text-xl lg:text-2xl text-balance text-black dark:text-white font-bold">
+                    <h3 className="text-xl lg:text-2xl text-balance text-black dark:text-white font-bold">
                         Nuestra misión
-                    </h2>
+                    </h3>
                     <p className="text-sm/6 font-medium">
                         Ofrecer productos de calidad en el ámbito automotriz, acompañados de asesoramiento básico que facilite la correcta elección e instalación de los mismos.
                     </p>
                 </section>
                 <section className="col-span-2 p-3 md:col-span-1 rounded-xl bg-black/5 px-3 py-1.5 text-base text-gray-900 sm:text-sm/6 dark:bg-white/5 dark:text-white">
-                    <h2 className="text-xl lg:text-2xl text-balance text-black dark:text-white font-bold">
+                    <h3 className="text-xl lg:text-2xl text-balance text-black dark:text-white font-bold">
                         Nuestra visión
-                    </h2>
+                    </h3>
                     <p className="text-sm/6 font-medium">
                       Ser una referencia en la comercialización de componentes de escape, destacándonos por la claridad, la seriedad y la atención al cliente.
                     </p>
                 </section>
                 <section className="col-span-2 md:col-span-1 p-3 rounded-xl bg-black/5 px-3 py-1.5 text-base text-gray-900 sm:text-sm/6 dark:bg-white/5 dark:text-white">
-                    <h2 className="text-xl lg:text-2xl text-balance text-black dark:text-white font-bold">
+                    <h3 className="text-xl lg:text-2xl text-balance text-black dark:text-white font-bold">
                       Trayectoria
-                    </h2>
+                    </h3>
                     <p className="text-sm/6 font-medium">
                         Este proyecto surge como una iniciativa académica dentro del ámbito de la programación web, con el propósito de simular el funcionamiento de una tienda online especializada.
                     </p>
@@ -113,9 +113,9 @@ export default function QuienesSomos(){
                     </p>
                 </section>
                 <section className="col-span-2 md:col-span-1 p-3 rounded-xl bg-black/5 px-3 py-1.5 text-base text-gray-900 sm:text-sm/6 dark:bg-white/5 dark:text-white">
-                    <h2 className="text-xl lg:text-2xl text-balance text-black dark:text-white font-bold">
+                    <h3 className="text-xl lg:text-2xl text-balance text-black dark:text-white font-bold">
                         Nuestro equipo
-                    </h2>
+                    </h3>
                     <p className="text-sm/6 font-medium">
                         El equipo está conformado por estudiantes con formación técnica, enfocados en el desarrollo de soluciones digitales y con interés en el mundo automotriz.
                     </p>
@@ -126,7 +126,7 @@ export default function QuienesSomos(){
                     </ul>
                 </section>
                 <section className="col-span-2 md:col-span-1 p-3 rounded-xl bg-black/5 px-3 py-1.5 text-base text-gray-900 sm:text-sm/6 dark:bg-white/5 dark:text-white">
-                    <h2 className="text-xl lg:text-2xl text-balance text-black dark:text-white font-bold">Compromiso</h2>
+                    <h3 className="text-xl lg:text-2xl text-balance text-black dark:text-white font-bold">Compromiso</h3>
                     <p className="text-sm/6 font-medium">
                       Nos comprometemos a ofrecer información clara, transparente y útil para cada visitante, priorizando la confianza y la coherencia en cada sección del sitio.
                     </p>
