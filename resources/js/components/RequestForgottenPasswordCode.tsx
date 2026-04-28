@@ -7,6 +7,7 @@ export default function RequestForgottenPasswordCode(){
     
         const submit = (e : React.FormEvent<HTMLFormElement>) => {
             e.preventDefault();
+            alert("Código verificado correctamente");
             post('/requestForgottenPasswordCode');
         };
     

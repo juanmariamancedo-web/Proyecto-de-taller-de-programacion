@@ -11,7 +11,7 @@ class ProductsController extends Controller
     private $productos = [
         [
             "id" => 1,
-            "name" => "Down Pipe E Intermedio Amarok V6 3.0 Acero Inox",
+            "name" => "Down Pipe E Intermedio Amarok V6 Extreme 3.0 Acero Inox",
             "img" => "/imgs/downpipe-amarok-v6.webp",
             "price" => 763000,
         ],
@@ -41,7 +41,7 @@ class ProductsController extends Controller
         ],
         [
             "id" => 6,
-            "name" => "Downpipe / Escape Fiat Toro",
+            "name" => "Downpipe - Escape Fiat Toro",
             "img" => "/imgs/downpipe-fiat-toros.webp",
             "price" => 180000,
         ]

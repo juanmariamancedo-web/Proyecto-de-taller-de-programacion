@@ -9,6 +9,7 @@ export default function Login() {
 
     const submit = (e : React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        
         post('/formulario-de-login');
     };
 
