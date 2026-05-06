@@ -7,8 +7,8 @@ export default function Welcome(){
         {
             id: 0,
             description: "",
-            name: "Down Pipe E Intermedio Amarok V6 3.0 Acero Inox",
-            img: "/imgs/downpipe-amarok-v6.webp",
+            name: "Down Pipe Chevrolet S-10 2.8 Td 200cv",
+            img: "/imgs/downpipe-s10.webp",
             price: 763000
         },
         {
