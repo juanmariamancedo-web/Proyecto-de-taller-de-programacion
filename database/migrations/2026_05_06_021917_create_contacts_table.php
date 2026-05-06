@@ -11,21 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('orders', function (Blueprint $table) {
+        Schema::create('contacts', function (Blueprint $table) {
             $table->id();
-
-            $table->enum("state", ["paid", "pending payment", "canceled", "created"]);
-
-            
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->string("name");
+            $table->string("lastname");
+            $table->string("email");
+            $table->string("matter"); //asunto
+            $table->string("message");
             $table->timestamps();
         });
-    }
-
-    //Devuelve el usuario asociado
-    public function user()
-    {
-        return $this->belongsTo(User::class);
     }
 
     /**
@@ -33,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('orders');
+        Schema::dropIfExists('contacts');
     }
 };
