@@ -14,7 +14,10 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string("lastname");
+            $table->integer("cuil/cuit")->unique();
             $table->string('email')->unique();
+            $table->enum("role", ["client", "admin"]);
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
@@ -40,7 +43,7 @@ return new class extends Migration
         return $this->hasMany(Address::class);
     }
 
-    public function order() {
+    public function ordenes() {
         return $this->hasMany(Order::class);
     }
 
