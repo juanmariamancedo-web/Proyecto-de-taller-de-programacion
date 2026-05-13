@@ -24,6 +24,16 @@ class AuthController extends Controller
         return back()->with('error', 'Credenciales incorrectas');
     }
 
+    public function logout(Request $request)
+    {
+        Auth::logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        redirect('/login');
+    }
+
     public function showRegister() {
         return Inertia::render('RegistroDeClientes');
     }

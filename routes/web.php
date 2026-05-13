@@ -47,3 +47,13 @@ Route::middleware(['guest'])->group(function () {
 
     Route::post("/requestForgottenPasswordCode", [AuthController::class, "requestForgottenPasswordCode"]);
 });
+
+Route::middleware(['auth'])->group(function () {
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+});
+
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get("/admin", function () {
+        return Inertia::render('Admin');
+    })
+});
