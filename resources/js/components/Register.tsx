@@ -10,7 +10,8 @@ export default function Register() {
         password_confirmation: '',
         ciudad: '',
         provincia: '',
-        codigoPostal: ''
+        codigoPostal: '',
+        cuil_cuit: ''
     });
 
     const submit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -64,7 +65,7 @@ export default function Register() {
             </div>
 
             {/* Email */}
-            <div className="col-span-full">
+            <div className="col-span-full sm:col-span-4">
                 <label className="block text-sm font-medium text-gray-900 dark:text-gray-100 pb-2" htmlFor="email">
                     Email
                 </label>
@@ -79,6 +80,23 @@ export default function Register() {
                     className="block w-full rounded-md bg-black/5 px-3 py-1.5 text-gray-900 outline-1 outline-gray-300 focus:outline-2 focus:outline-indigo-600 dark:bg-white/5 dark:text-white"
                 />
                 {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
+            </div>
+
+            {/* Cuit/Cuil */}
+            <div className="col-span-full sm:col-span-2">
+                <label className="block text-sm font-medium text-gray-900 dark:text-gray-100 pb-2" htmlFor="nombre">
+                    Cuit / Cuil
+                </label>
+                <input
+                    type="text"
+                    name="cuil_cuit"
+                    id="cuil_cuit"
+                    required
+                    placeholder="cuil/cuit"
+                    value={data.cuil_cuit}
+                    onChange={e => setData("cuil_cuit", e.target.value)}
+                    className="block w-full rounded-md bg-black/5 px-3 py-1.5 text-gray-900 outline-1 outline-gray-300 focus:outline-2 focus:outline-indigo-600 dark:bg-white/5 dark:text-white"
+                />
             </div>
 
             {/* Password */}

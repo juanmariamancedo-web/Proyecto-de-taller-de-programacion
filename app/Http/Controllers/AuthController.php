@@ -29,9 +29,10 @@ class AuthController extends Controller
         $city = $request->input("ciudad");
         $province = $request->input("provincia");
         $postcode = $request->input("codigoPostal");
+        $cuilCuit = $request->input("cuil_cuit");
 
         $request->validate([
-            'name' => 'required',
+            'nombre' => 'required',
             'email' => 'required|email|unique:users',
             'password' => 'required|min:6',
         ]);
@@ -43,8 +44,8 @@ class AuthController extends Controller
             "lastname" => $lastname,
             "city" => $city,
             "province" => $province,
-            "postcode" => $postcode
-
+            "postcode" => $postcode,
+            "cuil_cuit" => $cuilCuit
         ]);
 
         return Inertia::render('SuccessRegister');

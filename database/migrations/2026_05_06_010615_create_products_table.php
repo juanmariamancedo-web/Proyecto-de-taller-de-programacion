@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer("stock");
             $table->integer("low_stock");
             $table->string("image");
-            $table->boolean("is_active")->default("true");
+            $table->boolean("is_active")->default(true);
             $table->timestamps();
         });
     }
