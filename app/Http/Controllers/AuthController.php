@@ -3,6 +3,8 @@ namespace App\Http\Controllers;
 
 use Inertia\Inertia;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use App\Models\User;
 
 class AuthController extends Controller
 {
@@ -18,7 +20,33 @@ class AuthController extends Controller
         return Inertia::render('RegistroDeClientes');
     }
 
-    public function register() {
+    public function register(Request $request) {
+        $email = $request->input("email");
+        $password = $request->input("password");
+        $name = $request->input("nombre");
+        $postcode = $request->input("codigoPostal");
+        $lastname = $request->input("apellido");
+        $city = $request->input("ciudad");
+        $province = $request->input("provincia");
+        $postcode = $request->input("codigoPostal");
+
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|min:6',
+        ]);
+
+        User::create([  
+            "email" => $email,
+            "password" => Hash::Make($password),
+            "name" => $name,
+            "lastname" => $lastname,
+            "city" => $city,
+            "province" => $province,
+            "postcode" => $postcode
+
+        ]);
+
         return Inertia::render('SuccessRegister');
     }
 
