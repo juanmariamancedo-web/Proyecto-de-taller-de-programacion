@@ -49,11 +49,15 @@ Route::middleware(['guest'])->group(function () {
 });
 
 Route::middleware(['auth'])->group(function () {
-    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+    // Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
 
-Route::middleware(['auth', 'admin'])->group(function () {
-    Route::get("/admin", function () {
-        return Inertia::render('Admin');
-    })
+Route::prefix('admin')
+    ->middleware(['auth', 'admin'])
+    ->group(function () {
+
+        Route::get('/', function () {
+            return Inertia::render('Admin');
+        });
+
 });
