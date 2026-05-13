@@ -31,17 +31,19 @@ Route::get('/terminos-y-usos', function () {
 Route::get('/catalogo', [ProductsController::class, "showProducts"]);
 Route::get("/catalogo/{name}", [ProductsController::class, "showProduct"]);
 
-Route::get('/registro-de-clientes', [AuthController::class, "showRegister"]);
+Route::middleware(['guest'])->group(function () {
 
-Route::post("/registro-de-clientes", [AuthController::class, "register"]);
+    Route::get('/registro-de-clientes', [AuthController::class, "showRegister"]);
 
+    Route::post("/registro-de-clientes", [AuthController::class, "register"]);
 
-Route::get('/formulario-de-login', [AuthController::class, "showLogin"])->name("login");
+    Route::get('/formulario-de-login', [AuthController::class, "showLogin"])->name("login");
 
-Route::post("/formulario-de-login", [AuthController::class, "login"]);
+    Route::post("/formulario-de-login", [AuthController::class, "login"]);
 
-Route::get("/forgot-password", [AuthController::class, "showForgotPassword"]);
+    Route::get("/forgot-password", [AuthController::class, "showForgotPassword"]);
 
-Route::post("/forgot-password", [AuthController::class, "showRequestForgottenPasswordCode"]);
+    Route::post("/forgot-password", [AuthController::class, "showRequestForgottenPasswordCode"]);
 
-Route::post("/requestForgottenPasswordCode", [AuthController::class, "requestForgottenPasswordCode"]);
+    Route::post("/requestForgottenPasswordCode", [AuthController::class, "requestForgottenPasswordCode"]);
+});

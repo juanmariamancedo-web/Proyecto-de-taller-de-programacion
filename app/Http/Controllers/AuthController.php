@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 
 class AuthController extends Controller
@@ -12,8 +13,15 @@ class AuthController extends Controller
         return Inertia::render('FormularioDeLogin');
     }
 
-    public function login() {
-        return Inertia::render('SuccessLogin');
+    public function login(Request $request) {
+        if (Auth::attempt([
+            'email' => $request->email,
+            'password' => $request->password
+        ])) {
+            return redirect('/catalogo');
+        }
+        
+        return back()->with('error', 'Credenciales incorrectas');
     }
 
     public function showRegister() {
