@@ -12,9 +12,11 @@ type CartItem = {
   cantidad: number
 }
 
-type State = {
+
+type ProductoState = {
   productos: CartItem[]
 }
 
+
 export default Producto;
-export {CartItem , State};
+export {CartItem , ProductoState};

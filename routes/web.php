@@ -52,12 +52,24 @@ Route::middleware(['auth'])->group(function () {
     // Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
 
-Route::prefix('admin')
-    ->middleware(['auth', 'admin'])
-    ->group(function () {
-
-        Route::get('/', function () {
-            return Inertia::render('Admin');
-        });
-
+// routes/api.php
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
 });
+
+// Route::prefix('admin')
+//     ->middleware(['auth', 'admin'])
+//     ->group(function () {
+
+//         Route::get('/', function () {
+//             return Inertia::render('Admin');
+//         });
+
+//         Route::get("/catalogo", function (){
+//             return Inertia::render("AdminCatalogo");
+//         });
+
+//         Route::get("/usuarios", function(){
+//             return Inertia::render("AdminUsuarios");
+//         });
+// });

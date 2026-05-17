@@ -1,10 +1,9 @@
 import { useEffect, useState} from "react"
 import ButtonOfDarkMode from "./ButtonOfDarkMode";
 import SwitchOpen from "./SwitchOpen";
-import Login from "../icons/LoginIcon";
-import CreateUser from "../icons/CreateUserIcon";
 import Home from "../icons/HomeIcon";
 import { Link } from "@inertiajs/react";
+import LoginOut from "./LoginOut";
 
 export function Header(){
     const [open, setOpen] = useState(false)
@@ -109,17 +108,18 @@ export function Header(){
                                     </li> */}
                                     <li className="hover:bg-black/10 dark:hover:bg-white/10 rounded-full transition flex justify-center items-center">
                                         <SwitchOpen setOpen={setOpen}>
-                                            <Link className="hover:bg-black/10 dark:hover:bg-white/10 rounded-full transition flex justify-center items-center cursor-pointer" href="/formulario-de-login">
-                                                    <Login className=""/>
-                                            </Link>
+                                            <LoginOut />
                                         </SwitchOpen>
                                     </li>
+                                    <li>
+                                        
+                                    </li>
                                 </div>
-                                <li className="hover:bg-black/10 dark:hover:bg-white/10 rounded-full transition flex justify-center items-center">
+                                {/* <li className="hover:bg-black/10 dark:hover:bg-white/10 rounded-full transition flex justify-center items-center">
                                     <SwitchOpen setOpen={setOpen}>
                                         <ButtonOfDarkMode />
                                     </SwitchOpen>
-                                </li>
+                                </li> */}
                             </div>
                         </ul>
                     </div>
