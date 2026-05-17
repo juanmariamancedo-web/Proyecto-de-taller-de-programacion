@@ -9,3 +9,7 @@ export type Auth = {
 export type PageProps = {
     auth: Auth
 };
+
+export type UsuarioState = {
+  autenticado: Boolean
+}

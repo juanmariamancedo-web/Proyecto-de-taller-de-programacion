@@ -3,7 +3,7 @@ export type Producto = {
   id: number
   name: string
   description: string
-  img: string
+  image: string
   price: number
 }
 

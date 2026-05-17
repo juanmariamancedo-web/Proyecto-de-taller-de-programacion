@@ -22,7 +22,7 @@ export default function Producto({producto} : {producto : Producto}){
         <MainLayout>
             <div className="p-3 sm:p-0 grid grid-cols-2 gap-3 auto-rows-[384px]">
                 <div className="flex items-center justify-center col-span-2 sm:col-span-1">
-                    <img src={producto.img} alt={"Imagen de " + producto.name} className="max-w-full max-h-full object-contain rounded-md" />
+                    <img src={producto.image} alt={"Imagen de " + producto.name} className="max-w-full max-h-full object-contain rounded-md" />
                 </div>
                 <div className="flex flex-col items-center justify-evenly col-span-2 sm:col-span-1">
                     <h1 className="text-center text-2xl/9 font-bold tracking-tight text-gray-900 dark:text-white">{producto.name}</h1>

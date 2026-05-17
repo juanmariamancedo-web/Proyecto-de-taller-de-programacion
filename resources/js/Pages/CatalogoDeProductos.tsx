@@ -60,7 +60,7 @@ export default function CatalogoDeProductos({ productos }: { productos: Producto
                                 >
                                     <div className="w-full h-48 flex items-center justify-center p-4">
                                         <img 
-                                            src={producto.img} 
+                                            src={producto.image} 
                                             alt={producto.name} 
                                             className="max-w-full max-h-full object-contain"
                                         />
