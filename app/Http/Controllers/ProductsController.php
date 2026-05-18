@@ -85,17 +85,22 @@ class ProductsController extends Controller
 
     public function newProduct(Request $request){
         $request->validate([
-            'name' => 'required|string|max:255',
+            'name' => [
+                'required',
+                'string',
+                'max:255',
+                Rule::unique('products', 'name')->ignore($product->id),
+            ],
             'price' => 'required|numeric|min:0',
             'stock' => 'required|integer|min:0',
             'lowStock' => 'required|integer|min:0|lte:stock',
-            'imagen' => 'required|image|mimes:jpg,jpeg,png|max:2048',
+            'imagen' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
         $name = $request->input("name");
         $price = $request->input("price");
         $stock = $request->input("stock");
-        $lowStock = $request->input("lowStock");
+        $lowStock = $request->input("low_tock");
         
         $file = $request->file('imagen');
 
@@ -120,5 +125,51 @@ class ProductsController extends Controller
         ]);
 
         return redirect('/catalogo/' . $name);
+    }
+
+    public function updateProduct(Request $request, $id)
+    {
+        $product = Product::findOrFail($id);
+
+        $request->validate([
+            'name' => [
+                'required',
+                'string',
+                'max:255',
+                Rule::unique('products', 'name')->ignore($product->id),
+            ],
+            'price' => 'required|numeric|min:0',
+            'stock' => 'required|integer|min:0',
+            'lowStock' => 'required|integer|min:0|lte:stock',
+            'imagen' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+        ]);
+
+        // Actualizar
+        $product->name = $request->input('name');
+        $product->price = $request->input('price');
+        $product->stock = $request->input('stock');
+        $product->low_stock = $request->input('lowStock');
+
+        // Si hay nueva imagen
+        if ($request->hasFile('imagen')) {
+            $file = $request->file('imagen');
+
+            $cloudinary = new Cloudinary([
+                'cloud' => [
+                    'cloud_name' => env('CLOUDINARY_CLOUD_NAME'),
+                    'api_key'    => env('CLOUDINARY_API_KEY'),
+                    'api_secret' => env('CLOUDINARY_API_SECRET'),
+                ],
+            ]);
+
+            $upload = $cloudinary->uploadApi()->upload($file->getRealPath());
+
+            $product->image = $upload['secure_url'];
+        }
+
+        // Guardar cambios
+        $product->save();
+
+        return redirect('/catalogo/' . $product->name);
     }
 }
