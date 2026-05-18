@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 use App\Models\Product;
+use Cloudinary\Cloudinary;
 
 
 class ProductsController extends Controller
@@ -80,5 +81,44 @@ class ProductsController extends Controller
         return Inertia::render("Producto", [
             "producto" => $producto
         ]);
+    }
+
+    public function newProduct(Request $request){
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'price' => 'required|numeric|min:0',
+            'stock' => 'required|integer|min:0',
+            'lowStock' => 'required|integer|min:0|lte:stock',
+            'imagen' => 'required|image|mimes:jpg,jpeg,png|max:2048',
+        ]);
+
+        $name = $request->input("name");
+        $price = $request->input("price");
+        $stock = $request->input("stock");
+        $lowStock = $request->input("lowStock");
+        
+        $file = $request->file('imagen');
+
+        $cloudinary = new Cloudinary([
+            'cloud' => [
+                'cloud_name' => env('CLOUDINARY_CLOUD_NAME'),
+                'api_key'    => env('CLOUDINARY_API_KEY'),
+                'api_secret' => env('CLOUDINARY_API_SECRET'),
+            ],
+        ]);
+
+        $upload = $cloudinary->uploadApi()->upload($file->getRealPath());
+
+        $url = $upload['secure_url'];
+
+        Product::create([
+            "name" => $name,
+            "price" => $price,
+            "stock" => $stock,
+            "low_stock" => $lowStock,
+            "image" => $url
+        ]);
+
+        return redirect('/catalogo/' . $name);
     }
 }

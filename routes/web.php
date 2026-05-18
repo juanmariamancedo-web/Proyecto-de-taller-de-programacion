@@ -66,7 +66,10 @@ Route::prefix('admin')
             return Inertia::render("AdminCatalogo");
         });
 
+        Route::post("/catalogo/new-product", [ProductsController::class], "newProduct");
+
         Route::get("/usuarios", function(){
             return Inertia::render("AdminUsuarios");
         });
+
 });
