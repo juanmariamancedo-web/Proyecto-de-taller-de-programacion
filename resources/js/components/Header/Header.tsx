@@ -106,11 +106,11 @@ export function Header(){
                                             </Link>
                                         </SwitchOpen>
                                     </li> */}
-                                    {/* <li className="hover:bg-black/10 dark:hover:bg-white/10 rounded-full transition flex justify-center items-center">
+                                    <li className="hover:bg-black/10 dark:hover:bg-white/10 rounded-full transition flex justify-center items-center">
                                         <SwitchOpen setOpen={setOpen}>
                                             <LoginOut />
                                         </SwitchOpen>
-                                    </li> */}
+                                    </li>
                                     <li>
                                         
                                     </li>
