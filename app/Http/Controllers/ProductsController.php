@@ -49,10 +49,13 @@ class ProductsController extends Controller
     // ];
 
     public function showProducts(Request $request) {
-        $page = $request->get('page', 1);
+        $page = (int) $request->get('page', 1);
+        $limite = 6;
 
         return Inertia::render('CatalogoDeProductos', [
-            'productos' => Product::offset(($page - 1) * 6)->limit(6)->get()
+            'productos' => Product::offset(($page - 1) * $limite)->limit($limite)->get(),
+            'paginas' => Product::count() / $limite,
+            "pagina" => $page
         ]);        
     }
     

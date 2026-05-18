@@ -1,8 +1,9 @@
 import { Link, Head } from "@inertiajs/react";
 import MainLayout from "../layouts/MainLayout";
 import Producto from "../../models/Producto";
+import Paginacion from "../components/Paginacion";
 
-export default function CatalogoDeProductos({ productos }: { productos: Producto[] }){
+export default function CatalogoDeProductos({ productos , paginas, pagina}: { productos: Producto[], paginas: number, pagina: number }){
     // let productos : Producto[] = [
     //     {
     //         name: "Down Pipe E Intermedio Amarok V6 3.0 Acero Inox",
@@ -76,6 +77,9 @@ export default function CatalogoDeProductos({ productos }: { productos: Producto
                                 </Link>
                             )
                         })}
+                        <div className="col-span-1 sm:col-span-2">
+                            <Paginacion paginas={paginas} pagina={pagina} />
+                        </div>
                     </section>
                 </ div>
             </MainLayout>
