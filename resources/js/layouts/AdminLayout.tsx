@@ -3,8 +3,25 @@
 import { JSX } from "react";
 import { Header } from "../components/Header/Header";
 import { Link } from "@inertiajs/react";
+import { Page } from "../../models/Page";
 
 export default function AdminLayout({children}:{children: JSX.Element}){
+
+    const adminPages : Page[] = [
+        {
+            name: "Usuarios",
+            href: "/admin/usuarios" 
+        },
+        {
+            name: "Productos",
+            href: "/admin/productos"
+        },
+        {
+            name: "Ordenes",
+            href: "/admin/ordenes"
+        }
+    ]
+
     return(
             <div className="min-h-screen flex flex-col justify-between gap-10">
                 <div
@@ -12,7 +29,7 @@ export default function AdminLayout({children}:{children: JSX.Element}){
                     bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(217,216,255,0.5),rgba(255,255,255,0.9))]
                     dark:bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"
                 ></div>
-                <Header />
+                <Header pages={adminPages} homeUrl="/admin" />
                 <main className="container mx-auto pt-14">
                     {children}
                 </main>

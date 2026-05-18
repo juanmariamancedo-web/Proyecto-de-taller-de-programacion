@@ -28,9 +28,6 @@ Route::get('/terminos-y-usos', function () {
     return Inertia::render('TerminosYUsos');
 });
 
-Route::get('/catalogo', [ProductsController::class, "showProducts"]);
-Route::get("/catalogo/{name}", [ProductsController::class, "showProduct"]);
-
 Route::middleware(['guest'])->group(function () {
 
     Route::get('/registro-de-clientes', [AuthController::class, "showRegister"]);
@@ -50,12 +47,12 @@ Route::middleware(['guest'])->group(function () {
 
 Route::middleware(['auth'])->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+    Route::get('/catalogo', [ProductsController::class, "showProducts"]);
+
+    Route::get("/catalogo/{name}", [ProductsController::class, "showProduct"]);
 });
 
-// routes/api.php
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
 
 Route::prefix('admin')
     ->middleware(['auth', 'admin'])

@@ -4,8 +4,32 @@ import { JSX } from "react";
 import { Header } from "../components/Header/Header";
 import { Link } from "@inertiajs/react";
 import Carrito from "../components/Carrito";
+import { Page } from "../../models/Page";
 
 export default function MainLayout({children}:{children: JSX.Element}){
+    const clientPages : Page[] = [
+         {
+             name: "Contacto",
+             href: "/contacto"
+         },
+         {
+             name: "Quienes somos?",
+             href: "/quienes-somos"
+         },
+         {
+             name: "Comercialización",
+             href: "/comercializacion"
+         },
+         {
+             name: "Términos y usos",
+             href: "/terminos-y-usos"
+         },
+         {
+             name: "Catálogo",
+             href: "/catalogo"
+         }
+     ]
+
     return(
             <div className="min-h-screen flex flex-col justify-between gap-10">
                 <div
@@ -13,7 +37,7 @@ export default function MainLayout({children}:{children: JSX.Element}){
                     bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(217,216,255,0.5),rgba(255,255,255,0.9))]
                     dark:bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"
                 ></div>
-                <Header />
+                <Header pages={clientPages} homeUrl="/"/>
                 <main className="container mx-auto pt-14">
                     {children}
                 </main>

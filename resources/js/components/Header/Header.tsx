@@ -4,8 +4,9 @@ import SwitchOpen from "./SwitchOpen";
 import Home from "../icons/HomeIcon";
 import { Link } from "@inertiajs/react";
 import LoginOut from "./LoginOut";
+import { Page } from "../../../models/Page";
 
-export function Header(){
+export function Header({pages, homeUrl} : {pages : Page[], homeUrl: string}){
     const [open, setOpen] = useState(false)
 
     useEffect(()=>{
@@ -54,48 +55,23 @@ export function Header(){
                                         flex-grow-0`}>
                             <li className="hover:bg-black/10 dark:hover:bg-white/10 rounded-full transition flex justify-center items-center">
                                 <SwitchOpen setOpen={setOpen}>
-                                    <Link className="hover:bg-black/10 dark:hover:bg-white/10 rounded-full transition flex justify-center items-center cursor-pointer" href="/">
+                                    <Link className="hover:bg-black/10 dark:hover:bg-white/10 rounded-full transition flex justify-center items-center cursor-pointer" href={homeUrl}>
                                         <Home className=""/>
                                     </Link>
                                 </SwitchOpen>    
                             </li>
                             <div className="flex flex-col lg:flex-row items-center justify-center gap-3 lg:gap-5">
-                                <li>
-                                    <SwitchOpen setOpen={setOpen}>
-                                        <Link className="hover:bg-black/10 dark:hover:bg-white/10 rounded-full transition" href="/contacto">
-                                            Contacto
-                                        </Link>
-                                    </SwitchOpen>
-                                </li>
-
-                                <li>
-                                    <SwitchOpen setOpen={setOpen}>
-                                        <Link className="hover:bg-black/10 dark:hover:bg-white/10 rounded-full transition" href="/quienes-somos">
-                                            Quienes somos?
-                                        </Link>
-                                    </SwitchOpen>
-                                </li>
-                                <li>
-                                    <SwitchOpen setOpen={setOpen}>
-                                        <Link className="hover:bg-black/10 dark:hover:bg-white/10 rounded-full transition" href="/comercializacion">
-                                            Comercialización
-                                        </Link>
-                                    </SwitchOpen>
-                                </li>
-                                <li>
-                                    <SwitchOpen setOpen={setOpen}>
-                                        <Link className="hover:bg-black/10 dark:hover:bg-white/10 rounded-full transition" href="/terminos-y-usos">
-                                            Términos y usos
-                                        </Link>
-                                    </SwitchOpen>
-                                </li>
-                                <li>
-                                    <SwitchOpen setOpen={setOpen}>
-                                        <Link className="hover:bg-black/10 dark:hover:bg-white/10 rounded-full transition" href="/catalogo">
-                                            Catálogo
-                                        </Link>
-                                    </SwitchOpen>
-                                </li>
+                                {pages.length > 0 && pages.map((page)=>{
+                                    return(
+                                        <li>
+                                            <SwitchOpen setOpen={setOpen}>
+                                                <Link className="hover:bg-black/10 dark:hover:bg-white/10 rounded-full transition" href={page.href}>
+                                                    {page.name}
+                                                </Link>
+                                            </SwitchOpen>
+                                        </li>
+                                    )
+                                })}
                             </div>
                             <div className="flex flex-col lg:flex-row items-center justify-center gap-3">
                                 <div className="flex flex-row items-center justify-center gap-3">

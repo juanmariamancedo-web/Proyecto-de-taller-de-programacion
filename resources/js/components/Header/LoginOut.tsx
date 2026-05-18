@@ -9,6 +9,7 @@ export default function LoginOut(){
 
     function onClick(){
         router.post('/logout');
+        router.visit("/formulario-de-login");
     };
 
     return(
