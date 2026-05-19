@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Models\PasswordReset;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\RequestForgottenPasswordCode;
 
 class AuthController extends Controller
 {
@@ -73,9 +76,41 @@ class AuthController extends Controller
         return Inertia::render('ShowForgotPassword');
     }
 
-    public function showRequestForgottenPasswordCode(){
-        return Inertia::render("ShowRequestForgottenPasswordCode");
+    public function showRequestForgottenPasswordCode(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+        ]);
 
+        $email = $request->input("email");
+
+        // buscar usuario
+        $user = User::where('email', $email)->first();
+
+        if (!$user) {
+            return back()->withErrors([
+                'email' => 'El email no está registrado'
+            ]);
+        }
+
+        $code = random_int(100000, 999999);
+
+        // eliminar códigos anteriores
+        PasswordReset::where('email', $email)->delete();
+
+        PasswordReset::create([
+            "email" => $email,
+            "code" => Hash::make($code),
+            "expires_at" => now()->addMinutes(10)
+        ]);
+
+        Mail::to($email)->send(new RequestForgottenPasswordCode([
+            'name' => $user->name,
+            'email' => $email,
+            'code' => $code
+        ]));
+
+        return Inertia::render("ShowRequestForgottenPasswordCode");
     }
 
     public function requestForgottenPasswordCode()

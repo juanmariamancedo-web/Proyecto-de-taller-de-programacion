@@ -20,6 +20,7 @@ export default function ForgotPassword(){
 
                 <input
                     id="email"
+                    name="email"
                     type="email"
                     value={data.email}
                     onChange={e => setData('email', e.target.value)}
