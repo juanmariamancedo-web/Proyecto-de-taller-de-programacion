@@ -12,6 +12,15 @@ use App\Mail\RequestForgottenPasswordCode;
 
 class AuthController extends Controller
 {
+    private function verifyPassword($password, $password_confirmation)
+    {
+        if ($password !== $password_confirmation && strlen($password) < 6) {
+            return false;
+        }
+
+        return true;
+    }
+
     public function showLogin() {
         return Inertia::render('FormularioDeLogin');
     }
@@ -93,14 +102,14 @@ class AuthController extends Controller
             ]);
         }
 
-        $code = random_int(100000, 999999);
-
         // eliminar códigos anteriores
         PasswordReset::where('email', $email)->delete();
 
+        $code = random_int(0000, 9999);
+
         PasswordReset::create([
             "email" => $email,
-            "code" => Hash::make($code),
+            "code" => $code,
             "expires_at" => now()->addMinutes(10)
         ]);
 
@@ -113,9 +122,39 @@ class AuthController extends Controller
         return Inertia::render("ShowRequestForgottenPasswordCode");
     }
 
-    public function requestForgottenPasswordCode()
+    public function requestForgottenPasswordCode(Request $request)
     {
-        return redirect()->route('login');
+        $request->validate([
+            'code' => 'required',
+            'password' => 'required|min:6|confirmed',
+        ]);
+
+        $code = $request->code;
+
+        $passwordReset = PasswordReset::where('code', $code)->first();
+
+        if (!$passwordReset) {
+            return back()->withErrors(['code' => 'Código inválido']);
+        }
+
+        if ($passwordReset->expires_at < now()) {
+            return back()->withErrors(['code' => 'Código expirado']);
+        }
+
+        $email = $passwordReset->email;
+
+        $user = User::where("email", $email)->first();
+
+        if (!$user) {
+            return back()->withErrors(['email' => 'Usuario no encontrado']);
+        }
+
+        $user->password = Hash::make($request->password);
+        $user->save();
+
+        $passwordReset->delete();
+
+        return Inertia::render("SuccessRequestForgottenPasswordCode");
     }
 
     // public function logout() {}

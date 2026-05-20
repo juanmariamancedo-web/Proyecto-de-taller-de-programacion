@@ -16,7 +16,7 @@ return new class extends Migration
 
             $table->string('email')->index();
 
-            $table->string('code'); // código hasheado
+            $table->integer('code');
 
             $table->timestamp('expires_at');
 
