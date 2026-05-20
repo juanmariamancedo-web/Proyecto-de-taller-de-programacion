@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class item_order extends Model
+class Item_order extends Model
 {
     protected $table = "item_orders";
 
@@ -13,4 +13,8 @@ class item_order extends Model
         "unit_price",
         "product_id"
     ];
+
+    public function itemOrders(){
+        return $this->hasMany(ItemOrder::class);
+    }
 }

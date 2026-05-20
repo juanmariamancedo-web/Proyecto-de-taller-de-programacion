@@ -18,6 +18,7 @@ return new class extends Migration
             $table->timestamps();
 
             $table->foreignId('product_id')->unique()->constrained()->onDelete('cascade');
+            $table->foreignId('order_id')->unique()->constrained()->onDelete('cascade');
         });
     }
 
@@ -26,6 +27,13 @@ return new class extends Migration
     {
         return $this->belongsTo(Product::class);
     }
+
+    //Devuelve el producto asociado
+    public function product()
+    {
+        return $this->belongsTo(Item_order::class);
+    }
+
 
     /**
      * Reverse the migrations.

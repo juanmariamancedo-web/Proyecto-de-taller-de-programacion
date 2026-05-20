@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ProductsController;
+use App\Http\Controllers\DashboardController;
 
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -48,19 +49,22 @@ Route::middleware(['guest'])->group(function () {
 Route::middleware(['auth'])->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-    Route::get('/catalogo', [ProductsController::class, "showProducts"]);
-
-    Route::get("/catalogo/{name}", [ProductsController::class, "showProduct"]);
 });
+
+Route::get('/catalogo', [ProductsController::class, "showProducts"]);
+
+Route::get("/catalogo/{name}", [ProductsController::class, "showProduct"]);
 
 
 Route::prefix('admin')
     ->middleware(['auth', 'admin'])
     ->group(function () {
 
-        Route::get('/', function () {
-            return Inertia::render('Admin');
-        });
+        // Route::get('/', function () {
+        //     return Inertia::render('Admin');
+        // });
+
+        Route::get("/", [DashboardController::class, "index"]);
 
         Route::get("/catalogo", function (){
             return Inertia::render("AdminCatalogo");
