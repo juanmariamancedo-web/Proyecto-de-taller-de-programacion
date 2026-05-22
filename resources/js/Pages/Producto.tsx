@@ -3,19 +3,23 @@ import Producto from "../../models/Producto";
 import MainLayout from "../layouts/MainLayout";
 import { add, addWithQuantity } from "../redux/productoSlice";
 import { useState } from "react";
+import { router, usePage } from "@inertiajs/react";
 
 export default function Producto({producto} : {producto : Producto}){
     const dispatch = useDispatch();
     const [cantidad, setCantidad] = useState(1);
+    const props = usePage().props as any;
 
     function addProducto(){
+        if(!props?.auth?.user){
+            router.visit("\\formulario-de-login");
+        }
+        
         dispatch(addWithQuantity({
             producto: producto,
             cantidad: cantidad
             },
         ));
-
-        alert("Item agregado");
     }
 
     return(

@@ -1,14 +1,17 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useSelector, useDispatch } from 'react-redux'
 import type { RootState } from '../redux/store'
 import ItemCarrito from "./ItemCarrito";
 import { clear } from "../redux/productoSlice";
 import CartIcon from "./icons/CartIcon";
 import CloseIcon from "./icons/CloseIcon";
+import { router, usePage } from "@inertiajs/react";
 
 
 export default function Carrito(){
     const [open, setOpen] = useState(false);
+
+    const props = usePage().props as any;
 
     const productos = useSelector((state: RootState) => state.productos.productos);
     const dispatch = useDispatch()
@@ -17,15 +20,30 @@ export default function Carrito(){
         setOpen(prev => !prev)
     }
 
+    
+    function openCarrito(){
+        if(!props.auth.user){
+            router.visit("\\formulario-de-login");
+        }else{
+            setOpen(true);
+        }
+    }
+    
     function vaciarCarrito(){
         dispatch(clear())
     }
+
+    // useEffect(() => {
+    //     if(productos.length > 0){
+    //         openCarrito();
+    //     }
+    // }, [productos.length]);
 
     return (
         <>
             <button 
                 className="fixed bottom-2 right-3 z-5 bg-neutral-200 dark:bg-black hover:bg-black/10 dark:hover:bg-white/10 rounded-full px-3 py-1 dark:text-white" 
-                onClick={toggleOpen}
+                onClick={openCarrito}
             >
                 <CartIcon />
             </button>
