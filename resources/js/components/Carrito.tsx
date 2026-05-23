@@ -6,7 +6,12 @@ import { clear } from "../redux/productoSlice";
 import CartIcon from "./icons/CartIcon";
 import CloseIcon from "./icons/CloseIcon";
 import { router, usePage } from "@inertiajs/react";
+import { useForm } from "@inertiajs/react";
+import Producto, { CartItem } from "../../models/Producto";
 
+type FormData = {
+    carItems: CartItem[];
+};
 
 export default function Carrito(){
     const [open, setOpen] = useState(false);
@@ -15,6 +20,11 @@ export default function Carrito(){
 
     const productos = useSelector((state: RootState) => state.productos.productos);
     const dispatch = useDispatch()
+
+
+    const { data, setData, post, processing, errors } = useForm<FormData>({
+        carItems: []
+    });
 
     function toggleOpen(){
         setOpen(prev => !prev)
@@ -31,6 +41,12 @@ export default function Carrito(){
     
     function vaciarCarrito(){
         dispatch(clear())
+    }
+
+    function crearOrden(){
+        setData("carItems", productos);
+
+        post("/crear-orden");
     }
 
     // useEffect(() => {
@@ -71,7 +87,7 @@ export default function Carrito(){
                 <div className="flex flex-col items-center self-stretch">
                     <div className="grid grid-cols-2 gap-3">
                         {productos.length > 0 &&
-                            <button className="bg-indigo-600 text-white p-2 rounded-md disabled:opacity-50">
+                            <button onClick={crearOrden} className="bg-indigo-600 text-white p-2 rounded-md disabled:opacity-50">
                                 Comprar
                             </button>
                         }

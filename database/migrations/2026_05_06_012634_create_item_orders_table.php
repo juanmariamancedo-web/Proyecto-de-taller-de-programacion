@@ -17,8 +17,8 @@ return new class extends Migration
             $table->float('unit_price', 8, 2);
             $table->timestamps();
 
-            $table->foreignId('product_id')->unique()->constrained()->onDelete('cascade');
-            $table->foreignId('order_id')->unique()->constrained()->onDelete('cascade');
+            $table->foreignId('product_id')->constrained()->onDelete('cascade');
+            $table->foreignId('order_id')->constrained()->onDelete('cascade');
         });
     }
 
