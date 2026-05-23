@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { useSelector, useDispatch } from 'react-redux'
 import type { RootState } from '../redux/store'
 import ItemCarrito from "./ItemCarrito";
@@ -6,12 +6,7 @@ import { clear } from "../redux/productoSlice";
 import CartIcon from "./icons/CartIcon";
 import CloseIcon from "./icons/CloseIcon";
 import { router, usePage } from "@inertiajs/react";
-import { useForm } from "@inertiajs/react";
-import Producto, { CartItem } from "../../models/Producto";
-
-type FormData = {
-    carItems: CartItem[];
-};
+import axios from "axios";
 
 export default function Carrito(){
     const [open, setOpen] = useState(false);
@@ -21,10 +16,6 @@ export default function Carrito(){
     const productos = useSelector((state: RootState) => state.productos.productos);
     const dispatch = useDispatch()
 
-
-    const { data, setData, post, processing, errors } = useForm<FormData>({
-        carItems: []
-    });
 
     function toggleOpen(){
         setOpen(prev => !prev)
@@ -43,17 +34,16 @@ export default function Carrito(){
         dispatch(clear())
     }
 
-    function crearOrden(){
-        setData("carItems", productos);
+    async function crearOrden(){
+        const res = await axios.post("/crear-orden", {
+            carItems: productos
+        });
 
-        post("/crear-orden");
+        vaciarCarrito();
+
+        window.location.href = res.data.init_point;
     }
 
-    // useEffect(() => {
-    //     if(productos.length > 0){
-    //         openCarrito();
-    //     }
-    // }, [productos.length]);
 
     return (
         <>
