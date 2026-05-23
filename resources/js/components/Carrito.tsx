@@ -39,6 +39,8 @@ export default function Carrito(){
             carItems: productos
         });
 
+        // console.log(res.data)
+
         vaciarCarrito();
 
         window.location.href = res.data.init_point;

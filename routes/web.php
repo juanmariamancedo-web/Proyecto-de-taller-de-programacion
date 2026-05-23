@@ -52,6 +52,8 @@ Route::middleware(['auth'])->group(function () {
 
     Route::post("/crear-orden", [OrderController::class, "createOrder"]);
 
+    Route::get('/success', [OrderController::class, 'success']);
+
 });
 
 Route::get('/catalogo', [ProductsController::class, "showProducts"]);

@@ -20,6 +20,6 @@ class Order extends Model
 
     public function itemOrders()
     {
-        return $this->hasMany(Item_Order::class);
+        return $this->hasMany(ItemOrder::class, 'order_id');
     }
 }

@@ -9,6 +9,7 @@ use App\Models\ItemOrder;
 use App\Models\Product;
 use Inertia\Inertia;
 use MercadoPago\Client\Preference\PreferenceClient;
+use MercadoPago\Client\Payment\PaymentClient;
 use MercadoPago\MercadoPagoConfig;
 
 
@@ -48,15 +49,50 @@ class OrderController extends Controller
         $preference = $client->create([
             "items" => $items,
             "back_urls" => [
-                "success" => config('APP_URL')."/success",
-                "failure" => config('APP_URL')."/failure",
-                "pending" => config('APP_URL')."/pending"
+                "success" => env('APP_URL')."/success",
+                "failure" => env('APP_URL')."/failure",
+                "pending" => env('APP_URL')."/pending" 
             ],
-            "external_reference" => $order["id"]
+            // "auto_return" => "approved",
+            "external_reference" => (string) $order["id"]
         ]);
 
         return response()->json([
             "init_point" => $preference->init_point
+        ]);
+    }
+
+    public function success(Request $request)
+    {
+        $paymentId = $request->query('payment_id');
+
+        // Consultar el pago directamente a la API de MP
+        MercadoPagoConfig::setAccessToken(config('services.mercadopago.token'));
+        
+        $client = new PaymentClient();
+        $payment = $client->get($paymentId); // ← datos reales de MP, no de la URL
+
+        // Verificar que realmente esté aprobado
+        if ($payment->status !== 'approved') {
+            return redirect()->route('failure');
+        }
+
+        // Usar external_reference del pago real, no de la URL
+        $order = Order::findOrFail($payment->external_reference);
+        
+        // Verificar que el monto coincida
+        $totalEsperado = $order->itemOrders->sum(fn($item) => $item->unit_price * $item->amount);
+        
+        if ($payment->transaction_amount != $totalEsperado) {
+            return redirect()->route('failure');
+        }
+
+        $order->update([
+            'state' => 'paid',
+        ]);
+
+       return inertia('Orders/Success', [
+            'order' => $order->load('itemOrders.product')
         ]);
     }
 }

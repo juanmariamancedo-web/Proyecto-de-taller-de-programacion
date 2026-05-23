@@ -17,10 +17,7 @@ createServer((page) => createInertiaApp({
 	page,
 	render: ReactDOMServer.renderToString,
 	title: (title) => `${title} - Mi App`,
-	resolve: (name) => resolvePageComponent(`./Pages/${name}.jsx`, /* @__PURE__ */ Object.assign({
-		"./Pages/QuienesSomos.jsx": () => import("./assets/QuienesSomos-BiX-7C_I.js"),
-		"./Pages/Welcome.jsx": () => import("./assets/Welcome-DcolNs1e.js")
-	})),
+	resolve: (name) => resolvePageComponent(`./Pages/${name}.jsx`, /* @__PURE__ */ Object.assign({})),
 	setup: ({ App, props }) => {
 		return /* @__PURE__ */ jsx(App, { ...props });
 	}
