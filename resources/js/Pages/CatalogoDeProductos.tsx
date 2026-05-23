@@ -78,7 +78,7 @@ export default function CatalogoDeProductos({ productos , paginas, pagina}: { pr
                             )
                         })}
                         <div className="col-span-1 sm:col-span-2">
-                            <Paginacion paginas={paginas} pagina={pagina} />
+                            <Paginacion paginas={paginas} pagina={pagina} dir="/catalogo" />
                         </div>
                     </section>
                 </ div>

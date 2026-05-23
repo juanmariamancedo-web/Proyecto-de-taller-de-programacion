@@ -1,6 +1,6 @@
-import AdminLayout from "../layouts/adminLayout";
+import AdminLayout from "../../layouts/adminLayout";
 import { Link } from "@inertiajs/react";
-import Producto from "../../models/Producto";
+import Producto from "../../../models/Producto";
 
 type Ordenes = {
     id: number,

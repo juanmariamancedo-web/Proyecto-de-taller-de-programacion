@@ -54,7 +54,7 @@ class DashboardController extends Controller
             ->get();
 
 
-        return Inertia::render("Admin", [
+        return Inertia::render("Admin/Admin", [
             "totalClients" => $totalClients,
             "totalPedidosPendientes" => $totalPedidosPendientes,
             "totalPedidosEntregados" => $totalPedidosEntregados,

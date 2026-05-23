@@ -82,4 +82,7 @@ Route::prefix('admin')
             return Inertia::render("AdminUsuarios");
         });
 
+        Route::get("/ordenes", [OrderController::class, "showOrders"]);
+
+        Route::put('/ordenes/{order}/entregar', [OrderController::class, 'entregar'])->name('admin.ordenes.entregar');
 });

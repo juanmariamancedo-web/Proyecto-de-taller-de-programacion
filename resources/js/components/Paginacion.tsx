@@ -1,6 +1,6 @@
 import { Link } from "@inertiajs/react";
 
-export default function Paginacion({ paginas, pagina }: { paginas: number, pagina : number }) {
+export default function Paginacion({ paginas, pagina, dir }: { paginas: number, pagina : number, dir: string }) {
     return (
         <div className="flex justify-center items-center gap-3">
             
@@ -8,7 +8,7 @@ export default function Paginacion({ paginas, pagina }: { paginas: number, pagin
             {pagina > 1 && 
                 <Link 
                 className="shadow-sm overflow-hidden hover:shadow-md transition grid-rows-subgrid rounded-xl bg-black/5 px-3 py-1.5 text-base text-gray-900 sm:text-sm/6 dark:bg-white/5 dark:text-white"
-                href={`/catalogo?page=1`} >
+                href={`${dir}?page=1`} >
                     1
                 </Link>
             }
@@ -19,7 +19,7 @@ export default function Paginacion({ paginas, pagina }: { paginas: number, pagin
             {pagina > 2 && 
                 <Link 
                     className="shadow-sm overflow-hidden hover:shadow-md transition grid-rows-subgrid rounded-xl bg-black/5 px-3 py-1.5 text-base text-gray-900 sm:text-sm/6 dark:bg-white/5 dark:text-white"
-                    href={`/catalogo?page=${pagina - 1}`} 
+                    href={`${dir}?page=${pagina - 1}`} 
                 >
                     {pagina - 1}
                 </Link>
@@ -31,7 +31,7 @@ export default function Paginacion({ paginas, pagina }: { paginas: number, pagin
             {pagina < paginas - 1 &&
                 <Link 
                     className="shadow-sm overflow-hidden hover:shadow-md transition grid-rows-subgrid rounded-xl bg-black/5 px-3 py-1.5 text-base text-gray-900 sm:text-sm/6 dark:bg-white/5 dark:text-white"
-                    href={`/catalogo?page=${pagina + 1}`}   
+                    href={`${dir}?page=${pagina + 1}`}   
                 >
                     {pagina + 1}
                 </Link>
@@ -43,7 +43,7 @@ export default function Paginacion({ paginas, pagina }: { paginas: number, pagin
             {pagina < paginas && 
                 <Link 
                     className="shadow-sm overflow-hidden hover:shadow-md transition grid-rows-subgrid rounded-xl bg-black/5 px-3 py-1.5 text-base text-gray-900 sm:text-sm/6 dark:bg-white/5 dark:text-white"
-                    href={`/catalogo?page=${paginas}`} >
+                    href={`${dir}?page=${paginas}`} >
                     {paginas}
                 </Link>
             }

@@ -1,9 +1,12 @@
+export type User = {
+    id: number,
+    name: string,
+    lastname: string,
+    email: string
+}
+
 export type Auth = {
-    user: {
-        id: number;
-        name: string;
-        email: string;
-    } | null;
+    user: User | null;
 }
 
 export type PageProps = {

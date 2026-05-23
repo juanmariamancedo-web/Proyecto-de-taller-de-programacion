@@ -95,4 +95,28 @@ class OrderController extends Controller
             'order' => $order->load('itemOrders.product')
         ]);
     }
+
+    public function showOrders(Request $request) {
+        $page = (int) $request->get('page', 1);
+        $limite = 6;
+
+        return Inertia::render("Admin/Ordenes", [
+            'ordenes' => Order::with(['itemOrders.product', 'user'])
+                ->offset(($page - 1) * $limite)
+                ->limit($limite)
+                ->get(),
+            'paginas' => ceil(Order::count() / $limite),
+            "pagina" => $page
+        ]);  
+    }
+
+    public function entregar(Order $order) {
+        if ($order->state !== 'paid') {
+            return back()->withErrors(['order' => 'La orden debe estar pagada para ser entregada.']);
+        }
+
+        $order->update(['state' => 'delivered']);
+
+        return back();
+    }
 }

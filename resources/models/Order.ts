@@ -1,3 +1,5 @@
+import { User } from "./Auth"
+
 export interface Product {
     id: number
     name: string
@@ -28,5 +30,6 @@ export interface Order {
     payment_id: string
     created_at: string
     updated_at: string
-    item_orders: ItemOrder[]
+    item_orders: ItemOrder[],
+    user: User
 }
