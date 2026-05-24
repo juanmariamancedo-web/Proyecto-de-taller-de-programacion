@@ -60,6 +60,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/perfil/password', function () {
         return Inertia::render('Password');
     });
+
+    Route::put('/perfil/password', [UsersController::class, 'updatePassword']);
 });
 
 Route::get('/catalogo', [ProductsController::class, "showProducts"]);

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 use Inertia\Inertia;
 
 
@@ -57,6 +58,24 @@ class UsersController extends Controller
         $user->cuil_cuit = $request->input("cuil_cuit");
 
         $user->save();
+
+        return back();
+    }
+
+    public function updatePassword(Request $request){
+        // $request->validate([
+        //     'actual_password'  => 'required',
+        //     'password'         => 'required|min:8',
+        //     'confirm_password' => 'required|same:password',
+        // ]);
+
+        if (!Hash::check($request->input('actual_password'), auth()->user()->password)) {
+            return back()->withErrors(['actual_password' => 'La contraseña actual es incorrecta']);
+        }
+
+        auth()->user()->update([
+            'password' => Hash::make($request->input('password'))
+        ]);
 
         return back();
     }

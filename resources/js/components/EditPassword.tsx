@@ -18,15 +18,15 @@ export default function EditPassword() {
         <form onSubmit={submit} className="space-y-6">
             {/* Actual password */}
             <div className="flex flex-col gap-2">
-                <label htmlFor="password" className="block text-sm font-medium text-gray-900 dark:text-gray-100">
+                <label htmlFor="actual_password" className="block text-sm font-medium text-gray-900 dark:text-gray-100">
                     Contraseña actual
                 </label>
 
                 <input
-                    id="password"
+                    id="actual_password"
                     type="password"
-                    value={data.password}
-                    onChange={e => setData('password', e.target.value)}
+                    value={data.actual_password}
+                    onChange={e => setData('actual_password', e.target.value)}
                     placeholder="password"
                     required
                     autoComplete="password"
@@ -63,7 +63,7 @@ export default function EditPassword() {
             {/* Confirm Password */}
             <div className="flex flex-col gap-2">
                 <div className="flex items-center justify-between">
-                    <label htmlFor="password" className="block text-sm font-medium text-gray-900 dark:text-gray-100">
+                    <label htmlFor="confirm_password" className="block text-sm font-medium text-gray-900 dark:text-gray-100">
                         Repite la nueva contraseña
                     </label>
 
@@ -73,13 +73,12 @@ export default function EditPassword() {
                 </div>
 
                 <input
-                    id="password"
+                    id="confirm_password"
                     type="password"
-                    value={data.password}
-                    onChange={e => setData('password', e.target.value)}
-                    placeholder="Password"
+                    value={data.confirm_password}
+                    onChange={e => setData('confirm_password', e.target.value)}
+                    placeholder="confirm password"
                     required
-                    autoComplete="current-password"
                     className="block w-full rounded-md bg-black/5 px-3 py-1.5 text-gray-900 outline-1 outline-gray-300 focus:outline-2 focus:outline-indigo-600 dark:bg-white/5 dark:text-white"
                 />
 
