@@ -146,7 +146,7 @@ export default function EditProfile({user} : {user: User}){
             </div>
 
             {/* Submit */}
-            <div className="col-span-full flex flex-col gap-3">
+            <div className="col-span-full flex flex-col items-center gap-3">
                 <button
                     type="submit"
                     disabled={processing}
@@ -154,6 +154,16 @@ export default function EditProfile({user} : {user: User}){
                 >
                     {processing ? "Enviando..." : "Editar"}
                 </button>
+            
+                <div className="w-full flex flex-col sm:flex-row justify-around items-center gap-3">
+                    <Link href="/perfil/password" className="w-full text-center bg-indigo-600 text-white py-2 rounded-md">
+                        Cambiar contraseña
+                    </Link>
+                    <Link href="/perfil/email" className="w-full text-center bg-indigo-600 text-white py-2 rounded-md">
+                        Cambiar email
+                    </Link>
+                </div>
+
             </div>
         </form>
     );

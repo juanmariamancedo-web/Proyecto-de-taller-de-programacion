@@ -1,8 +1,11 @@
 import { Head, Link } from "@inertiajs/react"
 import MainLayout from "../layouts/MainLayout"
 import ForgotPassword from "../components/ForgotPassword"
+import { usePage } from "@inertiajs/react";
 
 export default function showForgotPassword(){
+        const props = usePage().props as any;
+
         return (
             <>
                 <Head title="Recupere su cuenta" />
@@ -17,15 +20,17 @@ export default function showForgotPassword(){
                     <div className="sm:mx-auto sm:w-full sm:max-w-sm">
                         <ForgotPassword />   
                     </div>
-                        <p className="text-center text-sm/6 text-gray-500 dark:text-gray-400">
-                            ¿No eres un cliente registrado?{' '}
-                            <Link
-                                href="/registro-de-clientes"
-                                className="font-semibold text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300"
-                            >
-                                Registrate gratis!!!
-                            </Link>
-                        </p>
+                        {!props?.auth?.user && (
+                            <p className="text-center text-sm/6 text-gray-500 dark:text-gray-400">
+                                ¿No eres un cliente registrado?{' '}
+                                <Link
+                                    href="/registro-de-clientes"
+                                    className="font-semibold text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300"
+                                >
+                                    Registrate gratis!!!
+                                </Link>
+                            </p>
+                        )}
                     </div>
                 </ MainLayout>
             </>

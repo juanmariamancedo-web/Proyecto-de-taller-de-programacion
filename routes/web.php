@@ -39,14 +39,12 @@ Route::middleware(['guest'])->group(function () {
 
     Route::get('/formulario-de-login', [AuthController::class, "showLogin"])->name("login");
 
-    Route::post("/formulario-de-login", [AuthController::class, "login"]);
-
-    Route::get("/forgot-password", [AuthController::class, "showForgotPassword"]);
-
-    Route::post("/forgot-password", [AuthController::class, "showRequestForgottenPasswordCode"]);
-
-    Route::post("/requestForgottenPasswordCode", [AuthController::class, "requestForgottenPasswordCode"]);
+    Route::post("/formulario-de-login", [AuthController::class, "login"]); 
 });
+    
+Route::get("/forgot-password", [AuthController::class, "showForgotPassword"]);
+Route::post("/forgot-password", [AuthController::class, "showRequestForgottenPasswordCode"]);
+Route::post("/requestForgottenPasswordCode", [AuthController::class, "requestForgottenPasswordCode"]);
 
 Route::middleware(['auth'])->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
@@ -57,6 +55,11 @@ Route::middleware(['auth'])->group(function () {
     
     Route::get('/perfil', [UsersController::class, 'profile']);
     Route::put('/perfil', [UsersController::class, 'updateProfile']);
+
+    
+    Route::get('/perfil/password', function () {
+        return Inertia::render('Password');
+    });
 });
 
 Route::get('/catalogo', [ProductsController::class, "showProducts"]);

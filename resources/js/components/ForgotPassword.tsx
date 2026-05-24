@@ -1,8 +1,11 @@
-import { useForm } from "@inertiajs/react";
+import { useForm, usePage } from "@inertiajs/react";
+
 
 export default function ForgotPassword(){
+    const props = usePage().props as any;
+
     const { data, setData, post, processing, errors } = useForm({
-        email: '',
+        email: props?.auth?.user?.email as string,
     });
 
     const submit = (e : React.FormEvent<HTMLFormElement>) => {
@@ -27,6 +30,7 @@ export default function ForgotPassword(){
                     placeholder="Email"
                     required
                     autoComplete="email"
+                    disabled={props.auth.user !== null}
                     className="block w-full rounded-md bg-black/5 px-3 py-1.5 text-gray-900 outline-1 outline-gray-300 focus:outline-2 focus:outline-indigo-600 dark:bg-white/5 dark:text-white"
                 />
 
