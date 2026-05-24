@@ -5,6 +5,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\UsersController;
 
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -77,12 +78,11 @@ Route::prefix('admin')
 
         Route::post('/catalogo/{product}', [ProductsController::class, 'updateProduct'])->name('admin.catalogo.update');
        
-        Route::get("/usuarios", function(){
-            return Inertia::render("AdminUsuarios");
-        });
-
+        
         Route::get("/ordenes", [OrderController::class, "showOrders"]);
-
+        
         Route::put('/ordenes/{order}/entregar', [OrderController::class, 'entregar'])->name('admin.ordenes.entregar');
         
+        Route::get("/usuarios", [UsersController::class, "showUsers"]);
+        Route::put("/usuarios/{user}/cambiar-role", [UsersController::class, "changeRol"]);
 });
