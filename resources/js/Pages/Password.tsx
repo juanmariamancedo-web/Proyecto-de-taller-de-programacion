@@ -3,7 +3,7 @@ import MainLayout from "../layouts/MainLayout";
 import { Head } from "@inertiajs/react";
 import EditPassword from "../components/EditPassword";
 
-export default function Password({user} : {user : User}){
+export default function Password(){
     return(
         <>
             <Head title="Cambiar contraseña" />

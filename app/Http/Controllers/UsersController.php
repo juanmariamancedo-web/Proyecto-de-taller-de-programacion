@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\EmailVerificationCode;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Hash;
 use Inertia\Inertia;
-
+use App\Mail\RequestForgottenPasswordCode;
 
 class UsersController extends Controller
 {
@@ -78,5 +80,54 @@ class UsersController extends Controller
         ]);
 
         return back();
+    }
+
+    // Paso 1 — generar y enviar código
+    public function updateEmail(Request $request){
+        // $request->validate([
+        //     'email' => 'required|email|unique:users,email',
+        // ]);
+
+        $code = rand(100000, 999999);
+
+        EmailVerificationCode::Create(
+            [
+                'user_id' => auth()->id(),
+                'code'      => $code,
+                'new_email' => $request->input('email'),
+                'expires_at'=> now()->addMinutes(15),
+            ]
+        );
+
+        Mail::to(auth()->user()->email)->send(new RequestForgottenPasswordCode([
+            'name' => auth()->user()->name,
+            'email' => auth()->user()->email,
+            'code' => $code
+        ]));
+
+        return Inertia::render("ShowRequestEmailCode");
+    }
+
+    public function verifyEmail(Request $request){
+        $request->validate([
+            'code' => 'required|digits:6',
+        ]);
+
+        $verification = EmailVerificationCode::where('user_id', auth()->id())
+            ->where('code', $request->input('code'))
+            ->where('expires_at', '>=', now())
+            ->first();
+
+        if (!$verification) {
+            return back()->withErrors(['code' => 'Código inválido o expirado']);
+        }
+
+        $user = auth()->user();
+        $user->email = $verification->new_email;
+        $user->save();
+
+        $verification->delete();
+
+        return redirect('/perfil');
     }
 }

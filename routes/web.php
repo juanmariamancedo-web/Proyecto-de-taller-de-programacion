@@ -60,8 +60,15 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/perfil/password', function () {
         return Inertia::render('Password');
     });
-
     Route::put('/perfil/password', [UsersController::class, 'updatePassword']);
+
+    Route::get("/perfil/email", function () {
+        return Inertia::render("Email");
+    });
+
+    Route::post("/perfil/email", [UsersController::class, "updateEmail"]);
+    Route::post("/perfil/verify-email", [UsersController::class, "verifyEmail"]);
+
 });
 
 Route::get('/catalogo', [ProductsController::class, "showProducts"]);
