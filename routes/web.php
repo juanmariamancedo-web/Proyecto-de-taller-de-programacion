@@ -73,14 +73,11 @@ Route::prefix('admin')
         Route::get("/", [DashboardController::class, "index"]);
 
         Route::get("/catalogo", [ProductsController::class, "showProductAdmin"]);
-
         Route::post("/catalogo", [ProductsController::class, "newProduct"]);
-
-        Route::post('/catalogo/{product}', [ProductsController::class, 'updateProduct'])->name('admin.catalogo.update');
-       
+        Route::put('/catalogo/{product}', [ProductsController::class, 'updateProduct'])->name('admin.catalogo.update');
+        Route::delete('/catalogo/{product}', [ProductsController::class, 'destroyProduct'])->name('admin.catalogo.destroy');
         
         Route::get("/ordenes", [OrderController::class, "showOrders"]);
-        
         Route::put('/ordenes/{order}/entregar', [OrderController::class, 'entregar'])->name('admin.ordenes.entregar');
         
         Route::get("/usuarios", [UsersController::class, "showUsers"]);

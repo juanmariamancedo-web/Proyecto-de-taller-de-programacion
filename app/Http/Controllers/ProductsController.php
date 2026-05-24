@@ -55,7 +55,7 @@ class ProductsController extends Controller
 
         return Inertia::render('CatalogoDeProductos', [
             'productos' => Product::offset(($page - 1) * $limite)->limit($limite)->get(),
-            'paginas' => Product::count() / $limite,
+            'paginas' => ceil(Product::count() / $limite),
             "pagina" => $page
         ]);        
     }
@@ -66,7 +66,7 @@ class ProductsController extends Controller
 
         return Inertia::render('Admin/Catalogo', [
             'productos' => Product::offset(($page - 1) * $limite)->limit($limite)->get(),
-            'paginas' => Product::count() / $limite,
+            'paginas' => ceil(Product::count() / $limite),
             "pagina" => $page
         ]);  
     }
@@ -180,6 +180,11 @@ class ProductsController extends Controller
 
         $product->save();
 
+        return back();
+    }
+
+    public function destroyProduct(Product $product){
+        $product->delete();
         return back();
     }
 }

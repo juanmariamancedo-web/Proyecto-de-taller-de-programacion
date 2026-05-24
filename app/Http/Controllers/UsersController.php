@@ -15,7 +15,7 @@ class UsersController extends Controller
 
         return Inertia::render('Admin/Usuarios', [
             'usuarios' => User::offset(($page - 1) * $limite)->limit($limite)->get(),
-            'paginas' => User::count() / $limite,
+            'paginas' => ceil(User::count() / $limite),
             "pagina" => $page
         ]);   
     }

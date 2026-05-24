@@ -87,15 +87,12 @@ export function Header({pages, homeUrl} : {pages : Page[], homeUrl: string}){
                                             <LoginOut />
                                         </SwitchOpen>
                                     </li>
-                                    <li>
-                                        
+                                    <li className="hover:bg-black/10 dark:hover:bg-white/10 rounded-full transition flex justify-center items-center">
+                                        <SwitchOpen setOpen={setOpen}>
+                                            <ButtonOfDarkMode />
+                                        </SwitchOpen>
                                     </li>
                                 </div>
-                                <li className="hover:bg-black/10 dark:hover:bg-white/10 rounded-full transition flex justify-center items-center">
-                                    <SwitchOpen setOpen={setOpen}>
-                                        <ButtonOfDarkMode />
-                                    </SwitchOpen>
-                                </li>
                             </div>
                         </ul>
                     </div>

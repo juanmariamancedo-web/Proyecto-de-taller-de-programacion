@@ -18,7 +18,7 @@ export default function Catalogo({ productos, paginas, pagina }: {
     productos: Product[], paginas: number, pagina: number
 }) {
     const [editando, setEditando] = useState<Product | null>(null);
-    const { data, setData, post, processing, errors, reset } = useForm({
+    const { data, setData, post, put, processing, errors, reset } = useForm({
         name: '',
         price: 0,
         stock: 0,
@@ -43,7 +43,7 @@ export default function Catalogo({ productos, paginas, pagina }: {
         e.preventDefault();
 
         if (editando) {
-            post(`/admin/catalogo/${editando.id}`, {
+            put(`/admin/catalogo/${editando.id}`, {
                 preserveScroll: true,
                 forceFormData: true,
                 onSuccess: () => { setEditando(null); reset(); },
@@ -59,7 +59,7 @@ export default function Catalogo({ productos, paginas, pagina }: {
 
     function eliminar(id: number) {
         if (!confirm('¿Eliminar este producto?')) return;
-        router.delete(`/admin/productos/${id}`, { preserveScroll: true });
+        router.delete(`/admin/catalogo/${id}`, { preserveScroll: true });
     }
 
     const stockColor = (product: Product) => {
