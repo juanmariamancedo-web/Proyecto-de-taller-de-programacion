@@ -14,7 +14,7 @@ export default function AdminLayout({children}:{children: JSX.Element}){
         },
         {
             name: "Productos",
-            href: "/admin/productos"
+            href: "/admin/catalogo"
         },
         {
             name: "Ordenes",
@@ -30,7 +30,7 @@ export default function AdminLayout({children}:{children: JSX.Element}){
                     dark:bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"
                 ></div>
                 <Header pages={adminPages} homeUrl="/admin" />
-                <main className="container mx-auto pt-14">
+                <main className="container mx-auto pt-14 px-4 overflow-x-hidden">
                     {children}
                 </main>
                 

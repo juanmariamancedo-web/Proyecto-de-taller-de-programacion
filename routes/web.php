@@ -71,13 +71,12 @@ Route::prefix('admin')
 
         Route::get("/", [DashboardController::class, "index"]);
 
-        Route::get("/catalogo", function (){
-            return Inertia::render("AdminCatalogo");
-        });
+        Route::get("/catalogo", [ProductsController::class, "showProductAdmin"]);
 
-        Route::post("/catalogo/nuevo-producto", [ProductsController::class, "newProduct"]);
+        Route::post("/catalogo", [ProductsController::class, "newProduct"]);
 
-        Route::post("/catalogo/actualizar-producto", [ProductsController::class, "updateProduct"]);
+        Route::post('/catalogo/{product}', [ProductsController::class, 'updateProduct'])->name('admin.catalogo.update');
+       
         Route::get("/usuarios", function(){
             return Inertia::render("AdminUsuarios");
         });
@@ -85,4 +84,5 @@ Route::prefix('admin')
         Route::get("/ordenes", [OrderController::class, "showOrders"]);
 
         Route::put('/ordenes/{order}/entregar', [OrderController::class, 'entregar'])->name('admin.ordenes.entregar');
+        
 });

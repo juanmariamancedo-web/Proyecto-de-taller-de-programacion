@@ -1,15 +1,15 @@
 import { User } from "./Auth"
 
 export interface Product {
-    id: number
-    name: string
-    price: number
-    image: string
-    stock: number
-    is_active: boolean
-    low_stock: boolean
-    created_at: string | null
-    updated_at: string | null
+    id: number;
+    name: string;
+    price: number;
+    stock: number;
+    low_stock: number;
+    image: string;
+    is_active: boolean;
+    created_at: string;
+    updated_at: string;
 }
 
 export interface ItemOrder {

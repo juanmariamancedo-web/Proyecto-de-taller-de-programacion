@@ -12,7 +12,7 @@ class Product extends Model
         "name",
         "price",
         "stock",
-        "stock_low",
+        "low_stock",
         "image", 
         "is_active"
     ];

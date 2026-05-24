@@ -59,6 +59,17 @@ class ProductsController extends Controller
             "pagina" => $page
         ]);        
     }
+
+    function showProductAdmin(Request $request){
+        $page = (int) $request->get('page', 1);
+        $limite = 6;
+
+        return Inertia::render('Admin/Catalogo', [
+            'productos' => Product::offset(($page - 1) * $limite)->limit($limite)->get(),
+            'paginas' => Product::count() / $limite,
+            "pagina" => $page
+        ]);  
+    }
     
     // function obtenerProducto($name){
     //     foreach($this->productos as $producto){
@@ -84,25 +95,29 @@ class ProductsController extends Controller
     }
 
     public function newProduct(Request $request){
-        $request->validate([
-            'name' => [
-                'required',
-                'string',
-                'max:255',
-                Rule::unique('products', 'name')->ignore($product->id),
-            ],
-            'price' => 'required|numeric|min:0',
-            'stock' => 'required|integer|min:0',
-            'lowStock' => 'required|integer|min:0|lte:stock',
-            'imagen' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-        ]);
+        // Rule::unique('products', 'name')->ignore($product->id),
+        
+        // $request->validate([
+        //     'name' => [
+        //         'required',
+        //         'string',
+        //         'max:255'
+        //     ],
+        //     'price' => 'required|numeric|min:0',
+        //     'stock' => 'required|integer|min:0',
+        //     'lowStock' => 'required|integer|min:0|lte:stock',
+        //     'imagen' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+        // ]);
+
+        //  dd($request->all());
 
         $name = $request->input("name");
         $price = $request->input("price");
         $stock = $request->input("stock");
-        $lowStock = $request->input("low_tock");
+        $lowStock = $request->input("low_stock");
+        $is_active = $request->input("is_active");
         
-        $file = $request->file('imagen');
+        $file = $request->file('image');
 
         $cloudinary = new Cloudinary([
             'cloud' => [
@@ -116,44 +131,41 @@ class ProductsController extends Controller
 
         $url = $upload['secure_url'];
 
+
         Product::create([
             "name" => $name,
             "price" => $price,
             "stock" => $stock,
             "low_stock" => $lowStock,
+            "is_active" => $is_active,
             "image" => $url
         ]);
 
         return redirect('/catalogo/' . $name);
     }
 
-    public function updateProduct(Request $request, $id)
+    public function updateProduct(Request $request, Product $product)
     {
-        $product = Product::findOrFail($id);
+        // $request->validate([
+        //     'name' => [
+        //         'required',
+        //         'string',
+        //         'max:255',
+        //         // Rule::unique('products', 'name')->ignore($product->id),
+        //     ],
+        //     'price'     => 'required|numeric|min:0',
+        //     'stock'     => 'required|integer|min:0',
+        //     'low_stock' => 'required|integer|min:0',
+        //     'image'     => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+        // ]);
 
-        $request->validate([
-            'name' => [
-                'required',
-                'string',
-                'max:255',
-                Rule::unique('products', 'name')->ignore($product->id),
-            ],
-            'price' => 'required|numeric|min:0',
-            'stock' => 'required|integer|min:0',
-            'lowStock' => 'required|integer|min:0|lte:stock',
-            'imagen' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-        ]);
+        $product->name      = $request->input('name');
+        $product->price     = $request->input('price');
+        $product->stock     = $request->input('stock');
+        $product->low_stock = $request->input('low_stock');
+        $product->is_active = $request->boolean('is_active');
 
-        // Actualizar
-        $product->name = $request->input('name');
-        $product->price = $request->input('price');
-        $product->stock = $request->input('stock');
-        $product->low_stock = $request->input('lowStock');
-
-        // Si hay nueva imagen
-        if ($request->hasFile('imagen')) {
-            $file = $request->file('imagen');
-
+        if ($request->hasFile('image')) {
             $cloudinary = new Cloudinary([
                 'cloud' => [
                     'cloud_name' => env('CLOUDINARY_CLOUD_NAME'),
@@ -162,14 +174,12 @@ class ProductsController extends Controller
                 ],
             ]);
 
-            $upload = $cloudinary->uploadApi()->upload($file->getRealPath());
-
+            $upload = $cloudinary->uploadApi()->upload($request->file('image')->getRealPath());
             $product->image = $upload['secure_url'];
         }
 
-        // Guardar cambios
         $product->save();
 
-        return redirect('/catalogo/' . $product->name);
+        return back();
     }
 }
