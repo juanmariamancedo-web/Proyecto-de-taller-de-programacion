@@ -81,48 +81,70 @@ export default function Catalogo({ productos, paginas, pagina }: {
                         {editando ? `Editando: ${editando.name}` : 'Nuevo producto'}
                     </h2>
 
-                    <div className="grid grid-cols-2 gap-3">
-                        <input
-                            placeholder="Nombre"
-                            value={data.name}
-                            onChange={e => setData('name', e.target.value)}
-                            className="col-span-2 border rounded-lg px-3 py-2 text-sm dark:bg-white/5 dark:text-white"
-                        />
-                        <input
-                            type="number" placeholder="Precio"
-                            value={data.price}
-                            onChange={e => setData('price', Number(e.target.value))}
-                            className="border rounded-lg px-3 py-2 text-sm dark:bg-white/5 dark:text-white"
-                        />
-                        <input
-                            type="number" placeholder="Stock"
-                            value={data.stock}
-                            onChange={e => setData('stock', Number(e.target.value))}
-                            className="border rounded-lg px-3 py-2 text-sm dark:bg-white/5 dark:text-white"
-                        />
-                        <input
-                            type="number" placeholder="Stock mínimo (alerta)"
-                            value={data.low_stock}
-                            onChange={e => setData('low_stock', Number(e.target.value))}
-                            className="border rounded-lg px-3 py-2 text-sm dark:bg-white/5 dark:text-white"
-                        />
-                        <label className="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300 cursor-pointer">
-                            <input
-                                type="checkbox"
-                                checked={data.is_active}
-                                onChange={e => setData('is_active', e.target.checked)}
-                            />
-                            Producto activo
-                        </label>
-                        <div className="col-span-2">
-                            <label className="text-xs text-gray-500 dark:text-gray-400 mb-1 block">
-                                {editando ? 'Nueva imagen (opcional)' : 'Imagen'}
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        <div className="col-span-1 sm:col-span-3 flex flex-col gap-2">
+                            <label htmlFor="nombre" className="block text-sm font-medium text-gray-900 dark:text-gray-100">
+                                Nombre
                             </label>
                             <input
-                                type="file" accept="image/*"
-                                onChange={e => setData('image', e.target.files?.[0] ?? null)}
-                                className="text-sm text-gray-700 dark:text-gray-300"
+                                placeholder="Nombre"
+                                value={data.name}
+                                onChange={e => setData('name', e.target.value)}
+                                className="block w-full rounded-md bg-black/5 px-3 py-1.5 text-gray-900 outline-1 outline-gray-300 focus:outline-2 focus:outline-indigo-600 dark:bg-white/5 dark:text-white"
                             />
+                        </div>
+                        <div className="flex flex-col gap-2">
+                            <label htmlFor="price" className="block text-sm font-medium text-gray-900 dark:text-gray-100">
+                                Precio
+                            </label>
+                            <input
+                                type="number" placeholder="Precio"
+                                value={data.price}
+                                onChange={e => setData('price', Number(e.target.value))}
+                                className="block w-full rounded-md bg-black/5 px-3 py-1.5 text-gray-900 outline-1 outline-gray-300 focus:outline-2 focus:outline-indigo-600 dark:bg-white/5 dark:text-white"
+                            />
+                        </div>
+                        <div className="flex flex-col gap-2">
+                            <label htmlFor="stock" className="block text-sm font-medium text-gray-900 dark:text-gray-100">
+                                Stock
+                            </label>
+                            <input
+                                type="number" placeholder="Stock"
+                                value={data.stock}
+                                onChange={e => setData('stock', Number(e.target.value))}
+                                className="block w-full rounded-md bg-black/5 px-3 py-1.5 text-gray-900 outline-1 outline-gray-300 focus:outline-2 focus:outline-indigo-600 dark:bg-white/5 dark:text-white"
+                            />
+                        </div>
+                        <div className="flex flex-col gap-2">
+                            <label htmlFor="low_stock" className="block text-sm font-medium text-gray-900 dark:text-gray-100">
+                                Low Stock
+                            </label>
+                            <input
+                                type="number" placeholder="Stock mínimo (alerta)"
+                                value={data.low_stock}
+                                onChange={e => setData('low_stock', Number(e.target.value))}
+                                className="block w-full rounded-md bg-black/5 px-3 py-1.5 text-gray-900 outline-1 outline-gray-300 focus:outline-2 focus:outline-indigo-600 dark:bg-white/5 dark:text-white"
+                            />
+                        </div>
+                        <div className="col-span-1 sm:col-span-3 flex flex-col justify-between items-center sm:flex-row gap-2">
+                            <label className="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300 cursor-pointer">
+                                <input
+                                    type="checkbox"
+                                    checked={data.is_active}
+                                    onChange={e => setData('is_active', e.target.checked)}
+                                />
+                                Producto activo
+                            </label>
+                            <div className="col-span-2">
+                                <label className="text-xs text-gray-500 dark:text-gray-400 mb-1 block">
+                                    {editando ? 'Nueva imagen (opcional)' : 'Imagen'}
+                                </label>
+                                <input
+                                    type="file" accept="image/*"
+                                    onChange={e => setData('image', e.target.files?.[0] ?? null)}
+                                    className="text-sm text-gray-700 dark:text-gray-300"
+                                />
+                            </div>
                         </div>
                     </div>
 
@@ -130,7 +152,7 @@ export default function Catalogo({ productos, paginas, pagina }: {
                         <button
                             type="submit"
                             disabled={processing}
-                            className="px-4 py-2 text-sm bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition disabled:opacity-50">
+                            className="w-full rounded-md bg-indigo-600 p-2 text-white font-semibold hover:bg-indigo-500 disabled:opacity-50">
                             {processing ? 'Guardando...' : editando ? 'Guardar cambios' : 'Crear producto'}
                         </button>
                         {editando && (
