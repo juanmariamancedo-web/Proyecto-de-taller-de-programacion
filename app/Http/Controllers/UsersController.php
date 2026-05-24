@@ -28,4 +28,36 @@ class UsersController extends Controller
 
         return back();
     }
+
+    public function profile(){
+        return Inertia::render('Perfil', [
+            'user' => auth()->user()
+        ]);
+    }
+
+    public function updateProfile(Request $request){
+        $user = auth()->user();
+
+        // $request->validate([
+        //     'nombre'       => 'required|string|max:255',
+        //     'apellido'     => 'required|string|max:255',
+        //     'email'        => 'required|email|unique:users,email,' . $user->id,
+        //     'ciudad'       => 'nullable|string|max:255',
+        //     'provincia'    => 'nullable|string|max:255',
+        //     'codigoPostal' => 'nullable|string|max:20',
+        //     'cuil_cuit'    => 'nullable|string|max:20',
+        // ]);
+
+        $user->name = $request->input('nombre');
+        $user->lastname = $request->input("apellido");
+        $user->email = $request->input("email");
+        $user->city = $request->input("ciudad");
+        $user->province = $request->input("provincia");
+        $user->postcode = $request->input("codigoPostal");
+        $user->cuil_cuit = $request->input("cuil_cuit");
+
+        $user->save();
+
+        return back();
+    }
 }

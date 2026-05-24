@@ -52,9 +52,11 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
     Route::post("/crear-orden", [OrderController::class, "createOrder"]);
-
+    
     Route::get('/success', [OrderController::class, 'success']);
-
+    
+    Route::get('/perfil', [UsersController::class, 'profile']);
+    Route::put('/perfil', [UsersController::class, 'updateProfile']);
 });
 
 Route::get('/catalogo', [ProductsController::class, "showProducts"]);

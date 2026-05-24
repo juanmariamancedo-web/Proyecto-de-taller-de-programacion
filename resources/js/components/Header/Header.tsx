@@ -5,9 +5,14 @@ import Home from "../icons/HomeIcon";
 import { Link } from "@inertiajs/react";
 import LoginOut from "./LoginOut";
 import { Page } from "../../../models/Page";
+import { usePage } from "@inertiajs/react";
+import ProfileIcon from "../icons/ProfileIcon";
 
 export function Header({pages, homeUrl} : {pages : Page[], homeUrl: string}){
     const [open, setOpen] = useState(false)
+
+    const props = usePage().props as any;
+    
 
     useEffect(()=>{
         const mql = window.matchMedia("(max-width: 768px)");
@@ -92,6 +97,14 @@ export function Header({pages, homeUrl} : {pages : Page[], homeUrl: string}){
                                             <ButtonOfDarkMode />
                                         </SwitchOpen>
                                     </li>
+
+                                    {props.auth.user && (
+                                        <li>
+                                            <Link href="/perfil">
+                                                <ProfileIcon />
+                                            </Link>
+                                        </li>
+                                    )}
                                 </div>
                             </div>
                         </ul>
