@@ -7,7 +7,8 @@ export type User = {
     role: string,
     province: string,
     city: string,
-    postcode: number
+    postcode: number,
+    is_banned: boolean
 }
 
 export type Auth = {

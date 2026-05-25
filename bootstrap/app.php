@@ -19,7 +19,8 @@ return Application::configure(basePath: dirname(__DIR__))
     $middleware->alias([
         'admin' => \App\Http\Middleware\AdminMiddleware::class,
         "auth" => \Illuminate\Auth\Middleware\Authenticate::class,
-        'verified.email' => \App\Http\Middleware\EnsureEmailIsVerified::class
+        'verified.email' => \App\Http\Middleware\EnsureEmailIsVerified::class,
+        'not.banned' => \App\Http\Middleware\EnsureUserIsNotBanned::class
     ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

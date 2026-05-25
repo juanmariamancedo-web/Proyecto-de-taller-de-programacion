@@ -129,4 +129,10 @@ class UsersController extends Controller
 
         return redirect('/perfil');
     }
+
+    public function toggleBan(User $user){
+        $user->is_banned = !$user->is_banned;
+        $user->save();
+        return back();
+    }
 }

@@ -2,6 +2,7 @@ import Paginacion from "../../components/Paginacion";
 import AdminLayout from "../../layouts/adminLayout";
 import { User } from "../../../models/Auth";
 import CambiarRole from "../../components/Admin/CambiarRol";
+import BannearUsuario from "../../components/Admin/BannearUsuario";
 
 export default function Usuarios({pagina , paginas, usuarios} : {pagina: number, paginas : number, usuarios: User[]}){
     return(
@@ -19,8 +20,10 @@ export default function Usuarios({pagina , paginas, usuarios} : {pagina: number,
                                         <th className="px-4 py-3">Provincia</th>
                                         <th className="px-4 py-3">Ciudad</th>
                                         <th className="px-4 py-3">Código postal</th>
-                                        <th className="px-4 py-3">Rol</th>
-                                        <th className="px-4 py-3">Acciones</th>
+                                        <th className="px-4 py-3">Rol</th>        
+                                        <th className="px-4 py-3">Acción rol</th> 
+                                        <th className="px-4 py-3">Estado</th>     
+                                        <th className="px-4 py-3">Acción</th>     
                                     </tr>
                                 </thead>
             
@@ -58,7 +61,7 @@ export default function Usuarios({pagina , paginas, usuarios} : {pagina: number,
                                                         </td>
                                                         <CambiarRole user={user} />
 
-                                                        {/* <EntregarOrden order={order} /> */}
+                                                        <BannearUsuario user={user} />
                                                     </tr>
                                                 )
                                             }

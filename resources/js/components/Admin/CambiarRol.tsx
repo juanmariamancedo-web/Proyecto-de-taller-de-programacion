@@ -31,7 +31,7 @@ export default function CambiarRole({user} : {user : User}){
                     onClick={cambiarRol}
                     className="px-3 py-1 text-xs font-semibold rounded-lg bg-blue-600 hover:bg-blue-700 text-white transition"
                 >
-                    Cambiar rol
+                    {role == 'admin'? "Descender" : "Ascender"}
                 </button>
             </td>
         </>

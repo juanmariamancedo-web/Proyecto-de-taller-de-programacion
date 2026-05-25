@@ -1,0 +1,41 @@
+import { useState } from "react";
+import { router } from "@inertiajs/react";
+import { User } from "../../../models/Auth";
+
+export default function BannearUsuario({ user }: { user: User }) {
+    const [banned, setBanned] = useState(user.is_banned);
+
+    function toggleBan() {
+        router.put(`/admin/usuarios/${user.id}/ban`, {}, {
+            preserveScroll: true,
+            onSuccess: () => setBanned(prev => !prev),
+            onError: (errors) => alert(errors.user)
+        });
+    }
+
+    return (
+        <>
+            <td className="px-4 py-3">
+                <span className={`px-2 py-1 rounded-full text-xs font-semibold ${
+                        banned
+                            ? "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400"
+                            : "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400"
+                    }`}>
+                        {banned ? 'Baneado' : 'Activo'}
+                    </span>
+            </td>
+            <td className="px-4 py-3">
+                <button
+                    onClick={toggleBan}
+                    className={`px-3 py-1 text-xs font-semibold rounded-lg text-white transition ${
+                        banned
+                            ? 'bg-red-500 hover:bg-red-600'
+                            : 'bg-green-600 hover:bg-green-700'
+                    }`}
+                >
+                    {banned ? 'Despenalizar' : 'Penalizar'}
+                </button>
+            </td>
+        </>
+    );
+}

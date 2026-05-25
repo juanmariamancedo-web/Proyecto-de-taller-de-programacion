@@ -46,7 +46,7 @@ Route::get("/forgot-password", [AuthController::class, "showForgotPassword"]);
 Route::post("/forgot-password", [AuthController::class, "showRequestForgottenPasswordCode"]);
 Route::post("/requestForgottenPasswordCode", [AuthController::class, "requestForgottenPasswordCode"]);
 
-Route::middleware(['auth', 'verified.email'])->group(function () {
+Route::middleware(['auth', 'not.banned', 'verified.email'])->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
     Route::post("/crear-orden", [OrderController::class, "createOrder"]);
@@ -71,7 +71,7 @@ Route::middleware(['auth', 'verified.email'])->group(function () {
 
 });
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'not.banned'])->group(function () {
     Route::get('/verificar-cuenta', fn() => Inertia::render('ShowVerifyAccount'));
     Route::post('/verificar-cuenta', [AuthController::class, 'verifyRegister']);
     Route::post('/verificar-cuenta/reenviar', [AuthController::class, 'resendVerifyCode']);
@@ -83,7 +83,7 @@ Route::get("/catalogo/{name}", [ProductsController::class, "showProduct"]);
 
 
 Route::prefix('admin')
-    ->middleware(['auth', 'admin'])
+    ->middleware(['auth', 'not.banned', 'verified.email', 'admin'])
     ->group(function () {
 
         // Route::get('/', function () {
@@ -102,4 +102,5 @@ Route::prefix('admin')
         
         Route::get("/usuarios", [UsersController::class, "showUsers"]);
         Route::put("/usuarios/{user}/cambiar-role", [UsersController::class, "changeRol"]);
+        Route::put('/usuarios/{user}/ban', [UsersController::class, 'toggleBan']);
 });

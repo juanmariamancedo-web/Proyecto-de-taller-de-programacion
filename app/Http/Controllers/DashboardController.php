@@ -14,8 +14,8 @@ class DashboardController extends Controller
 {
     public function index(){
         $totalClients  = User::where("role", "client")->Count();
-        $totalPedidosPendientes = Order::where("state", "pending payment")->count();
-        $totalPedidosEntregados = Order::where("state", "selfless")->count();
+        $totalPedidosPendientes = Order::where("state", "paid")->count();
+        $totalPedidosEntregados = Order::where("state", "delivered")->count();
         $ultimasOrdenes = Order::with(['user', 'itemOrders'])
             ->latest()
             ->take(5)
@@ -29,12 +29,12 @@ class DashboardController extends Controller
 
         $totalRevenue = DB::table('item_orders')
             ->join('orders', 'item_orders.order_id', '=', 'orders.id')
-            ->where('orders.state', 'selfless')
+            ->where('orders.state', 'paid')
             ->select(DB::raw('SUM(item_orders.amount * item_orders.unit_price) as total'))
             ->value('total');
 
         $totalOrders = DB::table('orders')
-            ->where('state', 'selfless')
+            ->where('state', 'paid')
             ->count();
 
         $averageTicket = $totalOrders > 0 ? $totalRevenue / $totalOrders : 0;
