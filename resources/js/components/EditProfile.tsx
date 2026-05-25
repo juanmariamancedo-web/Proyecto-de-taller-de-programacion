@@ -59,43 +59,9 @@ export default function EditProfile({user} : {user: User}){
                 {errors.apellido && <p className="text-red-500 text-sm">{errors.apellido}</p>}
             </div>
 
-            {/* Email */}
-            <div className="col-span-full sm:col-span-4">
-                <label className="block text-sm font-medium text-gray-900 dark:text-gray-100 pb-2" htmlFor="email">
-                    Email
-                </label>
-                <input
-                    type="email"
-                    value={data.email}
-                    name="email"
-                    id="email"
-                    placeholder="Email"
-                    required
-                    onChange={e => setData('email', e.target.value)}
-                    className="block w-full rounded-md bg-black/5 px-3 py-1.5 text-gray-900 outline-1 outline-gray-300 focus:outline-2 focus:outline-indigo-600 dark:bg-white/5 dark:text-white"
-                />
-                {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
-            </div>
-
-            {/* Cuit/Cuil */}
-            <div className="col-span-full sm:col-span-2">
-                <label className="block text-sm font-medium text-gray-900 dark:text-gray-100 pb-2" htmlFor="nombre">
-                    Cuit / Cuil
-                </label>
-                <input
-                    type="text"
-                    name="cuil_cuit"
-                    id="cuil_cuit"
-                    required
-                    placeholder="cuil/cuit"
-                    value={data.cuil_cuit}
-                    onChange={e => setData("cuil_cuit", parseInt(e.target.value))}
-                    className="block w-full rounded-md bg-black/5 px-3 py-1.5 text-gray-900 outline-1 outline-gray-300 focus:outline-2 focus:outline-indigo-600 dark:bg-white/5 dark:text-white"
-                />
-            </div>
 
             {/* Ciudad */}
-            <div className="col-span-3 sm:col-span-2">
+            <div className="col-span-full sm:col-span-3">
                 <label className="block text-sm font-medium text-gray-900 dark:text-gray-100 pb-2" htmlFor="ciudad">
                     Ciudad
                 </label>
@@ -109,10 +75,11 @@ export default function EditProfile({user} : {user: User}){
                     onChange={e => setData('ciudad', e.target.value)}
                     className="block w-full rounded-md bg-black/5 px-3 py-1.5 text-gray-900 outline-1 outline-gray-300 focus:outline-2 focus:outline-indigo-600 dark:bg-white/5 dark:text-white"
                 />
+                {errors.ciudad && <p className="text-red-500 text-sm">{errors.ciudad}</p>}
             </div>
 
             {/* Provincia */}
-            <div className="col-span-3 sm:col-span-2">
+            <div className="col-span-full sm:col-span-3">
                 <label className="block text-sm font-medium text-gray-900 dark:text-gray-100 pb-2" htmlFor="provincia">
                     Provincia
                 </label>
@@ -126,8 +93,26 @@ export default function EditProfile({user} : {user: User}){
                     onChange={e => setData('provincia', e.target.value)}
                     className="block w-full rounded-md bg-black/5 px-3 py-1.5 text-gray-900 outline-1 outline-gray-300 focus:outline-2 focus:outline-indigo-600 dark:bg-white/5 dark:text-white"
                 />
+                {errors.provincia && <p className="text-red-500 text-sm">{errors.provincia}</p>}
             </div>
 
+            {/* Cuit/Cuil */}
+            <div className="col-span-full sm:col-span-4">
+                <label className="block text-sm font-medium text-gray-900 dark:text-gray-100 pb-2" htmlFor="nombre">
+                    Cuit / Cuil
+                </label>
+                <input
+                    type="number"
+                    name="cuil_cuit"
+                    id="cuil_cuit"
+                    required
+                    placeholder="cuil/cuit"
+                    value={data.cuil_cuit}
+                    onChange={e => setData("cuil_cuit", parseInt(e.target.value))}
+                    className="block w-full rounded-md bg-black/5 px-3 py-1.5 text-gray-900 outline-1 outline-gray-300 focus:outline-2 focus:outline-indigo-600 dark:bg-white/5 dark:text-white"
+                />
+                {errors.cuil_cuit && <p className="text-red-500 text-sm">{errors.cuil_cuit}</p>}
+            </div>
             {/* Código Postal */}
             <div className="col-span-full sm:col-span-2">
                 <label className="block text-sm font-medium text-gray-900 dark:text-gray-100 pb-2" htmlFor="codigoPostal">
@@ -143,6 +128,7 @@ export default function EditProfile({user} : {user: User}){
                     onChange={e => setData('codigoPostal', parseInt(e.target.value))}
                     className="block w-full rounded-md bg-black/5 px-3 py-1.5 text-gray-900 outline-1 outline-gray-300 focus:outline-2 focus:outline-indigo-600 dark:bg-white/5 dark:text-white"
                 />
+                {errors.codigoPostal && <p className="text-red-500 text-sm">{errors.codigoPostal}</p>}
             </div>
 
             {/* Submit */}
@@ -154,7 +140,6 @@ export default function EditProfile({user} : {user: User}){
                 >
                     {processing ? "Enviando..." : "Editar"}
                 </button>
-            
                 <div className="w-full flex flex-col sm:flex-row justify-around items-center gap-3">
                     <Link href="/perfil/password" className="w-full text-center bg-indigo-600 text-white py-2 rounded-md">
                         Cambiar contraseña

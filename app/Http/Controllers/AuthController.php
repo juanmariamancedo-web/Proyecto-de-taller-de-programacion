@@ -27,6 +27,11 @@ class AuthController extends Controller
     }
 
     public function login(Request $request) {
+        $request->validate([
+            'email'    => 'required|email',
+            'password' => 'required',
+        ]);
+
         if (Auth::attempt([
             'email' => $request->email,
             'password' => $request->password
@@ -34,7 +39,7 @@ class AuthController extends Controller
             return redirect('/catalogo');
         }
         
-        return back()->with('error', 'Credenciales incorrectas');
+        return back()->withErrors(['email' => 'Credenciales incorrectas']);
     }
 
     public function logout(Request $request)
@@ -55,9 +60,9 @@ class AuthController extends Controller
         $request->validate([
             'nombre'      => 'required|string|max:255',
             'apellido'    => 'required|string|max:255',
-            'email'       => 'required|email|unique:users',
+            'email'       => 'required|email|unique:users,email',
             'password'    => 'required|min:6|confirmed',
-            'cuil_cuit'   => 'required|string|max:20',
+            'cuil_cuit'   => 'required|string|max:20|unique:users,cuil_cuit',
             'ciudad'      => 'required|string|max:255',
             'provincia'   => 'required|string|max:255',
             'codigoPostal'=> 'required|string|max:10',
@@ -96,9 +101,9 @@ class AuthController extends Controller
     }
 
     public function verifyRegister(Request $request){
-        // $request->validate([
-        //     'code' => 'required|digits:6',
-        // ]);
+        $request->validate([
+            'code' => 'required|digits:6',
+        ]);
 
         $verification = EmailVerificationCode::where('user_id', auth()->id())
             ->where('code', $request->input('code'))
