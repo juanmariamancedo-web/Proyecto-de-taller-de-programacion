@@ -7,6 +7,7 @@ import LoginOut from "./LoginOut";
 import { Page } from "../../../models/Page";
 import { usePage } from "@inertiajs/react";
 import ProfileIcon from "../icons/ProfileIcon";
+import TogglePanel from "./TogglePanel";
 
 export function Header({pages, homeUrl} : {pages : Page[], homeUrl: string}){
     const [open, setOpen] = useState(false)
@@ -77,6 +78,8 @@ export function Header({pages, homeUrl} : {pages : Page[], homeUrl: string}){
                                         </li>
                                     )
                                 })}
+
+                                <TogglePanel setOpen={setOpen} />
                             </div>
                             <div className="flex flex-col lg:flex-row items-center justify-center gap-3">
                                 <div className="flex flex-row items-center justify-center gap-3">
