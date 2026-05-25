@@ -82,7 +82,6 @@ class UsersController extends Controller
         return back();
     }
 
-    // Paso 1 — generar y enviar código
     public function updateEmail(Request $request){
         // $request->validate([
         //     'email' => 'required|email|unique:users,email',

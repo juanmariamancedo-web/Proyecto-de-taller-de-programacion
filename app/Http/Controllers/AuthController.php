@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\PasswordReset;
+use App\Models\EmailVerificationCode;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\RequestForgottenPasswordCode;
 
@@ -51,34 +52,88 @@ class AuthController extends Controller
     }
 
     public function register(Request $request) {
-        $email = $request->input("email");
-        $password = $request->input("password");
-        $name = $request->input("nombre");
-        $postcode = $request->input("codigoPostal");
-        $lastname = $request->input("apellido");
-        $city = $request->input("ciudad");
-        $province = $request->input("provincia");
-        $postcode = $request->input("codigoPostal");
-        $cuilCuit = $request->input("cuil_cuit");
-
         $request->validate([
-            'nombre' => 'required',
-            'email' => 'required|email|unique:users',
+            'nombre'   => 'required',
+            'email'    => 'required|email|unique:users',
             'password' => 'required|min:6',
         ]);
 
-        User::create([  
-            "email" => $email,
-            "password" => Hash::Make($password),
-            "name" => $name,
-            "lastname" => $lastname,
-            "city" => $city,
-            "province" => $province,
-            "postcode" => $postcode,
-            "cuil_cuit" => $cuilCuit
+        $user = User::create([  
+            "email"     => $request->input("email"),
+            "password"  => Hash::make($request->input("password")),
+            "name"      => $request->input("nombre"),
+            "lastname"  => $request->input("apellido"),
+            "city"      => $request->input("ciudad"),
+            "province"  => $request->input("provincia"),
+            "postcode"  => $request->input("codigoPostal"),
+            "cuil_cuit" => $request->input("cuil_cuit"),
+            "role"      => "unverified",
         ]);
 
-        return Inertia::render('SuccessRegister');
+        $code = random_int(100000, 999999);
+
+        EmailVerificationCode::create([
+            "user_id"    => $user->id,
+            "new_email"  => $user->email,
+            "code"       => $code,
+            "expires_at" => now()->addMinutes(15),
+        ]);
+
+        Mail::to($user->email)->send(new RequestForgottenPasswordCode([
+            'email' => $user->email,
+            'name' => $user->name,
+            'code' => $code,
+        ]));
+
+        Auth::login($user);
+
+        return redirect('/verificar-cuenta');
+    }
+
+    public function verifyRegister(Request $request){
+        // $request->validate([
+        //     'code' => 'required|digits:6',
+        // ]);
+
+        $verification = EmailVerificationCode::where('user_id', auth()->id())
+            ->where('code', $request->input('code'))
+            ->where('expires_at', '>=', now())
+            ->first();
+
+        if (!$verification) {
+            return back()->withErrors(['code' => 'Código inválido o expirado']);
+        }
+
+        $user = auth()->user();
+        $user->role = 'client';
+        $user->save();
+
+        $verification->delete();
+
+        return redirect('/catalogo');
+    }
+
+    public function resendVerifyCode(){
+        $user = auth()->user();
+
+        EmailVerificationCode::where('user_id', $user->id)->delete();
+
+        $code = random_int(100000, 999999);
+
+        EmailVerificationCode::create([
+            "user_id"    => $user->id,
+            "new_email"  => $user->email,
+            "code"       => $code,
+            "expires_at" => now()->addMinutes(15),
+        ]);
+
+        Mail::to($user->email)->send(new RequestForgottenPasswordCode([
+            'email' => $user->email,
+            'name' => $user->name,
+            'code' => $code,
+        ]));
+
+        return back();
     }
 
     public function showForgotPassword(){

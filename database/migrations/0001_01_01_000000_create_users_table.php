@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string("lastname");
             $table->string('cuil_cuit', 20)->unique();
             $table->string('email')->unique();
-            $table->enum("role", ["client", "admin"]);
+            $table->enum("role", ["client", "admin", "unverified"]);
             $table->string('password');
             $table->string("city");
             $table->string("province");

@@ -46,7 +46,7 @@ Route::get("/forgot-password", [AuthController::class, "showForgotPassword"]);
 Route::post("/forgot-password", [AuthController::class, "showRequestForgottenPasswordCode"]);
 Route::post("/requestForgottenPasswordCode", [AuthController::class, "requestForgottenPasswordCode"]);
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'verified.email'])->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
     Route::post("/crear-orden", [OrderController::class, "createOrder"]);
@@ -69,6 +69,12 @@ Route::middleware(['auth'])->group(function () {
     Route::post("/perfil/email", [UsersController::class, "updateEmail"]);
     Route::post("/perfil/verify-email", [UsersController::class, "verifyEmail"]);
 
+});
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/verificar-cuenta', fn() => Inertia::render('ShowVerifyAccount'));
+    Route::post('/verificar-cuenta', [AuthController::class, 'verifyRegister']);
+    Route::post('/verificar-cuenta/reenviar', [AuthController::class, 'resendVerifyCode']);
 });
 
 Route::get('/catalogo', [ProductsController::class, "showProducts"]);
