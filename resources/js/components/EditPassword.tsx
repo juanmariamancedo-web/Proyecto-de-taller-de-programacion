@@ -5,7 +5,7 @@ export default function EditPassword() {
     const { data, setData, put, processing, errors } = useForm({
         actual_password: '',
         password: '',
-        confirm_password: '',
+        password_confirmation: '',
     });
 
     const submit = (e : React.FormEvent<HTMLFormElement>) => {
@@ -33,8 +33,8 @@ export default function EditPassword() {
                     className="block w-full rounded-md bg-black/5 px-3 py-1.5 text-gray-900 outline-1 outline-gray-300 focus:outline-2 focus:outline-indigo-600 dark:bg-white/5 dark:text-white"
                 />
 
-                {errors.password && (
-                    <div className="text-red-500 text-sm">{errors.password}</div>
+                {errors.actual_password && (
+                    <div className="text-red-500 text-sm">{errors.actual_password}</div>
                 )}
             </div>
 
@@ -75,15 +75,15 @@ export default function EditPassword() {
                 <input
                     id="confirm_password"
                     type="password"
-                    value={data.confirm_password}
-                    onChange={e => setData('confirm_password', e.target.value)}
+                    value={data.password_confirmation}
+                    onChange={e => setData('password_confirmation', e.target.value)}
                     placeholder="confirm password"
                     required
                     className="block w-full rounded-md bg-black/5 px-3 py-1.5 text-gray-900 outline-1 outline-gray-300 focus:outline-2 focus:outline-indigo-600 dark:bg-white/5 dark:text-white"
                 />
 
-                {errors.password && (
-                    <div className="text-red-500 text-sm">{errors.password}</div>
+                {errors.password_confirmation && (
+                    <div className="text-red-500 text-sm">{errors.password_confirmation}</div>
                 )}
             </div>
 

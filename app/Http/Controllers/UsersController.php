@@ -64,12 +64,11 @@ class UsersController extends Controller
     }
 
     public function updatePassword(Request $request){
-        // $request->validate([
-        //     'actual_password'  => 'required',
-        //     'password'         => 'required|min:8',
-        //     'confirm_password' => 'required|same:password',
-        // ]);
-
+        $request->validate([
+            'actual_password' => 'required',
+            'password'        => 'required|min:6|confirmed',
+        ]);
+        
         if (!Hash::check($request->input('actual_password'), auth()->user()->password)) {
             return back()->withErrors(['actual_password' => 'La contraseña actual es incorrecta']);
         }
