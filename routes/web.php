@@ -51,7 +51,9 @@ Route::middleware(['auth', 'not.banned', 'verified.email'])->group(function () {
 
     Route::post("/crear-orden", [OrderController::class, "createOrder"]);
     
-    Route::get('/success', [OrderController::class, 'success']);
+    Route::get('/success', [OrderController::class, 'success']);    
+    Route::get('/failure', fn() => redirect('/catalogo')->with('error', 'El pago falló, intentá de nuevo.'));
+    Route::get('/pending', fn() => redirect('/catalogo')->with('info', 'Tu pago está pendiente de confirmación.'));
     
     Route::get('/perfil', [UsersController::class, 'profile']);
     Route::put('/perfil', [UsersController::class, 'updateProfile']);

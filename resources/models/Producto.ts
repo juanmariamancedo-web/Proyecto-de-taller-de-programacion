@@ -5,6 +5,8 @@ export type Producto = {
   description: string
   image: string
   price: number
+  stock: number
+  low_stock: number
 }
 
 type CartItem = {

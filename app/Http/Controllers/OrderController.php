@@ -18,21 +18,31 @@ class OrderController extends Controller
     public function createOrder(Request $request){
         MercadoPagoConfig::setAccessToken(config('services.mercadopago.token'));
 
+        // Verificar stock antes de crear la orden
+        foreach ($request->input("carItems") as $item) {
+            $producto = Product::findOrFail($item["producto"]["id"]);
+
+            if ($producto->stock < $item["cantidad"]) {
+                return response()->json([
+                    "error" => "Stock insuficiente para {$producto->name}. Stock disponible: {$producto->stock}"
+                ], 422);
+            }
+        }
+
         $order = Order::create([
             "state" => "created",
             "user_id" => Auth::id()
         ]);
 
-        // 2. Construir items (desde DB, no desde frontend)
         $items = [];
 
         foreach ($request->input("carItems") as $item) {
             $producto = Product::findOrFail($item["producto"]["id"]);
 
-             $items[] = [
+            $items[] = [
                 "title" => $producto["name"],
                 "quantity" => $item["cantidad"],
-                "unit_price" =>  $producto["price"]
+                "unit_price" => $producto["price"]
             ];
 
             ItemOrder::create([
@@ -43,7 +53,6 @@ class OrderController extends Controller
             ]);
         }
 
-        // 3. Crear preferencia
         $client = new PreferenceClient();
 
         $preference = $client->create([
@@ -53,7 +62,6 @@ class OrderController extends Controller
                 "failure" => env('APP_URL')."/failure",
                 "pending" => env('APP_URL')."/pending" 
             ],
-            // "auto_return" => "approved",
             "external_reference" => (string) $order["id"]
         ]);
 
@@ -65,33 +73,49 @@ class OrderController extends Controller
     public function success(Request $request)
     {
         $paymentId = $request->query('payment_id');
+        $orderId = $request->query('external_reference');
 
-        // Consultar el pago directamente a la API de MP
         MercadoPagoConfig::setAccessToken(config('services.mercadopago.token'));
         
         $client = new PaymentClient();
-        $payment = $client->get($paymentId); // ← datos reales de MP, no de la URL
+        $payment = $client->get($paymentId);
 
-        // Verificar que realmente esté aprobado
+        //por las dudas
         if ($payment->status !== 'approved') {
-            return redirect()->route('failure');
+            return redirect('/failure');
         }
 
-        // Usar external_reference del pago real, no de la URL
-        $order = Order::findOrFail($payment->external_reference);
-        
-        // Verificar que el monto coincida
-        $totalEsperado = $order->itemOrders->sum(fn($item) => $item->unit_price * $item->amount);
-        
-        if ($payment->transaction_amount != $totalEsperado) {
-            return redirect()->route('failure');
+        $order = Order::findOrFail($orderId);
+
+        if ($order->state === 'paid') {
+            return inertia('Orders/Success', [
+                'order' => $order->load('itemOrders.product')
+            ]);
         }
 
-        $order->update([
-            'state' => 'paid',
-        ]);
+        // Verificar stock
+        foreach ($order->itemOrders as $item) {
+            $producto = Product::findOrFail($item->product_id);
 
-       return inertia('Orders/Success', [
+            if ($producto->stock < $item->amount) {
+                $order->update(['state' => 'stock_error']);
+                return inertia('Orders/StockError', [
+                    'order' => $order->load('itemOrders.product')
+                ]);
+            }
+        }
+
+        // Restar stock y marcar como pagada
+        foreach ($order->itemOrders as $item) {
+            $producto = Product::findOrFail($item->product_id);
+            $producto->stock -= $item->amount;
+            $producto->save();
+        }
+
+        $order->state = 'paid';
+        $order->save();
+
+        return inertia('Orders/Success', [
             'order' => $order->load('itemOrders.product')
         ]);
     }

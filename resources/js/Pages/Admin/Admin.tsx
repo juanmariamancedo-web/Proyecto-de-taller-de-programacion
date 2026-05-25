@@ -92,7 +92,7 @@ export default function Admin({
                                 </h2>
 
                                 <Link
-                                    href="/orders"
+                                    href="/admin/ordenes"
                                     className="text-sm text-blue-600 hover:underline dark:text-blue-400"
                                 >
                                     Ver todos

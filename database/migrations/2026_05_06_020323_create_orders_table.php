@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
 
-            $table->enum("state", ['paid','rejected', 'pending', 'created', "delivered"]);
+            $table->enum("state", ['paid', 'created', "delivered", 'stock_error']);
 
             
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
