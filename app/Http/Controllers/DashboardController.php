@@ -41,7 +41,7 @@ class DashboardController extends Controller
 
         $topProducts = Product::join('item_orders', 'products.id', '=', 'item_orders.product_id')
             ->join('orders', 'item_orders.order_id', '=', 'orders.id')
-            ->where('orders.state', 'selfless')
+            ->where('orders.state', 'delivered')
             ->orWhere('orders.state', 'paid')
             ->select(
                 'products.id',

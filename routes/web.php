@@ -10,9 +10,7 @@ use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::get('/', function () {
-    return Inertia::render('Welcome');
-});
+Route::get('/', [ProductsController::class, "welcome"]);
 
 Route::get('/quienes-somos', function () {
     return Inertia::render('QuienesSomos');

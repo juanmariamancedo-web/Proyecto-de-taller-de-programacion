@@ -2,23 +2,7 @@ import { Link, Head } from "@inertiajs/react";
 import MainLayout from "../layouts/MainLayout";
 import Producto from "../../models/Producto";
 
-export default function Welcome(){
-    let destacados : Producto[] = [
-        {
-            id: 0,
-            description: "",
-            name: "Down Pipe Chevrolet S-10 2.8 Td 200cv",
-            img: "/imgs/downpipe-s10.webp",
-            price: 763000
-        },
-        {
-            id: 1,
-            description: "",
-            name: "Downpipe Hilux 2.8 Y 2.4",
-            img: "/imgs/downpipe-hilux.webp",
-            price: 197000
-        },
-    ]
+export default function Welcome({destacados} : {destacados : Producto[]}){
 
     return(
         <>
@@ -101,22 +85,22 @@ export default function Welcome(){
                                     return(
                                         <Link 
                                             href={"/catalogo/" + producto.name} 
-                                            key={producto.id} 
+                                            key={producto.name} 
                                             className="shadow-sm overflow-hidden hover:shadow-md transition grid-rows-subgrid rounded-xl bg-black/5 px-3 py-1.5 text-base text-gray-900 sm:text-sm/6 dark:bg-white/5 dark:text-white"
                                         >
                                             <div className="w-full h-48 flex items-center justify-center p-4">
                                                 <img 
-                                                    src={producto.img} 
+                                                    src={producto.image} 
                                                     alt={producto.name} 
                                                     className="max-w-full max-h-full object-contain"
                                                 />
                                             </div>
                                             <div className="p-3 flex flex-col gap-1">
-                                                <h3 className="text-sm font-medium leading-tight">
+                                                <h2 className="text-sm font-medium leading-tight">
                                                     {producto.name}
-                                                </h3>
+                                                </h2>
                                                 <p className="text-base font-semibold">
-                                                    ${producto.price.toLocaleString()}
+                                                    ${producto.price}
                                                 </p>
                                             </div>
                                         </Link>
