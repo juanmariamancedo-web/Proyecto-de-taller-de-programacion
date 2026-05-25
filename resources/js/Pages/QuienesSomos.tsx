@@ -14,13 +14,7 @@ export default function QuienesSomos(){
                 {/* <h1 className="place-self-center col-span-2 text-gray-900 dark:text-white text-3xl md:text-4xl lg:text-5xl font-bold flex flex-row gap-x-4 pb-6 lg:pb-10">
                     Quiénes Somos
                 </h1> */}
-                <section className="w-full mx-auto lg:w-[740px] min-h-[calc(100vh-3.5rem)] flex justify-center items-center">
-                  <div>
-                    {/* <img
-                      className="rounded-full size-12 mb-4"
-                      src="/imgs/juanma.webp"
-                      alt="Foto de Juan María Mancedo"
-                    /> */}
+                <section className="col-span-2 mx-auto flex flex-col justify-center items-center">
                     <h1
                       className="text-gray-900 dark:text-white text-3xl md:text-4xl lg:text-5xl font-bold flex flex-row gap-x-4 pb-6 lg:pb-10"
                       >
@@ -75,7 +69,6 @@ export default function QuienesSomos(){
                         </>
                       </SocialPill>
                     </nav>
-                  </div>
                 </section>
                 <div className="col-span-2 p-3 rounded-xl bg-black/5 px-3 py-1.5 text-base text-gray-900 sm:text-sm/6 dark:bg-white/5 dark:text-white">
                     <p className="text-sm/6 font-medium">

@@ -36,7 +36,7 @@ class AuthController extends Controller
             'email' => $request->email,
             'password' => $request->password
         ])) {
-            return redirect('/catalogo');
+            return redirect('/perfil');
         }
         
         return back()->withErrors(['email' => 'Credenciales incorrectas']);

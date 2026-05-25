@@ -14,13 +14,15 @@ class EnsureUserIsNotBanned
      *
      * @param  Closure(Request): (Response)  $next
      */
+    
     public function handle(Request $request, Closure $next)
     {
         if (auth()->check() && auth()->user()->is_banned) {
             Auth::logout();
-            return redirect('/formulario-de-login')->withErrors([
-                'email' => 'Tu cuenta ha sido suspendida.'
-            ]);
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+            
+            return redirect('/formulario-de-login')->withErrors(['email' => 'Tu cuenta ha sido suspendida']);
         }
 
         return $next($request);
