@@ -7,7 +7,6 @@ export default function EditProfile({user} : {user: User}){
     const { data, setData, put, processing, errors } = useForm({
         nombre: user.name,
         apellido: user.lastname,
-        email: user.email,
         ciudad: user.city,
         provincia: user.province,
         codigoPostal: user.postcode,
@@ -54,6 +53,24 @@ export default function EditProfile({user} : {user: User}){
                     required
                     value={data.apellido}
                     onChange={e => setData('apellido', e.target.value)}
+                    className="block w-full rounded-md bg-black/5 px-3 py-1.5 text-gray-900 outline-1 outline-gray-300 focus:outline-2 focus:outline-indigo-600 dark:bg-white/5 dark:text-white"
+                />
+                {errors.apellido && <p className="text-red-500 text-sm">{errors.apellido}</p>}
+            </div>
+
+            {/* Email */}
+            <div className="col-span-full">
+                <label htmlFor="apellido" className="block text-sm font-medium text-gray-900 dark:text-gray-100 pb-2">
+                    Email
+                </label>
+                <input
+                    name="email"
+                    id="email"
+                    type="text"
+                    placeholder="Apellido"
+                    required
+                    value={user.email}
+                    disabled
                     className="block w-full rounded-md bg-black/5 px-3 py-1.5 text-gray-900 outline-1 outline-gray-300 focus:outline-2 focus:outline-indigo-600 dark:bg-white/5 dark:text-white"
                 />
                 {errors.apellido && <p className="text-red-500 text-sm">{errors.apellido}</p>}
@@ -141,12 +158,13 @@ export default function EditProfile({user} : {user: User}){
                     {processing ? "Enviando..." : "Editar"}
                 </button>
                 <div className="w-full flex flex-col sm:flex-row justify-around items-center gap-3">
-                    <Link href="/perfil/password" className="w-full text-center bg-indigo-600 text-white py-2 rounded-md">
-                        Cambiar contraseña
-                    </Link>
                     <Link href="/perfil/email" className="w-full text-center bg-indigo-600 text-white py-2 rounded-md">
                         Cambiar email
                     </Link>
+                    <Link href="/perfil/password" className="w-full text-center bg-indigo-600 text-white py-2 rounded-md">
+                        Cambiar contraseña
+                    </Link>
+                    
                 </div>
 
             </div>

@@ -95,22 +95,14 @@ class ProductsController extends Controller
     }
 
     public function newProduct(Request $request){
-        // Rule::unique('products', 'name')->ignore($product->id),
-        
-        // $request->validate([
-        //     'name' => [
-        //         'required',
-        //         'string',
-        //         'max:255'
-        //     ],
-        //     'price' => 'required|numeric|min:0',
-        //     'stock' => 'required|integer|min:0',
-        //     'lowStock' => 'required|integer|min:0|lte:stock',
-        //     'imagen' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-        // ]);
-
-        //  dd($request->all());
-
+        $request->validate([
+            'name'      => 'required|string|max:255|unique:products,name,' . $product->id,
+            'price'     => 'required|numeric|min:0',
+            'stock'     => 'required|integer|min:0',
+            'low_stock' => 'required|integer|min:0',
+            'image'     => 'required|image|mimes:jpg,jpeg,png|max:2048',
+        ]);
+       
         $name = $request->input("name");
         $price = $request->input("price");
         $stock = $request->input("stock");
@@ -146,18 +138,13 @@ class ProductsController extends Controller
 
     public function updateProduct(Request $request, Product $product)
     {
-        // $request->validate([
-        //     'name' => [
-        //         'required',
-        //         'string',
-        //         'max:255',
-        //         // Rule::unique('products', 'name')->ignore($product->id),
-        //     ],
-        //     'price'     => 'required|numeric|min:0',
-        //     'stock'     => 'required|integer|min:0',
-        //     'low_stock' => 'required|integer|min:0',
-        //     'image'     => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-        // ]);
+        $request->validate([
+            'name'      => 'required|string|max:255|unique:products,name,' . $product->id,
+            'price'     => 'required|numeric|min:0',
+            'stock'     => 'required|integer|min:0',
+            'low_stock' => 'required|integer|min:0',
+            'image'     => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+        ]);
 
         $product->name      = $request->input('name');
         $product->price     = $request->input('price');

@@ -92,6 +92,7 @@ export default function Catalogo({ productos, paginas, pagina }: {
                                 onChange={e => setData('name', e.target.value)}
                                 className="block w-full rounded-md bg-black/5 px-3 py-1.5 text-gray-900 outline-1 outline-gray-300 focus:outline-2 focus:outline-indigo-600 dark:bg-white/5 dark:text-white"
                             />
+                            {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
                         </div>
                         <div className="flex flex-col gap-2">
                             <label htmlFor="price" className="block text-sm font-medium text-gray-900 dark:text-gray-100">
@@ -103,6 +104,7 @@ export default function Catalogo({ productos, paginas, pagina }: {
                                 onChange={e => setData('price', Number(e.target.value))}
                                 className="block w-full rounded-md bg-black/5 px-3 py-1.5 text-gray-900 outline-1 outline-gray-300 focus:outline-2 focus:outline-indigo-600 dark:bg-white/5 dark:text-white"
                             />
+                            {errors.price && <p className="text-red-500 text-sm">{errors.price}</p>}
                         </div>
                         <div className="flex flex-col gap-2">
                             <label htmlFor="stock" className="block text-sm font-medium text-gray-900 dark:text-gray-100">
@@ -114,6 +116,7 @@ export default function Catalogo({ productos, paginas, pagina }: {
                                 onChange={e => setData('stock', Number(e.target.value))}
                                 className="block w-full rounded-md bg-black/5 px-3 py-1.5 text-gray-900 outline-1 outline-gray-300 focus:outline-2 focus:outline-indigo-600 dark:bg-white/5 dark:text-white"
                             />
+                            {errors.stock && <p className="text-red-500 text-sm">{errors.stock}</p>}
                         </div>
                         <div className="flex flex-col gap-2">
                             <label htmlFor="low_stock" className="block text-sm font-medium text-gray-900 dark:text-gray-100">
@@ -125,6 +128,7 @@ export default function Catalogo({ productos, paginas, pagina }: {
                                 onChange={e => setData('low_stock', Number(e.target.value))}
                                 className="block w-full rounded-md bg-black/5 px-3 py-1.5 text-gray-900 outline-1 outline-gray-300 focus:outline-2 focus:outline-indigo-600 dark:bg-white/5 dark:text-white"
                             />
+                            {errors.low_stock && <p className="text-red-500 text-sm">{errors.low_stock}</p>}
                         </div>
                         <div className="col-span-1 sm:col-span-3 flex flex-col justify-between items-center sm:flex-row gap-2">
                             <label className="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300 cursor-pointer">
@@ -144,6 +148,7 @@ export default function Catalogo({ productos, paginas, pagina }: {
                                     onChange={e => setData('image', e.target.files?.[0] ?? null)}
                                     className="text-sm text-gray-700 dark:text-gray-300"
                                 />
+                                {errors.image && <p className="text-red-500 text-sm">{errors.image}</p>}
                             </div>
                         </div>
                     </div>
