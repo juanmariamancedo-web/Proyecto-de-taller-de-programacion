@@ -17,10 +17,10 @@ export default function Register() {
     const submit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        if (data.password !== data.password_confirmation) {
-            alert("Las contraseñas no coinciden");
-            return;
-        }
+        // if (data.password !== data.password_confirmation) {
+        //     alert("Las contraseñas no coinciden");
+        //     return;
+        // }
 
         post("/registro-de-clientes");
     };
@@ -97,6 +97,7 @@ export default function Register() {
                     onChange={e => setData("cuil_cuit", e.target.value)}
                     className="block w-full rounded-md bg-black/5 px-3 py-1.5 text-gray-900 outline-1 outline-gray-300 focus:outline-2 focus:outline-indigo-600 dark:bg-white/5 dark:text-white"
                 />
+                {errors.cuil_cuit && <p className="text-red-500 text-sm">{errors.cuil_cuit}</p>}
             </div>
 
             {/* Password */}
@@ -132,6 +133,7 @@ export default function Register() {
                     onChange={e => setData('password_confirmation', e.target.value)}
                     className="block w-full rounded-md bg-black/5 px-3 py-1.5 text-gray-900 outline-1 outline-gray-300 focus:outline-2 focus:outline-indigo-600 dark:bg-white/5 dark:text-white"
                 />
+                {errors.password_confirmation && <p className="text-red-500 text-sm">{errors.password_confirmation}</p>}
             </div>
 
             {/* Ciudad */}
@@ -149,6 +151,7 @@ export default function Register() {
                     onChange={e => setData('ciudad', e.target.value)}
                     className="block w-full rounded-md bg-black/5 px-3 py-1.5 text-gray-900 outline-1 outline-gray-300 focus:outline-2 focus:outline-indigo-600 dark:bg-white/5 dark:text-white"
                 />
+                {errors.ciudad && <p className="text-red-500 text-sm">{errors.ciudad}</p>}
             </div>
 
             {/* Provincia */}
@@ -166,6 +169,8 @@ export default function Register() {
                     onChange={e => setData('provincia', e.target.value)}
                     className="block w-full rounded-md bg-black/5 px-3 py-1.5 text-gray-900 outline-1 outline-gray-300 focus:outline-2 focus:outline-indigo-600 dark:bg-white/5 dark:text-white"
                 />
+                {errors.provincia && <p className="text-red-500 text-sm">{errors.provincia}</p>}
+
             </div>
 
             {/* Código Postal */}
@@ -183,6 +188,7 @@ export default function Register() {
                     onChange={e => setData('codigoPostal', e.target.value)}
                     className="block w-full rounded-md bg-black/5 px-3 py-1.5 text-gray-900 outline-1 outline-gray-300 focus:outline-2 focus:outline-indigo-600 dark:bg-white/5 dark:text-white"
                 />
+                {errors.codigoPostal && <p className="text-red-500 text-sm">{errors.codigoPostal}</p>}
             </div>
 
             {/* Submit */}
