@@ -1,4 +1,4 @@
-import AdminLayout from "../../layouts/adminLayout";
+import AdminLayout from "../../layouts/AdminLayout";
 import { Link } from "@inertiajs/react";
 import Producto from "../../../models/Producto";
 

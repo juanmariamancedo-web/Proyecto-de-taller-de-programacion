@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { router } from "@inertiajs/react";
-import AdminLayout from "../../layouts/adminLayout";
+import AdminLayout from "../../layouts/AdminLayout";
 import { Product } from "../../../models/Order";
 import Paginacion from "../../components/Paginacion";
 import {useForm} from "@inertiajs/react";
@@ -172,8 +172,9 @@ export default function Catalogo({ productos, paginas, pagina }: {
                 </form>
 
                 {/* Tabla */}
-                <div className="overflow-x-auto rounded-xl border border-gray-200 dark:border-white/10">
+                <div className="w-full overflow-x-auto rounded-xl border border-gray-200 dark:border-white/10">
                     <table className="w-full min-w-[640px] bg-black/5 dark:bg-white/5 text-sm text-gray-900 dark:text-white">
+
                         <thead className="bg-gray-100 dark:bg-white/10">
                             <tr className="text-left text-sm font-semibold text-gray-700 dark:text-gray-200">
                                 <th className="px-4 py-3">Imagen</th>
@@ -231,6 +232,7 @@ export default function Catalogo({ productos, paginas, pagina }: {
                         </tbody>
                     </table>
                 </div>
+                
                 <Paginacion pagina={pagina} paginas={paginas} dir="/admin/catalogo" />
             </div>
         </AdminLayout>
