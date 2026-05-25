@@ -32,6 +32,9 @@ export default function EditPassword() {
                     autoComplete="password"
                     className="block w-full rounded-md bg-black/5 px-3 py-1.5 text-gray-900 outline-1 outline-gray-300 focus:outline-2 focus:outline-indigo-600 dark:bg-white/5 dark:text-white"
                 />
+                <Link href="/forgot-password" className="text-sm text-indigo-600 hover:text-indigo-500">
+                    ¿Olvidaste tu contraseña?
+                </Link>
 
                 {errors.actual_password && (
                     <div className="text-red-500 text-sm">{errors.actual_password}</div>
@@ -67,9 +70,6 @@ export default function EditPassword() {
                         Repite la nueva contraseña
                     </label>
 
-                    <Link href="/forgot-password" className="text-sm text-indigo-600 hover:text-indigo-500">
-                        ¿Olvidaste tu contraseña?
-                    </Link>
                 </div>
 
                 <input
