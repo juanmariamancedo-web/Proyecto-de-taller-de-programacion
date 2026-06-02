@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->float('price', 8, 2);
-            $table->integer("stock");
+            $table->integer("stock")->nullable();
             $table->integer("low_stock");
-            $table->string("image");
+            $table->string("image")->nullable();
             $table->boolean("is_active")->default(true);
             $table->timestamps();
         });

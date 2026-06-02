@@ -12,6 +12,7 @@ export default function Producto({producto} : {producto : Producto}){
     const props = usePage().props as any;
 
     function addProducto(){
+
         if(!props?.auth?.user){
             router.visit("\\formulario-de-login");
         }
@@ -46,13 +47,25 @@ export default function Producto({producto} : {producto : Producto}){
                             <p className="text-base font-bold">
                                 ${producto.price.toLocaleString('es-AR')}
                             </p>
-                        <input type="number" value={cantidad} onChange={cambiarCantidad}  className="rounded-md bg-black/5 px-3 py-1.5 text-gray-900 outline-1 outline-gray-300 focus:outline-2 focus:outline-indigo-600 dark:bg-white/5 dark:text-white"/>
-                        <p className="text-base font-medium">
-                            Stock: {producto.stock}
-                        </p>
-                        <button className=" bg-indigo-600 text-white p-2 rounded-md disabled:opacity-50" onClick={addProducto}>
-                            Añadir al carrito
-                        </button>
+                        {producto.stock > 0?
+                            (
+                                <>
+                                    <input type="number" value={cantidad} onChange={cambiarCantidad}  className="rounded-md bg-black/5 px-3 py-1.5 text-gray-900 outline-1 outline-gray-300 focus:outline-2 focus:outline-indigo-600 dark:bg-white/5 dark:text-white"/>
+                                    <p className="text-base font-medium">
+                                        Stock: {producto.stock}
+                                    </p>
+                                    <button className=" bg-indigo-600 text-white p-2 rounded-md disabled:opacity-50" onClick={addProducto}>
+                                        Añadir al carrito
+                                    </button>
+                                </>
+                            )
+                            :
+                            (
+                            <span className="bg-black/5 px-3 py-1.5 text-base text-gray-900 sm:text-sm/6 dark:bg-white/5 dark:text-white rounded">
+                                Producto sin stock
+                            </span>    
+                            )
+                        }
                         <span className={` ${showToast? "": "invisible "}bg-black/5 px-3 py-1.5 text-base text-gray-900 sm:text-sm/6 dark:bg-white/5 dark:text-white rounded`}>
                             Producto agregado
                         </span>

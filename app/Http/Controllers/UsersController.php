@@ -52,7 +52,6 @@ class UsersController extends Controller
 
         $user->name = $request->input('nombre');
         $user->lastname = $request->input("apellido");
-        $user->email = $request->input("email");
         $user->city = $request->input("ciudad");
         $user->province = $request->input("provincia");
         $user->postcode = $request->input("codigoPostal");
