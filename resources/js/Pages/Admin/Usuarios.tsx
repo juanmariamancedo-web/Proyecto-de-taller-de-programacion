@@ -3,8 +3,11 @@ import { User } from "../../../models/Auth";
 import CambiarRole from "../../components/Admin/CambiarRol";
 import BannearUsuario from "../../components/Admin/BannearUsuario";
 import AdminLayout from "../../layouts/AdminLayout";
+import { usePage } from "@inertiajs/react";
 
 export default function Usuarios({pagina , paginas, usuarios} : {pagina: number, paginas : number, usuarios: User[]}){
+    const { props } = usePage() as any;
+
     return(
         <AdminLayout>
             <div className="flex flex-col items-center gap-3">
@@ -61,9 +64,12 @@ export default function Usuarios({pagina , paginas, usuarios} : {pagina: number,
                                                 <td className="px-4 py-3 text-gray-700 dark:text-gray-300">
                                                     {user.postcode}
                                                 </td>
-                                                <CambiarRole user={user} />
-
-                                                <BannearUsuario user={user} />
+                                                {props?.auth?.user.id != user.id && (
+                                                    <>
+                                                        <CambiarRole user={user} />
+                                                        <BannearUsuario user={user} />
+                                                    </>
+                                                )}
                                             </tr>
                                         )
                                     }

@@ -6,6 +6,7 @@ export default function BannearUsuario({ user }: { user: User }) {
     const [banned, setBanned] = useState(user.is_banned);
 
     function toggleBan() {
+
         router.put(`/admin/usuarios/${user.id}/ban`, {}, {
             preserveScroll: true,
             onSuccess: () => setBanned(prev => !prev),
@@ -29,8 +30,8 @@ export default function BannearUsuario({ user }: { user: User }) {
                     onClick={toggleBan}
                     className={`px-3 py-1 text-xs font-semibold rounded-lg text-white transition ${
                         banned
-                            ? 'bg-red-500 hover:bg-red-600'
-                            : 'bg-green-600 hover:bg-green-700'
+                        ? 'bg-green-600 hover:bg-green-700'
+                        : 'bg-red-500 hover:bg-red-600'
                     }`}
                 >
                     {banned ? 'Despenalizar' : 'Penalizar'}
