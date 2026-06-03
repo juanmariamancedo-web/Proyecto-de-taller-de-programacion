@@ -6,6 +6,7 @@ import Paginacion from "../../components/Paginacion";
 import {useForm} from "@inertiajs/react";
 import SortByStock from "../../components/Admin/SortByStock";
 import SortByPrice from "../../components/Admin/SortByPrice";
+import SortByState from "../../components/Admin/SortByState";
 
 type Form = {
     name: string;
@@ -182,12 +183,20 @@ export default function Catalogo({ productos, paginas, pagina, sort }: {
                                 <th className="px-4 py-3">Imagen</th>
                                 <th className="px-4 py-3">Nombre</th>
                                 <th className="px-4 py-3">
-                                    <SortByPrice sort={sort} />
+                                    <SortByPrice sort={sort} dir="/admin/catalogo"
+                                        className=""
+                                    />
                                 </th>
                                 <th className="px-4 py-3">
-                                    <SortByStock sort={sort} />
+                                    <SortByStock sort={sort} dir="/admin/catalogo" 
+                                        className=""
+                                    />
                                 </th>
-                                <th className="px-4 py-3">Estado</th>
+                                <th className="px-4 py-3"> 
+                                    <SortByState sort={sort} 
+                                        className=""
+                                    />
+                                </th>
                                 <th className="px-4 py-3">Acciones</th>
                             </tr>
                         </thead>

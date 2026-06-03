@@ -2,8 +2,11 @@ import { Link, Head } from "@inertiajs/react";
 import MainLayout from "../layouts/MainLayout";
 import Producto from "../../models/Producto";
 import Paginacion from "../components/Paginacion";
+import Search from "../components/Search";
+import SortByPrice from "../components/Admin/SortByPrice";
+import OrderStock from "../components/Admin/SortByStock";
 
-export default function CatalogoDeProductos({ productos , paginas, pagina}: { productos: Producto[], paginas: number, pagina: number }){
+export default function CatalogoDeProductos({ productos , paginas, pagina, sort}: { productos: Producto[], paginas: number, pagina: number, sort: string }){
     // let productos : Producto[] = [
     //     {
     //         name: "Down Pipe E Intermedio Amarok V6 3.0 Acero Inox",
@@ -52,6 +55,17 @@ export default function CatalogoDeProductos({ productos , paginas, pagina}: { pr
                         Catálogo
                     </h1>
                     <section className="p-3 sm:p-0 grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div className="col-span-1 sm:col-span-2">
+                            <Search dir="/catalogo" />
+                        </div>
+                        <div className="col-span-1 sm:col-span-2 grid grid-cols-subgrid">
+                           <SortByPrice dir="/catalogo" sort={sort} 
+                                    className="rounded-md bg-black/5 px-3 py-1.5 text-gray-900 outline-1 outline-gray-300 focus:outline-2 focus:outline-indigo-600 dark:bg-white/5 dark:text-white"
+                                />
+                            <OrderStock dir="/catalogo" sort={sort} 
+                                className="rounded-md bg-black/5 px-3 py-1.5 text-gray-900 outline-1 outline-gray-300 focus:outline-2 focus:outline-indigo-600 dark:bg-white/5 dark:text-white"
+                            />
+                        </div>
                         {productos?.length > 0 && productos.map((producto)=>{
                             return(
                                 <Link 
@@ -73,6 +87,19 @@ export default function CatalogoDeProductos({ productos , paginas, pagina}: { pr
                                         <p className="text-base font-semibold">
                                             ${producto.price.toLocaleString('es-AR')}
                                         </p>
+                                        <p className="text-base font-mono">
+                                            {producto.stock > 0?
+                                                <>
+
+                                                    {producto.stock} unidades disponibles
+                                                </>
+                                                :
+                                                <>
+                                                    Sin stock
+                                                </>
+                                            }
+                                        </p>
+                                        
                                     </div>
                                 </Link>
                             )

@@ -1,20 +1,20 @@
 import { router } from '@inertiajs/react';
 
-export default function OrderStock({sort} : {sort : string}){
+export default function OrderStock({sort, dir, className} : {sort : string, dir: string, className: string}){
     function toggleStock(){
         if(sort == "stockDesc"){
-            router.visit('/admin/catalogo', {
+            router.visit(dir, {
                 data: { sort: 'stockAsc', page: 1 }
             })
         }else{
-            router.visit('/admin/catalogo', {
+            router.visit(dir, {
                 data: { sort: 'stockDesc', page: 1 }
             })
         }
     }
 
     return(
-        <button onClick={toggleStock}>
+        <button onClick={toggleStock} className={className}>
             {sort ==  "stockDesc" && <>↓ </>}
                 Stock
             {sort ==  "stockAsc" && <> ↑</>}

@@ -11,6 +11,18 @@ use Illuminate\Support\Facades\DB;
 
 class ProductsController extends Controller
 {
+    private int $limite = 6;
+
+    public function getLimite(): int
+    {
+        return $this->limite;
+    }
+
+    public function setLimite(int $limite): void
+    {
+        $this->limite = $limite;
+    }
+
     public function welcome(){
         $topProducts = Product::join('item_orders', 'products.id', '=', 'item_orders.product_id')
             ->join('orders', 'item_orders.order_id', '=', 'orders.id')
@@ -31,37 +43,49 @@ class ProductsController extends Controller
         ]);
     }
 
-    public function showProducts(Request $request) {
+    private function productos(Request $request){
         $page = (int) $request->get('page', 1);
-        $limite = 6;
-
-        return Inertia::render('CatalogoDeProductos', [
-            'productos' => Product::offset(($page - 1) * $limite)->limit($limite)->get(),
-            'paginas' => ceil(Product::count() / $limite),
-            "pagina" => $page
-        ]);        
-    }
-
-    function showProductAdmin(Request $request){
-        $page = (int) $request->get('page', 1);
-        $limite = 6;
         $sort = $request->get("sort");
+
+        $search = $request->get('search', '');
 
         $query = match($sort){
             "stockAsc"  => Product::orderBy("stock", 'asc'),
             "stockDesc" => Product::orderBy("stock", 'desc'),
             "priceAsc"  => Product::orderBy('price', 'asc'),
             "priceDesc"  => Product::orderBy('price', 'desc'),
+            "stateDesc"    => Product::orderBy('is_active', 'desc'),
+            "stateAsc"    => Product::orderBy('is_active', 'asc'),
             default     => Product::query()
         };
 
-        $productos = $query->offset(($page - 1) * $limite)->limit($limite)->get();
+        if($search){
+            $query = $query->where('name', 'LIKE', "%{$search}%");
+        }
+
+        return $query->offset(($page - 1) * $this->getLimite())->limit($this->getLimite())->get();
+    }
+
+
+    public function showProducts(Request $request) {
+        $page = (int) $request->get('page', 1);
+
+        return Inertia::render('CatalogoDeProductos', [
+            'productos' => $this->productos($request),
+            'paginas' => ceil(Product::count() / $this->getLimite()),
+            "pagina" => $page,
+            'sort'      => $request->get("sort")
+        ]);        
+    }
+
+    function showProductAdmin(Request $request){
+        $page = (int) $request->get('page', 1);
 
         return Inertia::render('Admin/Catalogo', [
-            'productos' => $productos,
-            'paginas'   => ceil(Product::count() / $limite),
+            'productos' => $this->productos($request),
+            'paginas'   => ceil(Product::count() / $this->getLimite()),
             'pagina'    => $page,
-            'sort'      => $sort
+            'sort'      => $request->get("sort")
         ]);  
     }
     
