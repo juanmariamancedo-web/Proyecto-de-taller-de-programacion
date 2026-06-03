@@ -4,6 +4,8 @@ import AdminLayout from "../../layouts/AdminLayout";
 import { Product } from "../../../models/Order";
 import Paginacion from "../../components/Paginacion";
 import {useForm} from "@inertiajs/react";
+import SortByStock from "../../components/Admin/SortByStock";
+import SortByPrice from "../../components/Admin/SortByPrice";
 
 type Form = {
     name: string;
@@ -14,8 +16,8 @@ type Form = {
     is_active: boolean;
 };
 
-export default function Catalogo({ productos, paginas, pagina }: {
-    productos: Product[], paginas: number, pagina: number
+export default function Catalogo({ productos, paginas, pagina, sort }: {
+    productos: Product[], paginas: number, pagina: number, sort: string
 }) {
     const [editando, setEditando] = useState<Product | null>(null);
     const { data, setData, post, put, processing, errors, reset } = useForm({
@@ -179,8 +181,12 @@ export default function Catalogo({ productos, paginas, pagina }: {
                             <tr className="text-left text-sm font-semibold text-gray-700 dark:text-gray-200">
                                 <th className="px-4 py-3">Imagen</th>
                                 <th className="px-4 py-3">Nombre</th>
-                                <th className="px-4 py-3">Precio</th>
-                                <th className="px-4 py-3">Stock</th>
+                                <th className="px-4 py-3">
+                                    <SortByPrice sort={sort} />
+                                </th>
+                                <th className="px-4 py-3">
+                                    <SortByStock sort={sort} />
+                                </th>
                                 <th className="px-4 py-3">Estado</th>
                                 <th className="px-4 py-3">Acciones</th>
                             </tr>

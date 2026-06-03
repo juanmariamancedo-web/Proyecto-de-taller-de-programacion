@@ -45,11 +45,23 @@ class ProductsController extends Controller
     function showProductAdmin(Request $request){
         $page = (int) $request->get('page', 1);
         $limite = 6;
+        $sort = $request->get("sort");
+
+        $query = match($sort){
+            "stockAsc"  => Product::orderBy("stock", 'asc'),
+            "stockDesc" => Product::orderBy("stock", 'desc'),
+            "priceAsc"  => Product::orderBy('price', 'asc'),
+            "priceDesc"  => Product::orderBy('price', 'desc'),
+            default     => Product::query()
+        };
+
+        $productos = $query->offset(($page - 1) * $limite)->limit($limite)->get();
 
         return Inertia::render('Admin/Catalogo', [
-            'productos' => Product::offset(($page - 1) * $limite)->limit($limite)->get(),
-            'paginas' => ceil(Product::count() / $limite),
-            "pagina" => $page
+            'productos' => $productos,
+            'paginas'   => ceil(Product::count() / $limite),
+            'pagina'    => $page,
+            'sort'      => $sort
         ]);  
     }
     
