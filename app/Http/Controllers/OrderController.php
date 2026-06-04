@@ -15,6 +15,18 @@ use MercadoPago\MercadoPagoConfig;
 
 class OrderController extends Controller
 {
+    private int $limite = 6;
+
+    public function getLimite(): int
+    {
+        return $this->limite;
+    }
+
+    public function setLimite(int $limite): void
+    {
+        $this->limite = $limite;
+    }
+
     public function createOrder(Request $request){
         MercadoPagoConfig::setAccessToken(config('services.mercadopago.token'));
 
@@ -120,9 +132,8 @@ class OrderController extends Controller
         ]);
     }
 
-    public function showOrders(Request $request) {
+    private function ordenes(Request $request){
         $page = (int) $request->get('page', 1);
-        $limite = 6;
         $sort = $request->get('sort', '');
         $search = $request->get('search', '');
 
@@ -142,18 +153,43 @@ class OrderController extends Controller
             });
         }
 
-        return Inertia::render("Admin/Ordenes", [
+        return $query;
+    }
+
+    public function showMyOrders(Request $request){
+        $page = (int) $request->get('page', 1);
+
+        $query = $this->ordenes($request)->where('user_id', auth()->id());
+
+        return Inertia::render('Ordenes', [
             'ordenes' => $query
                 ->with(['itemOrders.product', 'user'])
-                ->offset(($page - 1) * $limite)
-                ->limit($limite)
+                ->offset(($page - 1) * $this->getLimite())
+                ->limit($this->getLimite())
                 ->get(),
-            'paginas' => ceil(Order::count() / $limite),
+            'paginas' => ceil((clone $query)->count() / $this->getLimite()),
             'pagina'  => $page,
-            'sort'    => $sort,
-            'search'  => $search
+            'sort'    => $request->get('sort', ''),
+            'search'  => $request->get('search', '')
+        ]);
+    }
+
+    public function showOrders(Request $request) {
+        $page = $request->input("page", 1);
+
+        return Inertia::render("Admin/Ordenes", [
+            'ordenes' => $this->ordenes($request)
+                ->with(['itemOrders.product', 'user'])
+                ->offset(($page - 1) * $this->getLimite())
+                ->limit($this->getLimite())
+                ->get(),
+            'paginas' => ceil(Order::count() / $this->getLimite()),
+            'pagina'  => $page,
+            'sort'    => $request->input("sort", ""),
+            'search'  => $request->input("search", "")
         ]);  
     }
+
 
     public function entregar(Order $order) {
         if ($order->state !== 'paid') {

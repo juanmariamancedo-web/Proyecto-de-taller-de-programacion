@@ -2,7 +2,7 @@ import { router } from '@inertiajs/react';
 
 export default function SortByTotal({sort, className, dir} : {sort: string, className: string, dir: string}){
     function toggleStock(){
-        if(sort == "stateAsc"){
+        if(sort == "totalAsc"){
             router.visit(dir, {
                 data: { sort: 'totalDesc', page: 1 }
             })

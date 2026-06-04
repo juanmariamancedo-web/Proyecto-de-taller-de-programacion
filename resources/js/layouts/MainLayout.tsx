@@ -2,11 +2,13 @@
 
 import { JSX } from "react";
 import { Header } from "../components/Header/Header";
-import { Link } from "@inertiajs/react";
+import { Link, usePage } from "@inertiajs/react";
 import Carrito from "../components/Carrito";
 import { Page } from "../../models/Page";
 
 export default function MainLayout({children}:{children: JSX.Element}){
+    const { props } = usePage() as any;
+
     const clientPages : Page[] = [
          {
              name: "Contacto",
@@ -29,6 +31,15 @@ export default function MainLayout({children}:{children: JSX.Element}){
              href: "/catalogo"
          }
      ]
+
+     if(props.auth.user){
+        const orders : Page ={
+            name: "Ordenes",
+            href: "/ordenes"
+        } 
+
+        clientPages.push(orders)
+     }
 
     return(
             <div className="min-h-screen flex flex-col justify-between gap-10">

@@ -75,6 +75,7 @@ Route::middleware(['auth', 'not.banned'])->group(function () {
     Route::get('/verificar-cuenta', fn() => Inertia::render('ShowVerifyAccount'));
     Route::post('/verificar-cuenta', [AuthController::class, 'verifyRegister']);
     Route::post('/verificar-cuenta/reenviar', [AuthController::class, 'resendVerifyCode']);
+    Route::get("/ordenes", [OrderController::class, "showMyOrders"]);
 });
 
 Route::get('/catalogo', [ProductsController::class, "showProducts"]);
