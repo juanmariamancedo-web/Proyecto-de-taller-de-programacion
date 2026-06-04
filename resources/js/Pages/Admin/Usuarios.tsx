@@ -4,6 +4,7 @@ import CambiarRole from "../../components/Admin/CambiarRol";
 import BannearUsuario from "../../components/Admin/BannearUsuario";
 import AdminLayout from "../../layouts/AdminLayout";
 import { usePage } from "@inertiajs/react";
+import Search from "../../components/Search";
 
 export default function Usuarios({pagina , paginas, usuarios} : {pagina: number, paginas : number, usuarios: User[]}){
     const { props } = usePage() as any;
@@ -14,6 +15,9 @@ export default function Usuarios({pagina , paginas, usuarios} : {pagina: number,
                 <h1 className="text-gray-900 dark:text-white text-3xl md:text-4xl lg:text-5xl font-bold flex flex-row gap-x-4 pb-6 lg:pb-10">
                     Usuarios
                 </h1>
+                <div className="min-w-full">
+                    <Search dir="/admin/usuarios" />
+                </div>
                 <div className="w-full overflow-x-auto rounded-xl border border-gray-200 dark:border-white/10">
                     <table className="w-full min-w-[640px] bg-black/5 dark:bg-white/5 text-sm text-gray-900 dark:text-white">
 
@@ -77,7 +81,7 @@ export default function Usuarios({pagina , paginas, usuarios} : {pagina: number,
                             ) : (
                                 <tr>
                                     <td colSpan={4} className="text-center py-6 text-gray-500">
-                                        No hay órdenes
+                                        No hay usuarios encontrados
                                     </td>
                                 </tr>
                             )}

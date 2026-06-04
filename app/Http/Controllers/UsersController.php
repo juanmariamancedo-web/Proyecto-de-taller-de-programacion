@@ -15,11 +15,25 @@ class UsersController extends Controller
     public function showUsers(Request $request){
         $page = (int) $request->get('page', 1);
         $limite = 6;
+        $sort = $request->get('sort', '');
+        $search = $request->get('search', '');
+
+        $query = match($sort){
+            "idAsc"  => User::orderBy('id', 'asc'),
+            "idDesc" => User::orderBy('id', 'desc'),
+            default  => User::query()
+        };
+
+        if($search){
+            $query = $query->where('name', 'LIKE', "%{$search}%");
+        }
 
         return Inertia::render('Admin/Usuarios', [
-            'usuarios' => User::offset(($page - 1) * $limite)->limit($limite)->get(),
-            'paginas' => ceil(User::count() / $limite),
-            "pagina" => $page
+            'usuarios' => $query->offset(($page - 1) * $limite)->limit($limite)->get(),
+            'paginas'  => ceil((clone $query)->count() / $limite),
+            'pagina'   => $page,
+            'sort'     => $sort,
+            'search'   => $search
         ]);   
     }
 

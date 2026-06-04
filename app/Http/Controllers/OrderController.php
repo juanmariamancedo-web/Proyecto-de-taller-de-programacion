@@ -123,14 +123,35 @@ class OrderController extends Controller
     public function showOrders(Request $request) {
         $page = (int) $request->get('page', 1);
         $limite = 6;
+        $sort = $request->get('sort', '');
+        $search = $request->get('search', '');
+
+        $query = match($sort){
+            "pedidoAsc"  => Order::orderBy('id', 'asc'),
+            "pedidoDesc" => Order::orderBy('id', 'desc'),
+            "totalAsc"   => Order::orderByRaw('(SELECT SUM(unit_price * amount) FROM item_orders WHERE item_orders.order_id = orders.id) asc'),
+            "totalDesc"  => Order::orderByRaw('(SELECT SUM(unit_price * amount) FROM item_orders WHERE item_orders.order_id = orders.id) desc'),
+            "stateAsc"   => Order::orderByRaw("FIELD(state, 'created', 'paid', 'delivered') ASC"),
+            "stateDesc"  => Order::orderByRaw("FIELD(state, 'created', 'paid', 'delivered') DESC"),
+            default      => Order::query()
+        };
+
+        if($search){
+            $query = $query->whereHas('user', function($q) use ($search){
+                $q->where('name', 'LIKE', "%{$search}%");
+            });
+        }
 
         return Inertia::render("Admin/Ordenes", [
-            'ordenes' => Order::with(['itemOrders.product', 'user'])
+            'ordenes' => $query
+                ->with(['itemOrders.product', 'user'])
                 ->offset(($page - 1) * $limite)
                 ->limit($limite)
                 ->get(),
             'paginas' => ceil(Order::count() / $limite),
-            "pagina" => $page
+            'pagina'  => $page,
+            'sort'    => $sort,
+            'search'  => $search
         ]);  
     }
 

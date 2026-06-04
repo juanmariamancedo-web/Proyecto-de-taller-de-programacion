@@ -7,6 +7,7 @@ import {useForm} from "@inertiajs/react";
 import SortByStock from "../../components/Admin/SortByStock";
 import SortByPrice from "../../components/Admin/SortByPrice";
 import SortByState from "../../components/Admin/SortByState";
+import Search from "../../components/Search";
 
 type Form = {
     name: string;
@@ -174,6 +175,9 @@ export default function Catalogo({ productos, paginas, pagina, sort }: {
                     </div>
                 </form>
 
+                <div className="min-w-full">
+                    <Search dir="/admin/catalogo" />
+                </div>
                 {/* Tabla */}
                 <div className="w-full overflow-x-auto rounded-xl border border-gray-200 dark:border-white/10">
                     <table className="w-full min-w-[640px] bg-black/5 dark:bg-white/5 text-sm text-gray-900 dark:text-white">
@@ -193,57 +197,68 @@ export default function Catalogo({ productos, paginas, pagina, sort }: {
                                     />
                                 </th>
                                 <th className="px-4 py-3"> 
-                                    <SortByState sort={sort} 
-                                        className=""
+                                    <SortByState sort={sort} dir="/admin/catalogo"
+                                        className="" 
                                     />
                                 </th>
                                 <th className="px-4 py-3">Acciones</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-gray-200 dark:divide-white/10">
-                            {productos.map(product => (
-                                <tr key={product.id} className="hover:bg-gray-50 dark:hover:bg-white/5 transition">
-                                    <td className="px-4 py-3">
-                                        <img
-                                            src={`${product.image}`}
-                                            alt={product.name}
-                                            className="w-12 h-12 object-cover rounded-lg"
-                                        />
-                                    </td>
-                                    <td className="px-4 py-3 font-medium text-gray-900 dark:text-white">
-                                        {product.name}
-                                    </td>
-                                    <td className="px-4 py-3 text-gray-700 dark:text-gray-300">
-                                        ${product.price}
-                                    </td>
-                                    <td className="px-4 py-3">
-                                        <span className={`px-2 py-1 rounded-full text-xs font-semibold ${stockColor(product)}`}>
-                                            {product.stock === 0 ? 'Sin stock' : product.stock}
-                                        </span>
-                                    </td>
-                                    <td className="px-4 py-3">
-                                        <span className={`px-2 py-1 rounded-full text-xs font-semibold ${
-                                            product.is_active
-                                                ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400'
-                                                : 'bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400'
-                                        }`}>
-                                            {product.is_active ? 'Activo' : 'Inactivo'}
-                                        </span>
-                                    </td>
-                                    <td className="px-4 py-3">
-                                        <div className="flex gap-2">
-                                            <button onClick={() => abrirEditar(product)}
-                                                className="px-3 py-1 text-xs bg-yellow-400 hover:bg-yellow-500 text-white rounded-lg transition">
-                                                Editar
-                                            </button>
-                                            <button onClick={() => eliminar(product.id)}
-                                                className="px-3 py-1 text-xs bg-red-500 hover:bg-red-600 text-white rounded-lg transition">
-                                                Eliminar
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                            ))}
+                            {productos.length > 0?
+                                <>
+                                    {productos.map(product => (
+                                        <tr key={product.id} className="hover:bg-gray-50 dark:hover:bg-white/5 transition">
+                                            <td className="px-4 py-3">
+                                                <img
+                                                    src={`${product.image}`}
+                                                    alt={product.name}
+                                                    className="w-12 h-12 object-cover rounded-lg"
+                                                />
+                                            </td>
+                                            <td className="px-4 py-3 font-medium text-gray-900 dark:text-white">
+                                                {product.name}
+                                            </td>
+                                            <td className="px-4 py-3 text-gray-700 dark:text-gray-300">
+                                                ${product.price}
+                                            </td>
+                                            <td className="px-4 py-3">
+                                                <span className={`px-2 py-1 rounded-full text-xs font-semibold ${stockColor(product)}`}>
+                                                    {product.stock === 0 ? 'Sin stock' : product.stock}
+                                                </span>
+                                            </td>
+                                            <td className="px-4 py-3">
+                                                <span className={`px-2 py-1 rounded-full text-xs font-semibold ${
+                                                    product.is_active
+                                                        ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400'
+                                                        : 'bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400'
+                                                }`}>
+                                                    {product.is_active ? 'Activo' : 'Inactivo'}
+                                                </span>
+                                            </td>
+                                            <td className="px-4 py-3">
+                                                <div className="flex gap-2">
+                                                    <button onClick={() => abrirEditar(product)}
+                                                        className="px-3 py-1 text-xs bg-yellow-400 hover:bg-yellow-500 text-white rounded-lg transition">
+                                                        Editar
+                                                    </button>
+                                                    <button onClick={() => eliminar(product.id)}
+                                                        className="px-3 py-1 text-xs bg-red-500 hover:bg-red-600 text-white rounded-lg transition">
+                                                        Eliminar
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </>:
+                                (
+                                    <tr>
+                                        <td colSpan={4} className="text-center py-6 text-gray-500">
+                                            No hay productos encntrados
+                                        </td>
+                                    </tr>
+                                )
+                            }
                         </tbody>
                     </table>
                 </div>

@@ -1,13 +1,13 @@
 import { router } from '@inertiajs/react';
 
-export default function SortByState({sort, className} : {sort: string, className: string}){
+export default function SortByState({sort, className, dir} : {sort: string, className: string, dir: string}){
     function toggleStock(){
         if(sort == "stateAsc"){
-            router.visit('/admin/catalogo', {
+            router.visit(dir, {
                 data: { sort: 'stateDesc', page: 1 }
             })
         }else{
-            router.visit('/admin/catalogo', {
+            router.visit(dir, {
                 data: { sort: 'stateAsc', page: 1 }
             })
         }
