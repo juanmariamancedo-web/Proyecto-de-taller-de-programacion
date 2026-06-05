@@ -63,7 +63,7 @@ export default function({ ordenes , paginas, pagina, sort}: { ordenes: Order[], 
                                                 </td>
 
                                                 <td className="px-4 py-3 text-gray-700 dark:text-gray-300">
-                                                    ${total}
+                                                    ${total.toLocaleString('es-AR')}
                                                 </td>
                                                 <EntregarOrden order={order} />
                                             </tr>

@@ -76,6 +76,7 @@ Route::middleware(['auth', 'not.banned'])->group(function () {
     Route::post('/verificar-cuenta', [AuthController::class, 'verifyRegister']);
     Route::post('/verificar-cuenta/reenviar', [AuthController::class, 'resendVerifyCode']);
     Route::get("/ordenes", [OrderController::class, "showMyOrders"]);
+    Route::get("/ordenes/{id}", [OrderController::class, "showOrder"]);
 });
 
 Route::get('/catalogo', [ProductsController::class, "showProducts"]);

@@ -8,7 +8,7 @@ import Search from "../components/Search";
 import { Order } from "../../models/Order";
 import { Link } from "@inertiajs/react";
 
-export default function({ ordenes , paginas, pagina, sort}: { ordenes: Order[], paginas: number, pagina: number, sort: string }){
+export default function({ orden , sort}: { orden: Order, sort: string }){
 
     return(
         <MainLayout>
@@ -25,48 +25,47 @@ export default function({ ordenes , paginas, pagina, sort}: { ordenes: Order[], 
                         <thead className="bg-gray-100 dark:bg-white/10">
                             <tr className="text-left text-sm font-semibold text-gray-700 dark:text-gray-200">
                                 <th className="px-4 py-3">
-                                    <SortByPedido dir="/ordenes" sort={sort} className="" />
+                                    #Item
                                 </th>
                                 <th className="px-4 py-3">
-                                    <SortByTotal dir="/ordenes" sort={sort} className="" />
+                                    Cantidad
                                 </th>
                                 <th className="px-4 py-3">
-                                    <SortByState dir="/ordenes" sort={sort} className="" />
+                                    Precio unitario
+                                </th>
+                                <th className="px-4 py-3">
+                                    Producto
+                                </th>
+                                <th className="px-4 py-3">
+                                    Subtotal
                                 </th>
                             </tr>
                         </thead>
 
                         <tbody className="divide-y divide-gray-200 dark:divide-white/10 text-sm">
-                            {ordenes?.length ? (
-                                ordenes.map((order) => {   
-                                    const total = order.item_orders.reduce(
-                                        (acc, item) => acc + item.unit_price * item.amount, 0
-                                    ) 
-
+                            {orden.item_orders?.length ? (
+                                orden.item_orders.map((item, index) => {   
                                     return (
                                             <tr
-                                                key={order.id}
+                                                key={item.id}
                                                 className="hover:bg-gray-50 dark:hover:bg-white/5 transition"
                                             >
                                                 <td className="px-4 py-3 font-medium text-gray-900 dark:text-white">
-                                                    <Link href={`/ordenes/${order.id}`} className="font-mono">
-                                                        #{order.id}
+                                                    {index + 1}
+                                                </td>
+                                                <td className="px-4 py-3 font-medium text-gray-900 dark:text-white">
+                                                    {item.amount}
+                                                </td>
+                                                <td className="px-4 py-3 font-medium text-gray-900 dark:text-white">
+                                                    ${item.unit_price.toLocaleString('es-AR')}
+                                                </td>
+                                                <td className="px-4 py-3 font-medium text-gray-900 dark:text-white">
+                                                    <Link href={`/catalogo/${item.product.name}`}>
+                                                        {item.product.name}
                                                     </Link>
                                                 </td>
-
-                                                <td className="px-4 py-3 text-gray-700 dark:text-gray-300">
-                                                    ${total}
-                                                </td>
-                                                <td className="px-4 py-3">
-                                                    <span className={`px-2 py-1 rounded-full text-xs font-semibold ${
-                                                        order.state === "delivered"
-                                                            ? "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400"
-                                                            : order.state === "paid"
-                                                            ? "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400"
-                                                            : "bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300"
-                                                    }`}>
-                                                        {order.state}
-                                                    </span>
+                                                <td className="px-4 py-3 font-medium text-gray-900 dark:text-white">
+                                                    ${(item.unit_price * item.amount).toLocaleString('es-AR')}
                                                 </td>
                                             </tr>
                                         )
@@ -80,9 +79,15 @@ export default function({ ordenes , paginas, pagina, sort}: { ordenes: Order[], 
                                 </tr>
                             )}
                         </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colSpan={4} className="text-right font-semibold px-4 py-3 text-gray-900 dark:text-white">Total</td>
+                                <td className="px-4 py-3 font-bold text-gray-900 dark:text-white">${orden.item_orders.reduce((acc, item) => acc + item.unit_price * item.amount, 0).toLocaleString('es-AR')}</td>
+                            </tr>
+                        </tfoot>
                     </table>
                 </div>
-                <Paginacion dir="/admin/ordenes"  pagina={pagina} paginas={paginas} />
+                {/* <Paginacion dir="/admin/ordenes"  pagina={pagina} paginas={paginas} /> */}
             </ div>
         </MainLayout>
     )

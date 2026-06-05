@@ -190,6 +190,13 @@ class OrderController extends Controller
         ]);  
     }
 
+    public function showOrder(Request $request, $id){
+        $order = Order::with(['itemOrders.product', 'user'])->findOrFail($id);
+
+        return Inertia::render('Order', [
+            'orden' => $order
+        ]);
+    }
 
     public function entregar(Order $order) {
         if ($order->state !== 'paid') {
