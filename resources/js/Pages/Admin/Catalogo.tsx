@@ -4,10 +4,8 @@ import AdminLayout from "../../layouts/AdminLayout";
 import { Product } from "../../../models/Order";
 import Paginacion from "../../components/Paginacion";
 import {useForm} from "@inertiajs/react";
-import SortByStock from "../../components/Admin/SortByStock";
-import SortByPrice from "../../components/Admin/SortByPrice";
-import SortByState from "../../components/Admin/SortByState";
 import Search from "../../components/Search";
+import { Sort } from "../../components/Sort";
 
 type Form = {
     name: string;
@@ -185,20 +183,36 @@ export default function Catalogo({ productos, paginas, pagina, sort }: {
                         <thead className="bg-gray-100 dark:bg-white/10">
                             <tr className="text-left text-sm font-semibold text-gray-700 dark:text-gray-200">
                                 <th className="px-4 py-3">Imagen</th>
-                                <th className="px-4 py-3">Nombre</th>
                                 <th className="px-4 py-3">
-                                    <SortByPrice sort={sort} dir="/admin/catalogo"
+                                    <Sort 
+                                        sort={sort} dir="/admin/catalogo"
+                                        name="Nombre"
+                                        serverArg="name"
                                         className=""
                                     />
                                 </th>
                                 <th className="px-4 py-3">
-                                    <SortByStock sort={sort} dir="/admin/catalogo" 
+                                    <Sort 
+                                        sort={sort} dir="/admin/catalogo"
+                                        name="Price"
+                                        serverArg="price"
+                                        className=""
+                                    />
+                                </th>
+                                <th className="px-4 py-3">
+                                    <Sort 
+                                        sort={sort} dir="/admin/catalogo"
+                                        name="Stock"
+                                        serverArg="stock"
                                         className=""
                                     />
                                 </th>
                                 <th className="px-4 py-3"> 
-                                    <SortByState sort={sort} dir="/admin/catalogo"
-                                        className="" 
+                                    <Sort 
+                                        sort={sort} dir="/admin/catalogo"
+                                        name="Estado"
+                                        serverArg="state"
+                                        className=""
                                     />
                                 </th>
                                 <th className="px-4 py-3">Acciones</th>

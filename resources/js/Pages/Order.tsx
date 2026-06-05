@@ -1,7 +1,4 @@
-import SortByPedido from "../components/Admin/SortByPedido";
-import SortByName from "../components/Admin/SortByName";
-import SortByTotal from "../components/SortByTotal";
-import SortByState from "../components/Admin/SortByState";
+
 import MainLayout from "../layouts/MainLayout";
 import Paginacion from "../components/Paginacion";
 import Search from "../components/Search";

@@ -3,8 +3,7 @@ import MainLayout from "../layouts/MainLayout";
 import Producto from "../../models/Producto";
 import Paginacion from "../components/Paginacion";
 import Search from "../components/Search";
-import SortByPrice from "../components/Admin/SortByPrice";
-import OrderStock from "../components/Admin/SortByStock";
+import { Sort } from "../components/Sort";
 
 export default function CatalogoDeProductos({ productos , paginas, pagina, sort}: { productos: Producto[], paginas: number, pagina: number, sort: string }){
     // let productos : Producto[] = [
@@ -59,10 +58,16 @@ export default function CatalogoDeProductos({ productos , paginas, pagina, sort}
                             <Search dir="/catalogo" />
                         </div>
                         <div className="col-span-1 sm:col-span-2 grid grid-cols-subgrid">
-                           <SortByPrice dir="/catalogo" sort={sort} 
-                                    className="rounded-md bg-black/5 px-3 py-1.5 text-gray-900 outline-1 outline-gray-300 focus:outline-2 focus:outline-indigo-600 dark:bg-white/5 dark:text-white"
-                                />
-                            <OrderStock dir="/catalogo" sort={sort} 
+                            <Sort 
+                                sort={sort} dir="/catalogo"
+                                name="Precio"
+                                serverArg="price"
+                                className="rounded-md bg-black/5 px-3 py-1.5 text-gray-900 outline-1 outline-gray-300 focus:outline-2 focus:outline-indigo-600 dark:bg-white/5 dark:text-white"
+                            />
+                            <Sort 
+                                sort={sort} dir="/catalogo"
+                                name="Stock"
+                                serverArg="stock"
                                 className="rounded-md bg-black/5 px-3 py-1.5 text-gray-900 outline-1 outline-gray-300 focus:outline-2 focus:outline-indigo-600 dark:bg-white/5 dark:text-white"
                             />
                         </div>

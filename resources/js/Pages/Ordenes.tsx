@@ -1,12 +1,9 @@
-import SortByPedido from "../components/Admin/SortByPedido";
-import SortByName from "../components/Admin/SortByName";
-import SortByTotal from "../components/SortByTotal";
-import SortByState from "../components/Admin/SortByState";
 import MainLayout from "../layouts/MainLayout";
 import Paginacion from "../components/Paginacion";
 import Search from "../components/Search";
 import { Order } from "../../models/Order";
 import { Link } from "@inertiajs/react";
+import { Sort } from "../components/Sort";
 
 export default function({ ordenes , paginas, pagina, sort}: { ordenes: Order[], paginas: number, pagina: number, sort: string }){
 
@@ -25,13 +22,28 @@ export default function({ ordenes , paginas, pagina, sort}: { ordenes: Order[], 
                         <thead className="bg-gray-100 dark:bg-white/10">
                             <tr className="text-left text-sm font-semibold text-gray-700 dark:text-gray-200">
                                 <th className="px-4 py-3">
-                                    <SortByPedido dir="/ordenes" sort={sort} className="" />
+                                    <Sort 
+                                        sort={sort} dir="/ordenes"
+                                        name="Pedido"
+                                        serverArg="pedido"
+                                        className=""
+                                    />
                                 </th>
                                 <th className="px-4 py-3">
-                                    <SortByTotal dir="/ordenes" sort={sort} className="" />
+                                    <Sort 
+                                        sort={sort} dir="/ordenes"
+                                        name="Total"
+                                        serverArg="total"
+                                        className=""
+                                    />
                                 </th>
                                 <th className="px-4 py-3">
-                                    <SortByState dir="/ordenes" sort={sort} className="" />
+                                    <Sort 
+                                        sort={sort} dir="/ordenes"
+                                        name="Estado"
+                                        serverArg="state"
+                                        className=""
+                                    />
                                 </th>
                             </tr>
                         </thead>
