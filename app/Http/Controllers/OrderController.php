@@ -138,13 +138,15 @@ class OrderController extends Controller
         $search = $request->get('search', '');
 
         $query = match($sort){
-            "pedidoAsc"  => Order::orderBy('id', 'asc'),
-            "pedidoDesc" => Order::orderBy('id', 'desc'),
-            "totalAsc"   => Order::orderByRaw('(SELECT SUM(unit_price * amount) FROM item_orders WHERE item_orders.order_id = orders.id) asc'),
-            "totalDesc"  => Order::orderByRaw('(SELECT SUM(unit_price * amount) FROM item_orders WHERE item_orders.order_id = orders.id) desc'),
-            "stateAsc"   => Order::orderByRaw("FIELD(state, 'created', 'paid', 'delivered') ASC"),
-            "stateDesc"  => Order::orderByRaw("FIELD(state, 'created', 'paid', 'delivered') DESC"),
-            default      => Order::query()
+            "pedidoAsc"   => Order::orderBy('id', 'asc'),
+            "pedidoDesc"  => Order::orderBy('id', 'desc'),
+            "totalAsc"    => Order::orderByRaw('(SELECT SUM(unit_price * amount) FROM item_orders WHERE item_orders.order_id = orders.id) asc'),
+            "totalDesc"   => Order::orderByRaw('(SELECT SUM(unit_price * amount) FROM item_orders WHERE item_orders.order_id = orders.id) desc'),
+            "stateAsc"    => Order::orderByRaw("FIELD(state, 'created', 'paid', 'delivered') ASC"),
+            "stateDesc"   => Order::orderByRaw("FIELD(state, 'created', 'paid', 'delivered') DESC"),
+            "nameAsc"  => Order::join('users', 'orders.user_id', '=', 'users.id')->orderBy('users.name', 'asc')->select('orders.*'),
+            "nameDesc" => Order::join('users', 'orders.user_id', '=', 'users.id')->orderBy('users.name', 'desc')->select('orders.*'),
+            default       => Order::query()
         };
 
         if($search){
@@ -162,7 +164,7 @@ class OrderController extends Controller
         $query = $this->ordenes($request)->where('user_id', auth()->id());
 
         return Inertia::render('Ordenes', [
-            'ordenes' => $query
+            'ordenes' => (clone $query)
                 ->with(['itemOrders.product', 'user'])
                 ->offset(($page - 1) * $this->getLimite())
                 ->limit($this->getLimite())
@@ -176,14 +178,15 @@ class OrderController extends Controller
 
     public function showOrders(Request $request) {
         $page = $request->input("page", 1);
+        $query = $this->ordenes($request);
 
         return Inertia::render("Admin/Ordenes", [
-            'ordenes' => $this->ordenes($request)
+            'ordenes' => (clone $query)
                 ->with(['itemOrders.product', 'user'])
                 ->offset(($page - 1) * $this->getLimite())
                 ->limit($this->getLimite())
                 ->get(),
-            'paginas' => ceil(Order::count() / $this->getLimite()),
+            'paginas' => ceil((clone $query)->count() / $this->getLimite()),
             'pagina'  => $page,
             'sort'    => $request->input("sort", ""),
             'search'  => $request->input("search", "")
@@ -191,10 +194,31 @@ class OrderController extends Controller
     }
 
     public function showOrder(Request $request, $id){
-        $order = Order::with(['itemOrders.product', 'user'])->findOrFail($id);
+        $sort = $request->input('sort', '');
+
+        $order = Order::with([
+            'itemOrders' => function($q) use ($sort) {
+                match($sort){
+                    "idAsc"         => $q->orderBy('id', 'asc'),
+                    "idDesc"        => $q->orderBy('id', 'desc'),
+                    "amountAsc"     => $q->orderBy('amount', 'asc'),
+                    "amountDesc"    => $q->orderBy('amount', 'desc'),
+                    "priceAsc"      => $q->orderBy('unit_price', 'asc'),
+                    "priceDesc"     => $q->orderBy('unit_price', 'desc'),
+                    "subtotalAsc"   => $q->orderByRaw('unit_price * amount ASC'),
+                    "subtotalDesc"  => $q->orderByRaw('unit_price * amount DESC'),
+                    "nameAsc"       => $q->join('products', 'item_orders.product_id', '=', 'products.id')->orderBy('products.name', 'asc')->select('item_orders.*'),
+                    "nameDesc"      => $q->join('products', 'item_orders.product_id', '=', 'products.id')->orderBy('products.name', 'desc')->select('item_orders.*'),
+                    default         => $q
+                };
+            },
+            'itemOrders.product',
+            'user'
+        ])->findOrFail($id);
 
         return Inertia::render('Order', [
-            'orden' => $order
+            'orden' => $order,
+            'sort'  => $sort
         ]);
     }
 

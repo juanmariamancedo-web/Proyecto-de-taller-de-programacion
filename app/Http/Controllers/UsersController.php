@@ -19,9 +19,27 @@ class UsersController extends Controller
         $search = $request->get('search', '');
 
         $query = match($sort){
-            "idAsc"  => User::orderBy('id', 'asc'),
-            "idDesc" => User::orderBy('id', 'desc'),
-            default  => User::query()
+            "IdAsc"         => User::orderBy('id', 'asc'),
+            "IdDesc"        => User::orderBy('id', 'desc'),
+            "nameAsc"       => User::orderBy('name', 'asc'),
+            "nameDesc"      => User::orderBy('name', 'desc'),
+            "lastnameAsc"   => User::orderBy('lastname', 'asc'),
+            "lastnameDesc"  => User::orderBy('lastname', 'desc'),
+            "cuilAsc"       => User::orderBy('cuil_cuit', 'asc'),
+            "cuilDesc"      => User::orderBy('cuil_cuit', 'desc'),
+            "emailAsc"      => User::orderBy('email', 'asc'),
+            "emailDesc"     => User::orderBy('email', 'desc'),
+            "roleAsc"       => User::orderBy('role', 'asc'),
+            "roleDesc"      => User::orderBy('role', 'desc'),
+            "cityAsc"       => User::orderBy('city', 'asc'),
+            "cityDesc"      => User::orderBy('city', 'desc'),
+            "provinceAsc"   => User::orderBy('province', 'asc'),
+            "provinceDesc"  => User::orderBy('province', 'desc'),
+            "postcodeAsc"   => User::orderBy('postcode', 'asc'),
+            "postcodeDesc"  => User::orderBy('postcode', 'desc'),
+            "bannedAsc"     => User::orderBy('is_banned', 'asc'),
+            "bannedDesc"    => User::orderBy('is_banned', 'desc'),
+            default         => User::query()
         };
 
         if($search){

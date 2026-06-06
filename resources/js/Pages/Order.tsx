@@ -1,9 +1,8 @@
 
 import MainLayout from "../layouts/MainLayout";
-import Paginacion from "../components/Paginacion";
-import Search from "../components/Search";
 import { Order } from "../../models/Order";
 import { Link } from "@inertiajs/react";
+import { Sort } from "../components/Sort";
 
 export default function({ orden , sort}: { orden: Order, sort: string }){
 
@@ -11,30 +10,62 @@ export default function({ orden , sort}: { orden: Order, sort: string }){
         <MainLayout>
             <div className="flex flex-col items-center gap-3">
                 <h1 className="text-gray-900 dark:text-white text-3xl md:text-4xl lg:text-5xl font-bold flex flex-row gap-x-4 pb-6 lg:pb-10">
-                    Ordenes
+                    Orden #{orden.id}
                 </h1>
-                <div className="min-w-full">
-                    <Search dir="/admin/ordenes" />
-                </div>
                 <div className="w-full overflow-x-auto rounded-xl border border-gray-200 dark:border-white/10">
                     <table className="w-full min-w-[640px] bg-black/5 dark:bg-white/5 text-sm text-gray-900 dark:text-white">
 
                         <thead className="bg-gray-100 dark:bg-white/10">
                             <tr className="text-left text-sm font-semibold text-gray-700 dark:text-gray-200">
                                 <th className="px-4 py-3">
-                                    #Item
+                                    <Sort 
+                                        name="Item"
+                                        dir={`/ordenes/${orden.id}`}
+                                        sort={sort}
+                                        serverArg="id"
+                                        className=""
+                                        search=""
+                                    />
                                 </th>
                                 <th className="px-4 py-3">
-                                    Cantidad
+                                    <Sort 
+                                        name="Cantidad"
+                                        dir={`/ordenes/${orden.id}`}
+                                        sort={sort}
+                                        serverArg="amount"
+                                        className=""
+                                        search=""
+                                    />
                                 </th>
                                 <th className="px-4 py-3">
-                                    Precio unitario
+                                    <Sort 
+                                        name="Precio unitario"
+                                        dir={`/ordenes/${orden.id}`}
+                                        sort={sort}
+                                        serverArg="price"
+                                        className=""
+                                        search=""
+                                    />
                                 </th>
                                 <th className="px-4 py-3">
-                                    Producto
+                                    <Sort 
+                                        name="Producto"
+                                        dir={`/ordenes/${orden.id}`}
+                                        sort={sort}
+                                        serverArg="name"
+                                        className=""
+                                        search=""
+                                    />
                                 </th>
                                 <th className="px-4 py-3">
-                                    Subtotal
+                                    <Sort 
+                                        name="Subtotal"
+                                        dir={`/ordenes/${orden.id}`}
+                                        sort={sort}
+                                        serverArg="subtotal"
+                                        className=""
+                                        search=""
+                                    />
                                 </th>
                             </tr>
                         </thead>

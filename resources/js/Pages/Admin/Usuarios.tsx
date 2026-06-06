@@ -5,8 +5,9 @@ import BannearUsuario from "../../components/Admin/BannearUsuario";
 import AdminLayout from "../../layouts/AdminLayout";
 import { usePage } from "@inertiajs/react";
 import Search from "../../components/Search";
+import { Sort } from "../../components/Sort";
 
-export default function Usuarios({pagina , paginas, usuarios} : {pagina: number, paginas : number, usuarios: User[]}){
+export default function Usuarios({pagina , paginas, usuarios, sort, search} : {pagina: number, paginas : number, usuarios: User[], sort: string, search: string}){
     const { props } = usePage() as any;
 
     return(
@@ -16,22 +17,86 @@ export default function Usuarios({pagina , paginas, usuarios} : {pagina: number,
                     Usuarios
                 </h1>
                 <div className="min-w-full">
-                    <Search dir="/admin/usuarios" />
+                    <Search dir="/admin/usuarios" value={search} sort={sort} />
                 </div>
                 <div className="w-full overflow-x-auto rounded-xl border border-gray-200 dark:border-white/10">
                     <table className="w-full min-w-[640px] bg-black/5 dark:bg-white/5 text-sm text-gray-900 dark:text-white">
 
                         <thead className="bg-gray-100 dark:bg-white/10">
                             <tr className="text-left text-sm font-semibold text-gray-700 dark:text-gray-200">
-                                <th className="px-4 py-3">ID</th>
-                                <th className="px-4 py-3">Cliente</th>
-                                <th className="px-4 py-3">Cuit/Cuil</th>
-                                <th className="px-4 py-3">Provincia</th>
-                                <th className="px-4 py-3">Ciudad</th>
-                                <th className="px-4 py-3">Código postal</th>
-                                <th className="px-4 py-3">Rol</th>        
+                                <th className="px-4 py-3">
+                                    <Sort 
+                                        sort={sort} dir="/admin/usuarios"
+                                        name="ID"
+                                        search={search}
+                                        serverArg="Id"
+                                        className=""
+                                    />
+                                </th>
+                                <th className="px-4 py-3">
+                                    <Sort 
+                                        sort={sort} dir="/admin/usuarios"
+                                        name="Nombre"
+                                        search={search}
+                                        serverArg="name"
+                                        className=""
+                                    />
+                                </th>
+                                <th className="px-4 py-3">
+                                    <Sort 
+                                        sort={sort} dir="/admin/usuarios"
+                                        name="Cuit/Cuil"
+                                        search={search}
+                                        serverArg="cuil"
+                                        className=""
+                                    />
+                                </th>
+                                <th className="px-4 py-3">
+                                    <Sort 
+                                        sort={sort} dir="/admin/usuarios"
+                                        name="Provincia"
+                                        search={search}
+                                        serverArg="province"
+                                        className=""
+                                    />
+                                </th>
+                                <th className="px-4 py-3">
+                                    <Sort 
+                                        sort={sort} dir="/admin/usuarios"
+                                        name="Ciudad"
+                                        search={search}
+                                        serverArg="city"
+                                        className=""
+                                    />
+                                </th>
+                                <th className="px-4 py-3">
+                                    <Sort 
+                                        sort={sort} dir="/admin/usuarios"
+                                        name="Código postal"
+                                        search={search}
+                                        serverArg="postcode"
+                                        className=""
+                                    />
+                                </th>
+                                <th className="px-4 py-3">
+                                    <Sort 
+                                        sort={sort} dir="/admin/usuarios"
+                                        name="Rol"
+                                        search={search}
+                                        serverArg="role"
+                                        className=""
+                                    />
+                                </th>        
                                 <th className="px-4 py-3">Acción rol</th> 
-                                <th className="px-4 py-3">Estado</th>     
+                                <th className="px-4 py-3">
+                                    <Sort 
+                                        sort={sort} dir="/admin/usuarios"
+                                        name="Estado"
+                                        serverArg="banned"
+                                        search={search}
+                                        className=""
+                                    />    
+                                </th>     
                                 <th className="px-4 py-3">Acción</th>     
                             </tr>
                         </thead>

@@ -50,12 +50,14 @@ class ProductsController extends Controller
         $search = $request->get('search', '');
 
         $query = match($sort){
+            "nameAsc"   => Product::orderBy('name', 'asc'),
+            "nameDesc"  => Product::orderBy('name', 'desc'),
             "stockAsc"  => Product::orderBy("stock", 'asc'),
             "stockDesc" => Product::orderBy("stock", 'desc'),
             "priceAsc"  => Product::orderBy('price', 'asc'),
-            "priceDesc"  => Product::orderBy('price', 'desc'),
-            "stateDesc"    => Product::orderBy('is_active', 'desc'),
-            "stateAsc"    => Product::orderBy('is_active', 'asc'),
+            "priceDesc" => Product::orderBy('price', 'desc'),
+            "stateAsc"  => Product::orderBy('is_active', 'asc'),
+            "stateDesc" => Product::orderBy('is_active', 'desc'),
             default     => Product::query()
         };
 
@@ -85,7 +87,8 @@ class ProductsController extends Controller
             'productos' => $this->productos($request),
             'paginas'   => ceil(Product::count() / $this->getLimite()),
             'pagina'    => $page,
-            'sort'      => $request->get("sort")
+            'sort'      => $request->get("sort"), 
+            'search' => $request->get("search")
         ]);  
     }
     

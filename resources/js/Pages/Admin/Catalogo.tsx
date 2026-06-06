@@ -16,8 +16,8 @@ type Form = {
     is_active: boolean;
 };
 
-export default function Catalogo({ productos, paginas, pagina, sort }: {
-    productos: Product[], paginas: number, pagina: number, sort: string
+export default function Catalogo({ productos, paginas, pagina, sort, search }: {
+    productos: Product[], paginas: number, pagina: number, sort: string, search: string
 }) {
     const [editando, setEditando] = useState<Product | null>(null);
     const { data, setData, post, put, processing, errors, reset } = useForm({
@@ -174,7 +174,7 @@ export default function Catalogo({ productos, paginas, pagina, sort }: {
                 </form>
 
                 <div className="min-w-full">
-                    <Search dir="/admin/catalogo" />
+                    <Search dir="/admin/catalogo" value={search} sort={sort} />
                 </div>
                 {/* Tabla */}
                 <div className="w-full overflow-x-auto rounded-xl border border-gray-200 dark:border-white/10">
@@ -187,6 +187,7 @@ export default function Catalogo({ productos, paginas, pagina, sort }: {
                                     <Sort 
                                         sort={sort} dir="/admin/catalogo"
                                         name="Nombre"
+                                        search={search}
                                         serverArg="name"
                                         className=""
                                     />
@@ -195,6 +196,7 @@ export default function Catalogo({ productos, paginas, pagina, sort }: {
                                     <Sort 
                                         sort={sort} dir="/admin/catalogo"
                                         name="Price"
+                                        search={search}
                                         serverArg="price"
                                         className=""
                                     />
@@ -203,6 +205,7 @@ export default function Catalogo({ productos, paginas, pagina, sort }: {
                                     <Sort 
                                         sort={sort} dir="/admin/catalogo"
                                         name="Stock"
+                                        search={search}
                                         serverArg="stock"
                                         className=""
                                     />
@@ -211,6 +214,7 @@ export default function Catalogo({ productos, paginas, pagina, sort }: {
                                     <Sort 
                                         sort={sort} dir="/admin/catalogo"
                                         name="Estado"
+                                        search={search}
                                         serverArg="state"
                                         className=""
                                     />

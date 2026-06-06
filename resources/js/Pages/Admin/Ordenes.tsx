@@ -5,7 +5,7 @@ import EntregarOrden from "../../components/EntregarOrden";
 import Search from "../../components/Search";
 import { Sort } from "../../components/Sort";
 
-export default function({ ordenes , paginas, pagina, sort}: { ordenes: Order[], paginas: number, pagina: number, sort: string }){
+export default function({ ordenes , paginas, pagina, sort, search}: { ordenes: Order[], paginas: number, pagina: number, sort: string, search: string}){
 
     return(
         <AdminLayout>
@@ -14,7 +14,7 @@ export default function({ ordenes , paginas, pagina, sort}: { ordenes: Order[], 
                     Ordenes
                 </h1>
                 <div className="min-w-full">
-                    <Search dir="/admin/ordenes" />
+                    <Search dir="/admin/ordenes" value={search} sort={sort} />
                 </div>
                 <div className="w-full overflow-x-auto rounded-xl border border-gray-200 dark:border-white/10">
                     <table className="w-full min-w-[640px] bg-black/5 dark:bg-white/5 text-sm text-gray-900 dark:text-white">
@@ -25,6 +25,7 @@ export default function({ ordenes , paginas, pagina, sort}: { ordenes: Order[], 
                                     <Sort 
                                         sort={sort} dir="/admin/ordenes"
                                         name="Pedido"
+                                        search={search}
                                         serverArg="pedido"
                                         className=""
                                     />
@@ -33,6 +34,7 @@ export default function({ ordenes , paginas, pagina, sort}: { ordenes: Order[], 
                                     <Sort 
                                         sort={sort} dir="/admin/ordenes"
                                         name="Cliente"
+                                        search={search}
                                         serverArg="name"
                                         className=""
                                     />
@@ -41,6 +43,7 @@ export default function({ ordenes , paginas, pagina, sort}: { ordenes: Order[], 
                                     <Sort 
                                         sort={sort} dir="/admin/ordenes"
                                         name="Total"
+                                        search={search}
                                         serverArg="total"
                                         className=""
                                     />
@@ -49,6 +52,7 @@ export default function({ ordenes , paginas, pagina, sort}: { ordenes: Order[], 
                                     <Sort 
                                         sort={sort} dir="/admin/ordenes"
                                         name="Estado"
+                                        search={search}
                                         serverArg="state"
                                         className=""
                                     />
