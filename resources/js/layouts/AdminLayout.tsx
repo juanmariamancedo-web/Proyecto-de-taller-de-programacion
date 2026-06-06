@@ -47,6 +47,6 @@ export default function AdminLayout({children}:{children: JSX.Element}){
                         </div>
                     </footer>
                 </div>
-            </ div>
+            </div>
     )
 }

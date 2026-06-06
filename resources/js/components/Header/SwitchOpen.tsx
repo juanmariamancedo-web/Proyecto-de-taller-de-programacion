@@ -16,9 +16,9 @@ export default function SwitchOpen({children, setOpen}: {children: JSX.Element, 
     const [small, setSmall] = useState(false)
 
     return (
-    <button onClick={()=>{
+    <div onClick={()=>{
         if(small) setOpen(false)
     }}>
         {children}
-    </button>)
+    </div>)
 }

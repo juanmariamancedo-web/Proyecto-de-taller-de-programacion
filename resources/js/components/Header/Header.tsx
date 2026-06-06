@@ -67,9 +67,9 @@ export function Header({pages, homeUrl} : {pages : Page[], homeUrl: string}){
                                 </SwitchOpen>    
                             </li>
                             <div className="flex flex-col lg:flex-row items-center justify-center gap-3 lg:gap-5">
-                                {pages.length > 0 && pages.map((page)=>{
+                                {pages.length > 0 && pages.map((page, index)=>{
                                     return(
-                                        <li>
+                                        <li key={index}>
                                             <SwitchOpen setOpen={setOpen}>
                                                 <Link className="hover:bg-black/10 dark:hover:bg-white/10 rounded-full transition" href={page.href}>
                                                     {page.name}

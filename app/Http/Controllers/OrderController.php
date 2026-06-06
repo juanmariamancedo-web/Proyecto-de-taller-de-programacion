@@ -27,10 +27,54 @@ class OrderController extends Controller
         $this->limite = $limite;
     }
 
-    public function createOrder(Request $request){
+    public function payOrder(Request $request, $id){
         MercadoPagoConfig::setAccessToken(config('services.mercadopago.token'));
 
-        // Verificar stock antes de crear la orden
+        $order = Order::with('itemOrders.product')->findOrFail($id);
+
+        // Solo se puede pagar si está en estado created
+        if($order->state !== 'created'){
+            return response()->json([
+                "error" => "La orden no puede ser pagada en su estado actual: {$order->state}"
+            ], 422);
+        }
+
+        // Verificar stock
+        foreach($order->itemOrders as $item){
+            $producto = Product::findOrFail($item->product_id);
+
+            if($producto->stock < $item->amount){
+                return response()->json([
+                    "error" => "Stock insuficiente para {$producto->name}. Stock disponible: {$producto->stock}"
+                ], 422);
+            }
+        }
+
+        $items = $order->itemOrders->map(fn($item) => [
+            "title"      => $item->product->name,
+            "quantity"   => $item->amount,
+            "unit_price" => $item->unit_price
+        ])->toArray();
+
+        $client = new PreferenceClient();
+
+        $preference = $client->create([
+            "items" => $items,
+            "back_urls" => [
+                "success" => env('APP_URL')."/success",
+                "failure" => env('APP_URL')."/failure",
+                "pending" => env('APP_URL')."/pending"
+            ],
+            "external_reference" => (string) $order->id
+        ]);
+
+        return response()->json([
+            "init_point" => $preference->init_point
+        ]);
+    }
+
+    public function createOrder(Request $request){
+        // Verificar stock
         foreach ($request->input("carItems") as $item) {
             $producto = Product::findOrFail($item["producto"]["id"]);
 
@@ -42,43 +86,46 @@ class OrderController extends Controller
         }
 
         $order = Order::create([
-            "state" => "created",
+            "state"   => "created",
             "user_id" => Auth::id()
         ]);
 
-        $items = [];
-
+        // Crear items ANTES de llamar payOrder
         foreach ($request->input("carItems") as $item) {
             $producto = Product::findOrFail($item["producto"]["id"]);
 
-            $items[] = [
-                "title" => $producto["name"],
-                "quantity" => $item["cantidad"],
-                "unit_price" => $producto["price"]
-            ];
-
             ItemOrder::create([
-                "amount" => $item["cantidad"],
+                "amount"     => $item["cantidad"],
                 "product_id" => $item["producto"]["id"],
                 "unit_price" => $producto["price"],
-                "order_id" => $order["id"]
+                "order_id"   => $order["id"]
             ]);
         }
 
-        $client = new PreferenceClient();
+        return $this->payOrder($request, $order["id"]);
+    }
 
-        $preference = $client->create([
-            "items" => $items,
-            "back_urls" => [
-                "success" => env('APP_URL')."/success",
-                "failure" => env('APP_URL')."/failure",
-                "pending" => env('APP_URL')."/pending" 
-            ],
-            "external_reference" => (string) $order["id"]
+    public function failure(Request $request)
+    {
+        $orderId = $request->query('external_reference');
+        $order = Order::findOrFail($orderId);
+
+        $order->update(['state' => 'failed']);
+
+        return inertia('Orders/Failure', [
+            'order' => $order->load('itemOrders.product')
         ]);
+    }
 
-        return response()->json([
-            "init_point" => $preference->init_point
+    public function pending(Request $request)
+    {
+        $orderId = $request->query('external_reference');
+        $order = Order::findOrFail($orderId);
+
+        $order->update(['state' => 'pending']);
+
+        return inertia('Orders/Pending', [
+            'order' => $order->load('itemOrders.product')
         ]);
     }
 

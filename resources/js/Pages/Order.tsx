@@ -1,10 +1,16 @@
-
+import axios from "axios";
 import MainLayout from "../layouts/MainLayout";
 import { Order } from "../../models/Order";
 import { Link } from "@inertiajs/react";
 import { Sort } from "../components/Sort";
 
+
 export default function({ orden , sort}: { orden: Order, sort: string }){
+    function handlePay(orderId: number){
+        axios.post(`/ordenes/${orderId}/pagar`)
+            .then(res => window.location.href = res.data.init_point)
+            .catch(err => console.error(err.response.data.error))
+    }
 
     return(
         <MainLayout>
@@ -115,6 +121,11 @@ export default function({ orden , sort}: { orden: Order, sort: string }){
                         </tfoot>
                     </table>
                 </div>
+                {orden.state === 'created' && (
+                    <button onClick={() => handlePay(orden.id)}>
+                        Pagar
+                    </button>
+                )}
                 {/* <Paginacion dir="/admin/ordenes"  pagina={pagina} paginas={paginas} /> */}
             </ div>
         </MainLayout>

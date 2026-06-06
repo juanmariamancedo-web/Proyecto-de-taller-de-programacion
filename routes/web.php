@@ -50,9 +50,9 @@ Route::middleware(['auth', 'not.banned', 'verified.email'])->group(function () {
     Route::post("/crear-orden", [OrderController::class, "createOrder"]);
     
     Route::get('/success', [OrderController::class, 'success']);    
-    Route::get('/failure', fn() => redirect('/catalogo')->with('error', 'El pago falló, intentá de nuevo.'));
-    Route::get('/pending', fn() => redirect('/catalogo')->with('info', 'Tu pago está pendiente de confirmación.'));
-    
+    Route::get('/failure', [PaymentController::class, 'failure']);
+    Route::get('/pending', [PaymentController::class, 'pending']);
+
     Route::get('/perfil', [UsersController::class, 'profile']);
     Route::put('/perfil', [UsersController::class, 'updateProfile']);
 
@@ -69,14 +69,15 @@ Route::middleware(['auth', 'not.banned', 'verified.email'])->group(function () {
     Route::post("/perfil/email", [UsersController::class, "updateEmail"]);
     Route::post("/perfil/verify-email", [UsersController::class, "verifyEmail"]);
 
+    Route::get("/ordenes", [OrderController::class, "showMyOrders"]);
+    Route::get("/ordenes/{id}", [OrderController::class, "showOrder"]);
+    Route::post("/ordenes/{id}/pagar", [OrderController::class, 'payOrder']);
 });
 
 Route::middleware(['auth', 'not.banned'])->group(function () {
     Route::get('/verificar-cuenta', fn() => Inertia::render('ShowVerifyAccount'));
     Route::post('/verificar-cuenta', [AuthController::class, 'verifyRegister']);
     Route::post('/verificar-cuenta/reenviar', [AuthController::class, 'resendVerifyCode']);
-    Route::get("/ordenes", [OrderController::class, "showMyOrders"]);
-    Route::get("/ordenes/{id}", [OrderController::class, "showOrder"]);
 });
 
 Route::get('/catalogo', [ProductsController::class, "showProducts"]);
