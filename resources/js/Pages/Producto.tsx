@@ -13,7 +13,7 @@ export default function Producto({producto} : {producto : Producto}){
     const [showToastMax, setShowToastMax] = useState(false);
     const [cantidad, setCantidad] = useState(producto.stock > 0? 1: 0);
     const dispatch = useDispatch<AppDispatch>();
-    const productos = useSelector((state: RootState) => state.productos.productos);
+    const stockPreviamenteAgregado = useSelector((state: RootState) => state.productos.productos.find((carItem)=>carItem.product.id == producto.id)?.amount || 0);
     const props = usePage().props as any;
 
 
@@ -22,8 +22,6 @@ export default function Producto({producto} : {producto : Producto}){
         if(!props?.auth?.user){
             router.visit("\\formulario-de-login");
         }
-
-        const stockPreviamenteAgregado = productos.find((carItem)=>carItem.product.id == producto.id)?.amount || 0;  
 
         if(stockPreviamenteAgregado + cantidad > producto.stock){
             setShowToastMax(true)
@@ -44,7 +42,7 @@ export default function Producto({producto} : {producto : Producto}){
     }
 
     function cambiarCantidad(e: React.ChangeEvent<HTMLInputElement, HTMLInputElement>){
-        if(parseInt(e.target.value) <= producto.stock){
+        if(parseInt(e.target.value) <= producto.stock - stockPreviamenteAgregado){
             setCantidad(parseInt(e.target.value))
         }
     }
@@ -62,12 +60,12 @@ export default function Producto({producto} : {producto : Producto}){
                             <p className="text-base font-bold">
                                 ${producto.price.toLocaleString('es-AR')}
                             </p>
-                        {producto.stock > 0?
+                        {producto.stock - stockPreviamenteAgregado > 0?
                             (
                                 <>
                                     <input type="number" value={cantidad} onChange={cambiarCantidad}  className="rounded-md bg-black/5 px-3 py-1.5 text-gray-900 outline-1 outline-gray-300 focus:outline-2 focus:outline-indigo-600 dark:bg-white/5 dark:text-white"/>
                                     <p className="text-base font-medium">
-                                        Stock: {producto.stock}
+                                        Stock: {producto.stock - stockPreviamenteAgregado}
                                     </p>
                                     <button className=" bg-indigo-600 text-white p-2 rounded-md disabled:opacity-50" onClick={addProducto}>
                                         Añadir al carrito

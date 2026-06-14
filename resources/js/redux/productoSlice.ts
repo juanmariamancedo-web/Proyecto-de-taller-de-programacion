@@ -44,10 +44,10 @@ const productoSlice = createSlice({
       if (item) {
         item.amount += cantidad
       } else {
-        state.productos.push({
-          product: producto,
-          amount: cantidad
-        })
+          state.productos.push({
+              product: { ...producto },  
+              amount: cantidad
+          })
       }
     },
     decrease: (state, action: PayloadAction<number>) => {
