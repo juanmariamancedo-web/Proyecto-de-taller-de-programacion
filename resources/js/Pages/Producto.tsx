@@ -1,4 +1,4 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Producto } from "../../models/Producto";
 import MainLayout from "../layouts/MainLayout";
 import { add, addWithQuantity } from "../redux/productoSlice";
@@ -6,23 +6,31 @@ import { useEffect, useState } from "react";
 import { router, usePage } from "@inertiajs/react";
 import { syncCarrito } from "../redux/carritoThunks";
 import { AppDispatch } from "../redux/store";
+import { RootState } from "../redux/store";
 
 export default function Producto({producto} : {producto : Producto}){
-    const [showToast, setShowToast] = useState(false);
+    const [showToastAdd, setShowToastAdd] = useState(false);
+    const [showToastMax, setShowToastMax] = useState(false);
     const [cantidad, setCantidad] = useState(producto.stock > 0? 1: 0);
     const dispatch = useDispatch<AppDispatch>();
+    const productos = useSelector((state: RootState) => state.productos.productos);
     const props = usePage().props as any;
 
-    useEffect(()=>{
-        console.log(producto)
-    }, [])
 
     async function addProducto(){
 
         if(!props?.auth?.user){
             router.visit("\\formulario-de-login");
         }
-        
+
+        const stockPreviamenteAgregado = productos.find((carItem)=>carItem.product.id == producto.id)?.amount || 0;  
+
+        if(stockPreviamenteAgregado + cantidad > producto.stock){
+            setShowToastMax(true)
+
+            return setTimeout(() => setShowToastMax(false), 2000);
+        }
+
         dispatch(addWithQuantity({
             producto: producto,
             cantidad: cantidad
@@ -30,10 +38,9 @@ export default function Producto({producto} : {producto : Producto}){
         ));
 
         await dispatch(syncCarrito())
+        setShowToastAdd(true);
 
-        setShowToast(true);
-
-        setTimeout(() => setShowToast(false), 2000);
+        setTimeout(() => setShowToastAdd(false), 2000);
     }
 
     function cambiarCantidad(e: React.ChangeEvent<HTMLInputElement, HTMLInputElement>){
@@ -74,9 +81,21 @@ export default function Producto({producto} : {producto : Producto}){
                             </span>    
                             )
                         }
-                        <span className={` ${showToast? "": "invisible "}bg-black/5 px-3 py-1.5 text-base text-gray-900 sm:text-sm/6 dark:bg-white/5 dark:text-white rounded`}>
-                            Producto agregado
-                        </span>
+                        <div className={`${showToastAdd || showToastMax? "": "invisible "} bg-black/5 px-3 py-1.5 text-base text-gray-900 sm:text-sm/6 dark:bg-white/5 dark:text-white rounded`}>
+                            {showToastAdd?
+                                (
+                                    <span>
+                                        Producto agregado 
+                                    </span>
+                                )
+                                :
+                                (
+                                    <span>
+                                        Maximo stock agregado
+                                    </span>    
+                                )
+                            }
+                        </div>
                     </div>
                 </div>
             </>
