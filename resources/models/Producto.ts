@@ -10,8 +10,8 @@ export type Producto = {
 }
 
 type CartItem = {
-  producto: Producto
-  cantidad: number
+  product: Producto
+  amount: number
 }
 
 

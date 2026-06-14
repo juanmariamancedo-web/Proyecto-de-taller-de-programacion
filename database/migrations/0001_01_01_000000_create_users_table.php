@@ -42,14 +42,6 @@ return new class extends Migration
         });
     }
 
-    public function domicilios() {
-        return $this->hasMany(Address::class);
-    }
-
-    public function ordenes() {
-        return $this->hasMany(Order::class);
-    }
-
     /**
      * Reverse the migrations.
      */

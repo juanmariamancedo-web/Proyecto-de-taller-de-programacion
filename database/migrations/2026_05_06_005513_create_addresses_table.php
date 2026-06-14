@@ -26,11 +26,6 @@ return new class extends Migration
         });
     }
 
-    //Devuelve el usuario asociado
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
 
     public function down(): void
     {

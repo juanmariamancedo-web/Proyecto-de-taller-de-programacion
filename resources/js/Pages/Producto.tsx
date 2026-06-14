@@ -2,16 +2,22 @@ import { useDispatch } from "react-redux";
 import { Producto } from "../../models/Producto";
 import MainLayout from "../layouts/MainLayout";
 import { add, addWithQuantity } from "../redux/productoSlice";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { router, usePage } from "@inertiajs/react";
+import { syncCarrito } from "../redux/carritoThunks";
+import { AppDispatch } from "../redux/store";
 
 export default function Producto({producto} : {producto : Producto}){
     const [showToast, setShowToast] = useState(false);
     const [cantidad, setCantidad] = useState(producto.stock > 0? 1: 0);
-    const dispatch = useDispatch();
+    const dispatch = useDispatch<AppDispatch>();
     const props = usePage().props as any;
 
-    function addProducto(){
+    useEffect(()=>{
+        console.log(producto)
+    }, [])
+
+    async function addProducto(){
 
         if(!props?.auth?.user){
             router.visit("\\formulario-de-login");
@@ -22,6 +28,8 @@ export default function Producto({producto} : {producto : Producto}){
             cantidad: cantidad
             },
         ));
+
+        await dispatch(syncCarrito())
 
         setShowToast(true);
 

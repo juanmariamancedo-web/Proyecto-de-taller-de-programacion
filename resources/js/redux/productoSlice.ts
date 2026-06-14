@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import Producto from '../../models/Producto'
 import { ProductoState } from '../../models/Producto'
+import { fetchCarrito, clearCarrito } from './carritoThunks'
 
 const initialState: ProductoState = {
   productos: []
@@ -12,22 +13,22 @@ const productoSlice = createSlice({
   reducers: {
     add: (state, action: PayloadAction<Producto>) => {
       const item = state.productos.find(
-        i => i.producto.id === action.payload.id
+        i => i.product.id === action.payload.id
       )
 
       if (item) {
-        item.cantidad += 1
+        item.amount += 1
       } else {
         state.productos.push({
-          producto: action.payload,
-          cantidad: 1
+          product: action.payload,
+          amount: 1
         })
       }
     },
 
     increase: (state, action: PayloadAction<number>) => {
-      const item = state.productos.find(i => i.producto.id === action.payload)
-      if (item) item.cantidad += 1
+      const item = state.productos.find(i => i.product.id === action.payload)
+      if (item) item.amount += 1
     },
     addWithQuantity: (
       state,
@@ -36,41 +37,51 @@ const productoSlice = createSlice({
       const { producto, cantidad } = action.payload
 
       const item = state.productos.find(
-        i => i.producto.id === producto.id
+        i => i.product.id === producto.id
       )
 
+      item?.product
       if (item) {
-        item.cantidad += cantidad
+        item.amount += cantidad
       } else {
         state.productos.push({
-          producto,
-          cantidad
+          product: producto,
+          amount: cantidad
         })
       }
     },
     decrease: (state, action: PayloadAction<number>) => {
-      const item = state.productos.find(i => i.producto.id === action.payload)
+      const item = state.productos.find(i => i.product.id === action.payload)
 
       if (!item) return
 
-      if (item.cantidad > 1) {
-        item.cantidad -= 1
+      if (item.amount > 1) {
+        item.amount -= 1
       } else {
         state.productos = state.productos.filter(
-          i => i.producto.id !== action.payload
+          i => i.product.id !== action.payload
         )
       }
     },
 
     remove: (state, action: PayloadAction<number>) => {
       state.productos = state.productos.filter(
-        i => i.producto.id !== action.payload
+        i => i.product.id !== action.payload
       )
     },
 
     clear: (state) => {
       state.productos = []
     }
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchCarrito.fulfilled, (state, action) => {
+        state.productos = action.payload
+      })
+      .addCase(clearCarrito.fulfilled, (state) => {
+        state.productos = []
+      })
   }
 })
 

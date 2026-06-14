@@ -2,7 +2,6 @@ import { User } from "../../models/Auth";
 import EditProfile from "../components/EditProfile";
 import MainLayout from "../layouts/MainLayout";
 import { Head } from "@inertiajs/react";
-
 export default function Perfil({user} : {user : User}){
     return(
         <>

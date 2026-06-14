@@ -23,10 +23,6 @@ return new class extends Migration
         });
     }
 
-    public function item_order() {
-        //Corregir
-        return $this->hasMany(Address::class);
-    }
 
     /**
      * Reverse the migrations.

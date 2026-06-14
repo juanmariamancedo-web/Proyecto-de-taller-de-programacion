@@ -1,8 +1,18 @@
 import { Link, Head } from "@inertiajs/react";
 import MainLayout from "../layouts/MainLayout";
 import Login from "../components/Login";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../redux/store";
+import { useEffect } from "react";
+import { clear } from "../redux/productoSlice";
 
 export default function FormularioDeLogin() {
+  const dispatch = useDispatch<AppDispatch>()
+
+  useEffect(()=>{
+    dispatch(clear())
+  }, [])
+
   return (
     <>
       <Head title="Ingrese a su cuenta" />

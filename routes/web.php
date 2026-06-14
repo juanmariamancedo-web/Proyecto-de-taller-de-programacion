@@ -6,7 +6,7 @@ use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\UsersController;
-
+use App\Http\Controllers\CarritoController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -72,6 +72,10 @@ Route::middleware(['auth', 'not.banned', 'verified.email'])->group(function () {
     Route::get("/ordenes", [OrderController::class, "showMyOrders"]);
     Route::get("/ordenes/{id}", [OrderController::class, "showOrder"]);
     Route::post("/ordenes/{id}/pagar", [OrderController::class, 'payOrder']);
+
+    Route::get('/api/carrito', [CarritoController::class, 'index']);
+    Route::post('/api/carrito', [CarritoController::class, 'sync']);
+    Route::delete('/api/carrito', [CarritoController::class, 'clear']);
 });
 
 Route::middleware(['auth', 'not.banned'])->group(function () {

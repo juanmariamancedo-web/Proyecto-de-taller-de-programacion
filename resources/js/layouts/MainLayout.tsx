@@ -5,9 +5,20 @@ import { Header } from "../components/Header/Header";
 import { Link, usePage } from "@inertiajs/react";
 import Carrito from "../components/Carrito";
 import { Page } from "../../models/Page";
+import { useDispatch, UseDispatch } from "react-redux";
+import { fetchCarrito } from "../redux/carritoThunks";
+import { AppDispatch } from "../redux/store";
+import { useEffect } from "react";
 
 export default function MainLayout({children}:{children: JSX.Element}){
+    const dispatch = useDispatch<AppDispatch>()
     const { props } = usePage() as any;
+
+    useEffect(() => {
+    if (props?.auth?.user) {
+      dispatch(fetchCarrito())
+    }
+  }, [props?.auth?.user?.id])
 
     const clientPages : Page[] = [
          {

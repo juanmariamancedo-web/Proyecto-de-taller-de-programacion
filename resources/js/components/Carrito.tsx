@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useSelector, useDispatch } from 'react-redux'
 import type { RootState } from '../redux/store'
 import ItemCarrito from "./ItemCarrito";
@@ -7,6 +7,8 @@ import CartIcon from "./icons/CartIcon";
 import CloseIcon from "./icons/CloseIcon";
 import { router, usePage } from "@inertiajs/react";
 import axios from "axios";
+import { AppDispatch } from "../redux/store";
+import { clearCarrito } from "../redux/carritoThunks";
 
 export default function Carrito(){
     const [open, setOpen] = useState(false);
@@ -14,7 +16,7 @@ export default function Carrito(){
     const props = usePage().props as any;
 
     const productos = useSelector((state: RootState) => state.productos.productos);
-    const dispatch = useDispatch()
+    const dispatch = useDispatch<AppDispatch>()
 
 
     function toggleOpen(){
@@ -30,8 +32,9 @@ export default function Carrito(){
         }
     }
     
-    function vaciarCarrito(){
+    async function vaciarCarrito(){
         dispatch(clear())
+        await dispatch(clearCarrito())
     }
 
     async function crearOrden(){
@@ -41,11 +44,10 @@ export default function Carrito(){
 
         // console.log(res.data)
 
-        vaciarCarrito();
+        await vaciarCarrito();
 
         window.location.href = res.data.init_point;
     }
-
 
     return (
         <>
@@ -69,9 +71,9 @@ export default function Carrito(){
                 <div className="flex flex-col gap-10 flex-1 min-h-0">
                     <p className="text-center text-2xl/9 font-bold tracking-tight text-gray-900 dark:text-white">Carrito de compras</p>
                     <div className="overflow-y-auto divide-y flex flex-col gap-3 flex-1">
-                        {productos.length > 0 && productos.map((producto)=>{
+                        {productos.length > 0 && productos.map((carItem)=>{
                             return(
-                                <ItemCarrito key={producto.producto.id} carItem={producto} />
+                                <ItemCarrito key={carItem.product.id} carItem={carItem} />
                             )
                         })}
                     </div>
