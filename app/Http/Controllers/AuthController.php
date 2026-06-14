@@ -10,6 +10,7 @@ use App\Models\PasswordReset;
 use App\Models\EmailVerificationCode;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\RequestForgottenPasswordCode;
+use App\Mail\VerifyEmail;
 
 class AuthController extends Controller
 {
@@ -89,8 +90,7 @@ class AuthController extends Controller
             "expires_at" => now()->addMinutes(15),
         ]);
 
-        Mail::to($user->email)->send(new RequestForgottenPasswordCode([
-            'email' => $user->email,
+        Mail::to($user->email)->send(new VerifyEmail([
             'name' => $user->name,
             'code' => $code,
         ]));
@@ -137,8 +137,7 @@ class AuthController extends Controller
             "expires_at" => now()->addMinutes(15),
         ]);
 
-        Mail::to($user->email)->send(new RequestForgottenPasswordCode([
-            'email' => $user->email,
+        Mail::to($user->email)->send(new VerifyEmail([
             'name' => $user->name,
             'code' => $code,
         ]));

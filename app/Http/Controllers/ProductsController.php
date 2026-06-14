@@ -76,7 +76,8 @@ class ProductsController extends Controller
             'productos' => $this->productos($request),
             'paginas' => ceil(Product::count() / $this->getLimite()),
             "pagina" => $page,
-            'sort'      => $request->get("sort")
+            'sort'      => $request->get("sort"),
+            "search" => $request->get("search")
         ]);        
     }
 

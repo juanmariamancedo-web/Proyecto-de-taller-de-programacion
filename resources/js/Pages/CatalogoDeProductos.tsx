@@ -4,8 +4,12 @@ import Producto from "../../models/Producto";
 import Paginacion from "../components/Paginacion";
 import Search from "../components/Search";
 import { Sort } from "../components/Sort";
+import { useSelector } from "react-redux";
+import { RootState } from "../redux/store";
 
-export default function CatalogoDeProductos({ productos , paginas, pagina, sort}: { productos: Producto[], paginas: number, pagina: number, sort: string }){
+export default function CatalogoDeProductos({ productos , paginas, pagina, sort, search}: { productos: Producto[], paginas: number, pagina: number, sort: string, search: string }){
+    const carItems = useSelector((state: RootState) => state.productos.productos)
+
     // let productos : Producto[] = [
     //     {
     //         name: "Down Pipe E Intermedio Amarok V6 3.0 Acero Inox",
@@ -55,7 +59,7 @@ export default function CatalogoDeProductos({ productos , paginas, pagina, sort}
                     </h1>
                     <section className="p-3 sm:p-0 grid grid-cols-1 sm:grid-cols-2 gap-3">
                         <div className="col-span-1 sm:col-span-2">
-                            <Search dir="/catalogo" />
+                            <Search dir="/catalogo" sort={sort} value={search} />
                         </div>
                         <div className="col-span-1 sm:col-span-2 grid grid-cols-subgrid">
                             <Sort 
@@ -63,15 +67,19 @@ export default function CatalogoDeProductos({ productos , paginas, pagina, sort}
                                 name="Precio"
                                 serverArg="price"
                                 className="rounded-md bg-black/5 px-3 py-1.5 text-gray-900 outline-1 outline-gray-300 focus:outline-2 focus:outline-indigo-600 dark:bg-white/5 dark:text-white"
+                                search={search}
                             />
                             <Sort 
                                 sort={sort} dir="/catalogo"
                                 name="Stock"
                                 serverArg="stock"
+                                search={search}
                                 className="rounded-md bg-black/5 px-3 py-1.5 text-gray-900 outline-1 outline-gray-300 focus:outline-2 focus:outline-indigo-600 dark:bg-white/5 dark:text-white"
                             />
                         </div>
                         {productos?.length > 0 && productos.map((producto)=>{
+                            const stockPreviamenteAgregado = carItems.find((item)=> item.product.id == producto.id)?.amount || 0;
+
                             return(
                                 <Link 
                                     href={"/catalogo/" + producto.name} 
@@ -92,18 +100,22 @@ export default function CatalogoDeProductos({ productos , paginas, pagina, sort}
                                         <p className="text-base font-semibold">
                                             ${producto.price.toLocaleString('es-AR')}
                                         </p>
-                                        <p className="text-base font-mono">
                                             {producto.stock > 0?
                                                 <>
-
-                                                    {producto.stock} unidades disponibles
+                                                    <p className="text-base font-mono">
+                                                        {producto.stock - stockPreviamenteAgregado} unidades disponibles 
+                                                    </p>
+                                                    <p className="text-base font-mono">
+                                                        {stockPreviamenteAgregado} unidades en carrito
+                                                    </p>
                                                 </>
                                                 :
                                                 <>
-                                                    Sin stock
+                                                    <p className="text-base font-mono">
+                                                        Sin stock
+                                                    </p>
                                                 </>
                                             }
-                                        </p>
                                         
                                     </div>
                                 </Link>

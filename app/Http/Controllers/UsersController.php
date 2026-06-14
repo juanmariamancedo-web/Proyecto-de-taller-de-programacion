@@ -8,7 +8,7 @@ use App\Models\EmailVerificationCode;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Hash;
 use Inertia\Inertia;
-use App\Mail\RequestForgottenPasswordCode;
+use App\Mail\verifyEmail;
 
 class UsersController extends Controller
 {
@@ -108,7 +108,7 @@ class UsersController extends Controller
             'password' => Hash::make($request->input('password'))
         ]);
 
-        return back();
+        return Inertia::render("SuccesPassword");
     }
 
     public function updateEmail(Request $request){
@@ -127,9 +127,8 @@ class UsersController extends Controller
             ]
         );
 
-        Mail::to(auth()->user()->email)->send(new RequestForgottenPasswordCode([
+        Mail::to($request->input('email'))->send(new verifyEmail([
             'name' => auth()->user()->name,
-            'email' => auth()->user()->email,
             'code' => $code
         ]));
 

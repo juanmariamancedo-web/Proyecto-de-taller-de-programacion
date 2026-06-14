@@ -5,7 +5,7 @@ import { Header } from "../components/Header/Header";
 import { Link, usePage } from "@inertiajs/react";
 import Carrito from "../components/Carrito";
 import { Page } from "../../models/Page";
-import { useDispatch, UseDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { fetchCarrito } from "../redux/carritoThunks";
 import { AppDispatch } from "../redux/store";
 import { useEffect } from "react";
@@ -15,10 +15,10 @@ export default function MainLayout({children}:{children: JSX.Element}){
     const { props } = usePage() as any;
 
     useEffect(() => {
-    if (props?.auth?.user) {
+    if (props?.auth?.user && props?.auth?.user?.is_banned == 0 && props?.auth?.user?.role !== "unverified") {
       dispatch(fetchCarrito())
     }
-  }, [props?.auth?.user?.id])
+  }, [props?.auth?.user])
 
     const clientPages : Page[] = [
          {
@@ -63,11 +63,15 @@ export default function MainLayout({children}:{children: JSX.Element}){
                 <main className="container mx-auto pt-14 relative">
                     {children}
                 </main>
-                <Carrito />
+                {
+                    (props?.auth?.user == null ||
+                    (props?.auth?.user?.is_banned == 0 && props?.auth?.user?.role !== "unverified")) &&
+                    <Carrito />
+                }
                 <div className="p-3 sm:p-0">
                     <footer className="rounded-lg shadow bg-black/5 px-3 py-1.5 text-base text-gray-900 sm:text-sm/6 dark:bg-white/5 dark:text-white backdrop-blur-lg container mx-auto mb-10">
                         <div className="w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between">
-                            <span className="text-sm sm:text-center text-yellow-800/90 dark:text-yellow-200/90">© 2026 <a href="https://midu.dev/" className="hover:underline">Juan María Mancedo</a>.Casi todos los derechos reservados</span>
+                            <span className="text-sm sm:text-center text-yellow-800/90 dark:text-yellow-200/90">© 2026 <a href="https://midu.dev/" className="hover:underline">Juan María Mancedo</a>. Todos los derechos reservados</span>
                             <ul className="flex flex-wrap items-center mt-3 text-sm font-medium dark:text-white/90 sm:mt-0">
                                 <li>
                                     <Link href="/quienes-somos" className="hover:underline me-4 md:me-6">Quienes somos?</Link>

@@ -63,13 +63,19 @@ export default function Producto({producto} : {producto : Producto}){
                         {producto.stock - stockPreviamenteAgregado > 0?
                             (
                                 <>
-                                    <input type="number" value={cantidad} onChange={cambiarCantidad}  className="rounded-md bg-black/5 px-3 py-1.5 text-gray-900 outline-1 outline-gray-300 focus:outline-2 focus:outline-indigo-600 dark:bg-white/5 dark:text-white"/>
+                                    {
+                                        props?.auth?.user && props?.auth?.user?.is_banned == 0 && props?.auth?.user?.role !== "unverified" &&
+                                        <input type="number" value={cantidad} onChange={cambiarCantidad}  className="rounded-md bg-black/5 px-3 py-1.5 text-gray-900 outline-1 outline-gray-300 focus:outline-2 focus:outline-indigo-600 dark:bg-white/5 dark:text-white"/>
+                                    }
                                     <p className="text-base font-medium">
                                         Stock: {producto.stock - stockPreviamenteAgregado}
                                     </p>
-                                    <button className=" bg-indigo-600 text-white p-2 rounded-md disabled:opacity-50" onClick={addProducto}>
-                                        Añadir al carrito
-                                    </button>
+                                    {
+                                        props?.auth?.user && props?.auth?.user?.is_banned == 0 && props?.auth?.user?.role !== "unverified" &&
+                                        <button className=" bg-indigo-600 text-white p-2 rounded-md disabled:opacity-50" onClick={addProducto}>
+                                            Añadir al carrito
+                                        </button>
+                                    }
                                 </>
                             )
                             :

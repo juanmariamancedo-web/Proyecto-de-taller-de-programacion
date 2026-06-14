@@ -1,8 +1,11 @@
 import { Link, Head } from "@inertiajs/react";
 import MainLayout from "../layouts/MainLayout";
 import Producto from "../../models/Producto";
+import { useSelector } from "react-redux";
+import { RootState } from "../redux/store";
 
 export default function Welcome({destacados} : {destacados : Producto[]}){
+    const carItems = useSelector((state: RootState) => state.productos.productos)
 
     return(
         <>
@@ -82,6 +85,8 @@ export default function Welcome({destacados} : {destacados : Producto[]}){
                             </h3>
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                 {destacados?.length > 0 && destacados.map((producto)=>{
+                                    const stockPreviamenteAgregado = carItems.find((item)=> item.product.id == producto.id)?.amount || 0;
+
                                     return(
                                         <Link 
                                             href={"/catalogo/" + producto.name} 
@@ -102,6 +107,22 @@ export default function Welcome({destacados} : {destacados : Producto[]}){
                                                 <p className="text-base font-semibold">
                                                     ${producto.price}
                                                 </p>
+                                                {producto.stock > 0?
+                                                    <>
+                                                        <p className="text-base font-mono">
+                                                            {producto.stock - stockPreviamenteAgregado} unidades disponibles 
+                                                        </p>
+                                                        <p className="text-base font-mono">
+                                                            {stockPreviamenteAgregado} unidades en carrito
+                                                        </p>
+                                                    </>
+                                                    :
+                                                    <>
+                                                        <p className="text-base font-mono">
+                                                            Sin stock
+                                                        </p>
+                                                    </>
+                                                }
                                             </div>
                                         </Link>
                                     )

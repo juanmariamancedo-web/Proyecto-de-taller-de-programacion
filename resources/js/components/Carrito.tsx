@@ -15,7 +15,7 @@ export default function Carrito(){
 
     const props = usePage().props as any;
 
-    const productos = useSelector((state: RootState) => state.productos.productos);
+    const productos = useSelector((state: RootState) => state.productos.productos)
     const dispatch = useDispatch<AppDispatch>()
 
 

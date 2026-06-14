@@ -1,4 +1,4 @@
-<h1>Código de recuperación de contraseña</h1> 
+<h1>Código de verificación de email</h1> 
 <p>
     Nombre: {{ $data['name'] }}
 </p>
