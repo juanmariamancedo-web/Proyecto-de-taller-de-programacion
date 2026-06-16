@@ -21,21 +21,21 @@ export default function QuienesSomos(){
                       <span>
                         Hola,  somos FlowTech Performance
                       </span>
-                      <a
-                        href="https://linkedin.com/in/juan-maría-mancedo"
-                        target="_blank"
-                        rel="noopener"
-                        className="flex justify-center items-center"
-                      >
-                          <span
-                              className="text-xs font-medium me-2 px-2.5 py-0.5 rounded bg-blue-600 text-white dark:bg-blue-900 dark:text-blue-300"
-                          >
-                              Disponibles para trabajar
-                          </span>
-                      </a>
                     </h1>
+                    <a
+                      href="https://linkedin.com/in/juan-maría-mancedo"
+                      target="_blank"
+                      rel="noopener"
+                      className="flex justify-center items-center"
+                    >
+                        <span
+                            className="text-xs font-medium me-2 px-2.5 py-0.5 rounded bg-blue-600 text-white dark:bg-blue-900 dark:text-blue-300"
+                        >
+                            Disponibles para trabajar
+                        </span>
+                    </a>
                     <h2
-                      className="text-xl lg:text-2xl text-balance max-w-[700px] text-black dark:text-white"
+                      className="text-xl lg:text-2xl text-center max-w-[700px] text-black dark:text-white"
                     >
                       <span
                         className="text-yellow-800 dark:text-yellow-200">

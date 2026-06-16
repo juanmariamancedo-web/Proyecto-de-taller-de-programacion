@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 use App\Models\Contact;
+use App\Mail\ContactEmail;
+use Illuminate\Support\Facades\Mail;
 
 class ContactController extends Controller
 {
@@ -20,13 +22,20 @@ class ContactController extends Controller
         $message = $request->input("mensaje");
 
 
-        Contact::create([
+        // Contact::create([
+        //     "name" => $name,
+        //     "lastname" => $lastname,
+        //     "email" => $email,
+        //     "matter" => "",
+        //     "message" => $message
+        // ]);
+
+        Mail::to("juanmaninc@gmail.com")->send(new ContactEmail([
             "name" => $name,
-            "lastname" => $lastname,
             "email" => $email,
-            "matter" => "",
+            "lastname" => $lastname,
             "message" => $message
-        ]);
+        ]));
 
         return Inertia::render('SuccessContact');
     }
