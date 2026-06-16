@@ -74,11 +74,12 @@ class OrderController extends Controller
     }
 
     public function createOrder(Request $request){
+
         // Verificar stock
         foreach ($request->input("carItems") as $item) {
-            $producto = Product::findOrFail($item["producto"]["id"]);
+            $producto = Product::findOrFail($item["product"]["id"]);
 
-            if ($producto->stock < $item["cantidad"]) {
+            if ($producto->stock < $item["amount"]) {
                 return response()->json([
                     "error" => "Stock insuficiente para {$producto->name}. Stock disponible: {$producto->stock}"
                 ], 422);
@@ -92,11 +93,11 @@ class OrderController extends Controller
 
         // Crear items ANTES de llamar payOrder
         foreach ($request->input("carItems") as $item) {
-            $producto = Product::findOrFail($item["producto"]["id"]);
+            $producto = Product::findOrFail($item["product"]["id"]);
 
             ItemOrder::create([
-                "amount"     => $item["cantidad"],
-                "product_id" => $item["producto"]["id"],
+                "amount"     => $item["amount"],
+                "product_id" => $item["product"]["id"],
                 "unit_price" => $producto["price"],
                 "order_id"   => $order["id"]
             ]);

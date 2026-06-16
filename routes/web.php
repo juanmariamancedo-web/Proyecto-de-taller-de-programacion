@@ -44,10 +44,11 @@ Route::get("/forgot-password", [AuthController::class, "showForgotPassword"]);
 Route::post("/forgot-password", [AuthController::class, "showRequestForgottenPasswordCode"]);
 Route::post("/requestForgottenPasswordCode", [AuthController::class, "requestForgottenPasswordCode"]);
 
+Route::post("/crear-orden", [OrderController::class, "createOrder"]);
+
 Route::middleware(['auth', 'not.banned', 'verified.email'])->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-    Route::post("/crear-orden", [OrderController::class, "createOrder"]);
     
     Route::get('/success', [OrderController::class, 'success']);    
     Route::get('/failure', [PaymentController::class, 'failure']);

@@ -38,15 +38,18 @@ export default function Carrito(){
     }
 
     async function crearOrden(){
-        const res = await axios.post("/crear-orden", {
-            carItems: productos
-        });
-
-        // console.log(res.data)
-
-        await vaciarCarrito();
-
-        window.location.href = res.data.init_point;
+        try {
+            const res = await axios.post('/crear-orden', {
+                carItems: productos
+            });
+            
+            await vaciarCarrito();
+            window.location.href = res.data.init_point;
+            
+        } catch (error: any) {
+            console.log("DATA:", error.response?.data)
+            console.log("STATUS:", error.response?.status)
+        }
     }
 
     return (
