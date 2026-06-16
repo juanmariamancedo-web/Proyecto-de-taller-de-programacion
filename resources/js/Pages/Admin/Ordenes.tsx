@@ -91,8 +91,8 @@ export default function({ ordenes , paginas, pagina, sort, search}: { ordenes: O
                                 )
                             ) : (
                                 <tr>
-                                    <td colSpan={4} className="text-center py-6 text-gray-500">
-                                        No hay órdenes encontradas
+                                    <td colSpan={5} className="text-center py-6 text-gray-500">
+                                        No hay productos encontrados
                                     </td>
                                 </tr>
                             )}

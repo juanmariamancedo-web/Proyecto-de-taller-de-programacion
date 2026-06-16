@@ -59,10 +59,10 @@ export default function Catalogo({ productos, paginas, pagina, sort, search }: {
         }
     }
 
-    function eliminar(id: number) {
-        if (!confirm('¿Eliminar este producto?')) return;
-        router.delete(`/admin/catalogo/${id}`, { preserveScroll: true });
-    }
+    // function eliminar(id: number) {
+    //     if (!confirm('¿Eliminar este producto?')) return;
+    //     router.delete(`/admin/catalogo/${id}`, { preserveScroll: true });
+    // }
 
     const stockColor = (product: Product) => {
         if (product.stock === 0) return 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400';
@@ -260,10 +260,10 @@ export default function Catalogo({ productos, paginas, pagina, sort, search }: {
                                                         className="px-3 py-1 text-xs bg-yellow-400 hover:bg-yellow-500 text-white rounded-lg transition">
                                                         Editar
                                                     </button>
-                                                    <button onClick={() => eliminar(product.id)}
+                                                    {/* <button onClick={() => eliminar(product.id)}
                                                         className="px-3 py-1 text-xs bg-red-500 hover:bg-red-600 text-white rounded-lg transition">
                                                         Eliminar
-                                                    </button>
+                                                    </button> */}
                                                 </div>
                                             </td>
                                         </tr>
@@ -271,8 +271,8 @@ export default function Catalogo({ productos, paginas, pagina, sort, search }: {
                                 </>:
                                 (
                                     <tr>
-                                        <td colSpan={4} className="text-center py-6 text-gray-500">
-                                            No hay productos encntrados
+                                        <td colSpan={6} className="text-center py-6 text-gray-500">
+                                            No hay productos encontrados
                                         </td>
                                     </tr>
                                 )

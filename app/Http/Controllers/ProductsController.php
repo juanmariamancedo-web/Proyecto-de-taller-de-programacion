@@ -43,10 +43,9 @@ class ProductsController extends Controller
         ]);
     }
 
-    private function productos(Request $request){
+    private function productos(Request $request, $isActive){
         $page = (int) $request->get('page', 1);
         $sort = $request->get("sort");
-
         $search = $request->get('search', '');
 
         $query = match($sort){
@@ -65,16 +64,21 @@ class ProductsController extends Controller
             $query = $query->where('name', 'LIKE', "%{$search}%");
         }
 
+       if($isActive == 1){
+            $query = $query->where('is_active', 1);
+        }
+
         return $query->offset(($page - 1) * $this->getLimite())->limit($this->getLimite())->get();
     }
 
 
     public function showProducts(Request $request) {
         $page = (int) $request->get('page', 1);
+        $productos = $this->productos($request, 1);
 
         return Inertia::render('CatalogoDeProductos', [
-            'productos' => $this->productos($request),
-            'paginas' => ceil(Product::count() / $this->getLimite()),
+            'productos' => $productos,
+            'paginas' => ceil($productos->count() / $this->getLimite()),
             "pagina" => $page,
             'sort'      => $request->get("sort"),
             "search" => $request->get("search")
@@ -85,7 +89,7 @@ class ProductsController extends Controller
         $page = (int) $request->get('page', 1);
 
         return Inertia::render('Admin/Catalogo', [
-            'productos' => $this->productos($request),
+            'productos' => $this->productos($request, 0),
             'paginas'   => ceil(Product::count() / $this->getLimite()),
             'pagina'    => $page,
             'sort'      => $request->get("sort"), 
@@ -118,7 +122,7 @@ class ProductsController extends Controller
 
     public function newProduct(Request $request){
         $request->validate([
-            'name'      => 'required|string|max:255|unique:products,name,' . $product->id,
+            'name'      => 'required|string|max:255|unique:products,name,',
             'price'     => 'required|numeric|min:0',
             'stock'     => 'required|integer|min:0',
             'low_stock' => 'required|integer|min:0',

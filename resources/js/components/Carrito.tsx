@@ -52,7 +52,7 @@ export default function Carrito(){
     return (
         <>
             <button 
-                className="fixed bottom-2 right-3 z-5 bg-neutral-200 dark:bg-black hover:bg-black/10 dark:hover:bg-white/10 rounded-full px-3 py-1 dark:text-white" 
+                className="fixed bottom-2 right-3 z-30 bg-neutral-200 dark:bg-black hover:bg-black/10 dark:hover:bg-white/10 rounded-full px-3 py-1 dark:text-white" 
                 onClick={openCarrito}
             >
                 <CartIcon />

@@ -61,7 +61,7 @@ export default function CatalogoDeProductos({ productos , paginas, pagina, sort,
                         <div className="col-span-1 sm:col-span-2">
                             <Search dir="/catalogo" sort={sort} value={search} />
                         </div>
-                        <div className="col-span-1 sm:col-span-2 grid grid-cols-subgrid">
+                        <div className="col-span-1 sm:col-span-2 grid grid-cols-subgrid gap-3">
                             <Sort 
                                 sort={sort} dir="/catalogo"
                                 name="Precio"
@@ -121,6 +121,13 @@ export default function CatalogoDeProductos({ productos , paginas, pagina, sort,
                                 </Link>
                             )
                         })}
+                        {productos.length === 0 && (
+                            <div className="col-span-1 sm:col-span-2 flex items-center justify-center h-full min-h-[300px]">
+                                <h2 className="text-2xl md:text-3xl lg:text-4xl font-semibold tracking-tight text-center text-black dark:text-white sm:text-7xl">
+                                No se han encontrado productos
+                                </h2>
+                            </div>
+                        )}
                         <div className="col-span-1 sm:col-span-2">
                             <Paginacion paginas={paginas} pagina={pagina} dir="/catalogo" />
                         </div>

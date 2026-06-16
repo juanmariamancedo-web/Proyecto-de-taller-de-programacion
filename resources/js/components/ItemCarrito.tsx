@@ -15,7 +15,7 @@ export default function ItemCarrito({carItem}: {carItem: CartItem}){
     }
 
     return(
-        <div className="flex justify-between">
+        <div className="flex justify-between items-center">
             <div>
                 <p className="text-base font-bold">
                     {carItem.product.name}
@@ -27,7 +27,7 @@ export default function ItemCarrito({carItem}: {carItem: CartItem}){
                     ${(carItem.product.price * carItem.amount).toLocaleString('es-AR')}
                 </p>
             </div>
-            <button onClick={eliminarItem} className="self-start bg-indigo-600 text-white p-2 rounded-md disabled:opacity-50">
+            <button onClick={eliminarItem} className="bg-indigo-600 text-white p-2 rounded-md disabled:opacity-50">
                 <BackSpaceIcon />
             </button>
         </ div>

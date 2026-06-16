@@ -145,8 +145,8 @@ export default function Usuarios({pagina , paginas, usuarios, sort, search} : {p
                                 )
                             ) : (
                                 <tr>
-                                    <td colSpan={4} className="text-center py-6 text-gray-500">
-                                        No hay usuarios encontrados
+                                    <td colSpan={10} className="text-center py-6 text-gray-500">
+                                        No hay productos encontrados
                                     </td>
                                 </tr>
                             )}
