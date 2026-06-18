@@ -3,13 +3,19 @@ import MainLayout from "../layouts/MainLayout";
 import { Order } from "../../models/Order";
 import { Link } from "@inertiajs/react";
 import { Sort } from "../components/Sort";
+import { router } from "@inertiajs/react";
 
 
 export default function({ orden , sort}: { orden: Order, sort: string }){
     function handlePay(orderId: number){
-        axios.post(`/ordenes/${orderId}/pagar`)
-            .then(res => window.location.href = res.data.init_point)
-            .catch(err => console.error(err.response.data.error))
+        //Comentado a peticion del profesor por usar mercado pago
+        // axios.post(`/ordenes/${orderId}/pagar`)
+        //     .then(res => window.location.href = res.data.init_point)
+        //     .catch(err => console.error(err.response.data.error))
+
+        
+        //Bypass mercado pago
+        router.get("/success", { order_id: orderId });
     }
 
     return(

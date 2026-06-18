@@ -10,6 +10,7 @@ import axios from "axios";
 import { AppDispatch } from "../redux/store";
 import { clearCarrito } from "../redux/carritoThunks";
 
+
 export default function Carrito(){
     const [open, setOpen] = useState(false);
 
@@ -44,8 +45,15 @@ export default function Carrito(){
             });
             
             await vaciarCarrito();
-            window.location.href = res.data.init_point;
+
             
+            // comentado a peticion del profesor por usar mercado Pago
+            // window.location.href = res.data.init_point;
+            
+            //Bypass 
+            const orderId = res.data;
+            router.get("/success", { order_id: orderId });
+
         } catch (error: any) {
             console.log("DATA:", error.response?.data)
             console.log("STATUS:", error.response?.status)

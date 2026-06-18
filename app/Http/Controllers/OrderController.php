@@ -27,52 +27,90 @@ class OrderController extends Controller
         $this->limite = $limite;
     }
 
-    public function payOrder(Request $request, $id){
-        MercadoPagoConfig::setAccessToken(config('services.mercadopago.token'));
+    // metodo comentado por usar Mercado pago a peticion del profesor
+    // public function payOrder(Request $request, $id){
+    //     MercadoPagoConfig::setAccessToken(config('services.mercadopago.token'));
 
-        $order = Order::with('itemOrders.product')->findOrFail($id);
+    //     $order = Order::with('itemOrders.product')->findOrFail($id);
 
-        // Solo se puede pagar si está en estado created
-        if($order->state !== 'created'){
-            return response()->json([
-                "error" => "La orden no puede ser pagada en su estado actual: {$order->state}"
-            ], 422);
-        }
+    //     // Solo se puede pagar si está en estado created
+    //     if($order->state !== 'created'){
+    //         return response()->json([
+    //             "error" => "La orden no puede ser pagada en su estado actual: {$order->state}"
+    //         ], 422);
+    //     }
 
-        // Verificar stock
-        foreach($order->itemOrders as $item){
-            $producto = Product::findOrFail($item->product_id);
+    //     // Verificar stock
+    //     foreach($order->itemOrders as $item){
+    //         $producto = Product::findOrFail($item->product_id);
 
-            if($producto->stock < $item->amount){
-                return response()->json([
-                    "error" => "Stock insuficiente para {$producto->name}. Stock disponible: {$producto->stock}"
-                ], 422);
-            }
-        }
+    //         if($producto->stock < $item->amount){
+    //             return response()->json([
+    //                 "error" => "Stock insuficiente para {$producto->name}. Stock disponible: {$producto->stock}"
+    //             ], 422);
+    //         }
+    //     }
 
-        $items = $order->itemOrders->map(fn($item) => [
-            "title"      => $item->product->name,
-            "quantity"   => $item->amount,
-            "unit_price" => $item->unit_price
-        ])->toArray();
+    //     $items = $order->itemOrders->map(fn($item) => [
+    //         "title"      => $item->product->name,
+    //         "quantity"   => $item->amount,
+    //         "unit_price" => $item->unit_price
+    //     ])->toArray();
 
-        $client = new PreferenceClient();
+    //     $client = new PreferenceClient();
 
-        $preference = $client->create([
-            "items" => $items,
-            "back_urls" => [
-                "success" => env('APP_URL')."/success",
-                "failure" => env('APP_URL')."/failure",
-                "pending" => env('APP_URL')."/pending"
-            ],
-            "external_reference" => (string) $order->id
-        ]);
+    //     $preference = $client->create([
+    //         "items" => $items,
+    //         "back_urls" => [
+    //             "success" => env('APP_URL')."/success",
+    //             "failure" => env('APP_URL')."/failure",
+    //             "pending" => env('APP_URL')."/pending"
+    //         ],
+    //         "external_reference" => (string) $order->id
+    //     ]);
 
-        return response()->json([
-            "init_point" => $preference->init_point
-        ]);
-    }
+    //     return response()->json([
+    //         "init_point" => $preference->init_point
+    //     ]);
+    // }
 
+
+    // metodo comentado por usar Mercado pago a peticion del profesor
+    // public function createOrder(Request $request){
+
+    //     // Verificar stock
+    //     foreach ($request->input("carItems") as $item) {
+    //         $producto = Product::findOrFail($item["product"]["id"]);
+
+    //         if ($producto->stock < $item["amount"]) {
+    //             return response()->json([
+    //                 "error" => "Stock insuficiente para {$producto->name}. Stock disponible: {$producto->stock}"
+    //             ], 422);
+    //         }
+    //     }
+
+    //     $order = Order::create([
+    //         "state"   => "created",
+    //         "user_id" => Auth::id()
+    //     ]);
+
+    //     // Crear items ANTES de llamar payOrder
+    //     foreach ($request->input("carItems") as $item) {
+    //         $producto = Product::findOrFail($item["product"]["id"]);
+
+    //         ItemOrder::create([
+    //             "amount"     => $item["amount"],
+    //             "product_id" => $item["product"]["id"],
+    //             "unit_price" => $producto["price"],
+    //             "order_id"   => $order["id"]
+    //         ]);
+    //     }
+
+    //     return $this->payOrder($request, $order["id"]);
+    // }
+
+    
+    //Bypass mercado pago
     public function createOrder(Request $request){
 
         // Verificar stock
@@ -103,47 +141,99 @@ class OrderController extends Controller
             ]);
         }
 
-        return $this->payOrder($request, $order["id"]);
+        return $order["id"];
     }
 
-    public function failure(Request $request)
-    {
-        $orderId = $request->query('external_reference');
-        $order = Order::findOrFail($orderId);
 
-        $order->update(['state' => 'failed']);
+    // public function failure(Request $request)
+    // {
+    //     $orderId = $request->query('external_reference');
+    //     $order = Order::findOrFail($orderId);
 
-        return inertia('Orders/Failure', [
-            'order' => $order->load('itemOrders.product')
-        ]);
-    }
+    //     $order->update(['state' => 'failed']);
 
-    public function pending(Request $request)
-    {
-        $orderId = $request->query('external_reference');
-        $order = Order::findOrFail($orderId);
+    //     return inertia('Orders/Failure', [
+    //         'order' => $order->load('itemOrders.product')
+    //     ]);
+    // }
 
-        $order->update(['state' => 'pending']);
+    // public function pending(Request $request)
+    // {
+    //     $orderId = $request->query('external_reference');
+    //     $order = Order::findOrFail($orderId);
 
-        return inertia('Orders/Pending', [
-            'order' => $order->load('itemOrders.product')
-        ]);
-    }
+    //     $order->update(['state' => 'pending']);
 
+    //     return inertia('Orders/Pending', [
+    //         'order' => $order->load('itemOrders.product')
+    //     ]);
+    // }
+
+    // metodo comentado por usar Mercado pago a peticion del profesor
+    // public function success(Request $request)
+    // {
+    //     $paymentId = $request->query('payment_id');
+    //     $orderId = $request->query('external_reference');
+
+    //     MercadoPagoConfig::setAccessToken(config('services.mercadopago.token'));
+        
+    //     $client = new PaymentClient();
+    //     $payment = $client->get($paymentId);
+
+    //     //por las dudas
+    //     if ($payment->status !== 'approved') {
+    //         return redirect('/failure');
+    //     }
+
+    //     $order = Order::findOrFail($orderId);
+
+    //     if ($order->state === 'paid') {
+    //         return inertia('Orders/Success', [
+    //             'order' => $order->load('itemOrders.product')
+    //         ]);
+    //     }
+
+    //     // Verificar stock
+    //     foreach ($order->itemOrders as $item) {
+    //         $producto = Product::findOrFail($item->product_id);
+
+    //         if ($producto->stock < $item->amount) {
+    //             $order->update(['state' => 'stock_error']);
+    //             return inertia('Orders/StockError', [
+    //                 'order' => $order->load('itemOrders.product')
+    //             ]);
+    //         }
+    //     }
+
+    //     // Restar stock y marcar como pagada
+    //     foreach ($order->itemOrders as $item) {
+    //         $producto = Product::findOrFail($item->product_id);
+    //         $producto->stock -= $item->amount;
+    //         $producto->save();
+    //     }
+
+    //     $order->state = 'paid';
+    //     $order->save();
+
+    //     return inertia('Orders/Success', [
+    //         'order' => $order->load('itemOrders.product')
+    //     ]);
+    // }
+
+    //Bypass mercado pago 
     public function success(Request $request)
     {
-        $paymentId = $request->query('payment_id');
-        $orderId = $request->query('external_reference');
+        $orderId = $request->query('order_id');
 
-        MercadoPagoConfig::setAccessToken(config('services.mercadopago.token'));
+        // MercadoPagoConfig::setAccessToken(config('services.mercadopago.token'));
         
-        $client = new PaymentClient();
-        $payment = $client->get($paymentId);
+        // $client = new PaymentClient();
+        // $payment = $client->get($paymentId);
 
         //por las dudas
-        if ($payment->status !== 'approved') {
-            return redirect('/failure');
-        }
+        // if ($payment->status !== 'approved') {
+        //     return redirect('/failure');
+        // }
 
         $order = Order::findOrFail($orderId);
 
